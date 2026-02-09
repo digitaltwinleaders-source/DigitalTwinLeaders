@@ -1,0 +1,16 @@
+<div class="d-flex flex-column flex-md-row justify-content-center align-items-start gap-2">
+    <form>
+        <input type="email" class="form-control" [(ngModel)]="email" #emailModel="ngModel" required email name="email" id="heroSubscribtionInput" placeholder="Enter Your Email" [class.is-invalid]="emailModel.invalid && emailModel.touched" style="min-width: 300px;">
+        @if (emailModel.invalid && emailModel.touched) {
+            <div class="text-danger text-start w-100 mt-1 small ms-1">
+                @if (emailModel.errors?.['required']) {
+                    <span>Email is required.</span>
+                }
+                @if (emailModel.errors?.['email']) {
+                    <span>Please enter a valid email address.</span>
+                }
+            </div>
+        }
+    </form>
+    <button class="btn btn-secondary text-monochrome-100" (click)="!emailModel.invalid && !isLoading && subscribe()" [disabled]="(emailModel.invalid && emailModel.touched) || isLoading">{{ isLoading ? 'Subscribing...' : 'Join Our Network' }}</button>
+</div>

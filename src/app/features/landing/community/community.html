@@ -1,0 +1,28 @@
+<section id="community" class="bg-monochrome-300 bg-opacity-10">
+    <div class="container py-5">
+
+        <div class="row my-5">
+            <div class="col-lg-6 my-lg-auto">
+                <h6 class="text-secondary mb-3 font-support">Our Community</h6>
+                <h1 class="display-4 mb-4 fw-bold">Who We Serve</h1>
+                <p class="fs-6 mt-4 me-md-3">Digital Twin Leaders serves professionals and organizations driving transformation across sectors. Our community includes industry experts, strategists, policy makers, academics, and early-career professionals.<br/><br/>We also engage institutions, enterprises, and partners seeking credible frameworks for learning, collaboration, and visibility within the digital twin ecosystem. This diverse network shares a single vision—advancing the responsible and impactful use of digital twins worldwide.</p>
+                <button class="btn btn-secondary text-monochrome-100 mt-3" routerLink="/" fragment="join">Join Our Network</button>
+            </div>
+
+            <div class="col-lg-6 mt-5 mt-lg-0">
+                <div class="py-6 py-md-10 rounded-4 shadow mb-4"
+                    style="background-image: url('assets/image-6.jpg'); background-size: cover; background-position: center;"></div>
+                <div class="row mt-3">
+                    @for (card of cardList; track $index) {
+                        <div class="col-md-4 mb-4">
+                            <div class="bg-white h-100 rounded-4 border border-1 shadow-sm p-4">
+                                <div class="mb-4 text-center"><i class="bi bi-{{ card.icon }} bg-secondary-300 bg-opacity-25 text-secondary text-center py-2 px-3 rounded-3 fs-3"></i></div>
+                                <h5 class="fs-7 fw-bold m-0 text-center">{{ card.title }}</h5>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

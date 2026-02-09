@@ -1,0 +1,37 @@
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 60px;
+  @include media-breakpoint-up(md) {
+    scroll-padding-top: 76px;
+  }
+}
+
+[lang="ar"] {
+    font-family: $font-family-arabic !important;
+}
+
+main {
+  min-height: calc(100vh - 60px);
+  @include media-breakpoint-up(md) {
+    min-height: calc(100vh - 76px);
+  }
+}
+
+.vh-100-h {
+  height: calc(100vh - 60px);
+  @include media-breakpoint-up(md) {
+    height: calc(100vh - 76px);
+  }
+}
+
+.font-primary {
+  font-family: $headings-font-family;
+}
+
+.font-support {
+  font-family: $font-family-sans-serif;
+}
+
+.font-arabic {
+  font-family: $font-family-arabic;
+}

@@ -1,0 +1,21 @@
+<section id="about">
+    <div class="container py-5">
+        <div class="py-6 py-md-10 rounded-4 shadow my-5"
+        style="background: linear-gradient(rgba(0, 117, 240, 0.10), rgba(0, 117, 240, 0.30)), url('assets/image-5.jpg'); background-size: cover; background-position: center;"></div>
+        <h6 class="text-center text-secondary mb-3 font-support">Who We Are</h6>
+        <h1 class="text-center display-4 mb-4 fw-bold">A Global Knowledge Ecosystem</h1>
+        <p class="text-center fs-6 mt-4 w-100 w-md-75 w-xl-50 mx-auto">Digital Twin Leaders is advancing excellence in digital twin practice, transforming complex concepts into practical, real-world solutions.</p>
+    
+        <div class="row my-5">
+            @for (card of cardList; track $index) {
+                <div class="col-md-4 mb-4">
+                    <div class="bg-white h-100 rounded-4 border border-1 shadow-sm p-4">
+                        <div class="mb-4"><i class="bi bi-{{ card.icon }} bg-secondary-300 bg-opacity-25 py-2 px-3 rounded-3 fs-3 text-secondary"></i></div>
+                        <h5 class="fw-bold mb-3">{{ card.title }}</h5>
+                        <p class="text-monochrome-400 mb-0">{{ card.description }}</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
