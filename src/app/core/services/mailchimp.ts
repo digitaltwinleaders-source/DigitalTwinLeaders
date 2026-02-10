@@ -13,7 +13,7 @@ export class Mailchimp {
   private toast = inject(ToastService);
 
   subscribe(email: string) {
-    const url = 'https://XXX.list-manage.com/subscribe/post-json?u=XXX&id=XXX&f_id=XXX';
+    const url = 'https://digitaltwinleaders.us14.list-manage.com/subscribe/post-json?u=b7a60a8081f25614caba91914&id=525b19a160&f_id=00269ae1f0';
     const mailchimpUrl = `${url}&EMAIL=${encodeURIComponent(email)}`;
 
     return this.http.jsonp(mailchimpUrl, 'c').pipe(
