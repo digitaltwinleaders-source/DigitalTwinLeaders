@@ -4,10 +4,11 @@
           <img src="assets/logo-white.png" height="34px" alt="Digital Twin Leaders Logo">
         </a>
         <div class="d-flex gap-2">
-            <i class="bi bi-linkedin text-monochrome-100 bg-monochrome-100 bg-opacity-10 px-2 py-1 rounded-2"></i>
-            <i class="bi bi-twitter-x text-monochrome-100 bg-monochrome-100 bg-opacity-10 px-2 py-1 rounded-2"></i>
-            <i class="bi bi-youtube text-monochrome-100 bg-monochrome-100 bg-opacity-10 px-2 py-1 rounded-2"></i>
-            <i class="bi bi-envelope text-monochrome-100 bg-monochrome-100 bg-opacity-10 px-2 py-1 rounded-2"></i>
+            @for (item of socialMedia; track $index) {
+                <a href="{{ item.link }}" target="_blank" class="text-decoration-none" data-aos="fade-down-right" attr.data-aos-delay="{{ $index * 100 }}">
+                    <i class="bi bi-{{ item.icon }} text-monochrome-100 bg-monochrome-100 bg-opacity-10 px-2 py-1 rounded-2"></i>
+                </a>
+            }
         </div>
         <p class="mb-0 fs-7 text-monochrome-100 text-opacity-75">&copy; 2026 Digital Twin Leaders</p>
     </div>
