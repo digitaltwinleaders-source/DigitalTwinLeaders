@@ -1,20 +1,20 @@
 <section id="values">
     <div class="container py-5">
         <div class="my-5">
-            <h6 class="text-center text-secondary mb-3 font-support" data-aos="fade-down">Our Foundation</h6>
-            <h1 class="text-center display-4 mb-4 fw-bold" data-aos="fade-in">Core Values That Guide Us</h1>
-            <p class="text-center fs-6 mt-4 w-100 w-md-75 w-xl-50 mx-auto" data-aos="fade-up">These values position Digital Twin Leaders as a trusted and forward-thinking global ecosystem.</p>
+            <h6 class="text-center text-secondary mb-3 font-support fs-7" data-aos="fade-up">OUR FOUNDATION</h6>
+            <h1 class="text-center display-4 mb-4 fw-bold" data-aos="fade-up">Core Values That Guide Us</h1>
+            <p class="text-center fs-6 fs-md-5 mt-4 w-100 w-md-75 w-xl-50 mx-auto" data-aos="fade-up">These values position Digital Twin Leaders as a trusted and forward-thinking global ecosystem.</p>
         </div>
 
         <div class="row my-5">
             @for (card of cardList; track $index) {
-                <div class="col-md-6 col-lg-3 mb-4" data-aos="fade-down-right" attr.data-aos-delay="{{ $index * 100 }}">
+                <div class="col-md-6 col-lg-3 mb-4" data-aos="fade-up" attr.data-aos-delay="{{ $index * 250 }}">
                     <div class="bg-white h-100 rounded-4 border border-1 shadow-sm p-4">
                         <div class="bg-tertiary-100 rounded-3 d-flex justify-content-center align-items-center mb-4" [ngStyle]="{width: '48px', height: '48px'}">
                             <i class="bi bi-{{ card.icon }} text-monochrome-100 fs-4"></i>
                         </div>
-                        <h5 class="fw-bold mb-3">{{ card.title }}</h5>
-                        <p class="text-monochrome-400 mb-0">{{ card.description }}</p>
+                        <h5 class="fw-bold mb-3 fs-5">{{ card.title }}</h5>
+                        <p class="text-monochrome-400 mb-0 fs-7">{{ card.description }}</p>
                     </div>
                 </div>
             }

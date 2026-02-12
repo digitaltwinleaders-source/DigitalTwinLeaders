@@ -1,24 +1,24 @@
 <section id="programs" class="bg-primary">
     <div class="container py-5">
         <div class="my-5">
-            <h6 class="text-center text-secondary mb-3 font-support" data-aos="fade-down">Flagship Programs</h6>
-            <h1 class="text-center text-monochrome-100 display-4 fw-bold mb-4" data-aos="fade-in">Learn, Connect, Lead</h1>
-            <p class="text-center text-monochrome-100 text-opacity-75 fs-6 mt-4 w-100 w-md-75 w-xxl-50 mx-auto" data-aos="fade-up">Our programs transform complex concepts into practical, real-world solutions aligned with global standards.</p>
+            <h6 class="text-center text-secondary mb-3 font-support fs-7" data-aos="fade-up">FLAGSHIP PROGRAMS</h6>
+            <h1 class="text-center text-monochrome-100 display-4 fw-bold mb-4" data-aos="fade-up">Learn, Connect, Lead</h1>
+            <p class="text-center text-monochrome-100 text-opacity-75 fs-5 mt-4 w-100 w-md-75 w-xxl-50 mx-auto" data-aos="fade-up">Our programs transform complex concepts into practical, real-world solutions aligned with global standards.</p>
         </div>
 
         <div class="row my-5">
             @for (card of cardList; track $index) {
-                <div class="col-md-6 mb-4" data-aos="zoom-in" attr.data-aos-delay="{{ $index * 50 }}">
-                    <div class="d-flex align-items-start gap-4 bg-monochrome-100 bg-opacity-10 border border-1 border-primary-200 rounded-4 h-100 shadow-sm p-4">
+                <div class="col-md-6 mb-4" data-aos="fade-up" attr.data-aos-delay="{{ $index * 250 }}">
+                    <div class="d-flex align-items-start gap-4 bg-monochrome-100 bg-opacity-5 border border-1 border-primary-200 rounded-4 h-100 shadow-sm p-4">
                         <div class="bg-secondary bg-opacity-25 rounded-3 d-flex justify-content-center align-items-center flex-shrink-0" [ngStyle]="{width: '56px', height: '56px'}">
                             <i class="bi bi-{{ card.icon }} fs-3 text-secondary"></i>
                         </div>
                         <div>
                             <h5 class="text-monochrome-100 fw-bold mb-3">{{ card.title }}</h5>
-                            <p class="text-monochrome-100 text-opacity-75 mb-0">{{ card.description }}</p>
+                            <p class="text-monochrome-100 text-opacity-75 mb-0 fs-7 fs-md-6">{{ card.description }}</p>
                             <div class="d-flex flex-wrap gap-2 mt-4">
                                  @for (tag of card.tags; track $index) {
-                                     <span class="bg-secondary bg-opacity-25 text-secondary rounded-4 py-1 px-2 fs-8">{{ tag }}</span>
+                                     <span class="bg-secondary bg-opacity-10 text-secondary rounded-4 py-1 px-2 fs-8">{{ tag }}</span>
                                  }
                             </div>
                         </div>

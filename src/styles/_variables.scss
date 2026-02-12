@@ -80,8 +80,14 @@ $spacer: 1rem;
 $theme-colors: map-merge($theme-colors, $custom-colors);
 
 $custom-font-sizes: (
-  7: 14px,
-  8: 12px,
+  1: 2.125rem, // 34px
+  2: 1.75rem, // 28px
+  3: 1.5rem, // 24px
+  4: 1.25rem, // 20px
+  5: 1.125rem, // 18px
+  6: 1rem, // 16px
+  7: 0.875rem, // 14px
+  8: 0.75rem, // 12px
 );
 $font-sizes: map-merge($font-sizes, $custom-font-sizes);
 

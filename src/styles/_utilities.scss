@@ -5,5 +5,18 @@ $utilities: map-merge(
       map-get($utilities, "width"),
       ( responsive: true )
     ),
+    "font-size": map-merge(
+      map-get($utilities, "font-size"),
+      ( responsive: true )
+    ),
+    "bg-opacity": map-merge(
+      map-get($utilities, "bg-opacity"),
+      (
+        values: map-merge(
+          map-get(map-get($utilities, "bg-opacity"), "values"),
+          (5: .05)
+        )
+      )
+    ),
   )
 );

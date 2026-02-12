@@ -3,6 +3,13 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  letter-spacing: 0.2px;
+}
+
 section[id] {
     scroll-margin-top: 60px;
     @include media-breakpoint-up(md) {
@@ -19,9 +26,9 @@ main {
 }
 
 .vh-100-h {
-  height: calc(100vh - 60px);
+  min-height: calc(100vh - 60px);
   @include media-breakpoint-up(md) {
-    height: calc(100vh - 76px);
+    min-height: calc(100vh - 76px);
   }
 }
 

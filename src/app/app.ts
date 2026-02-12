@@ -14,7 +14,7 @@ import * as AOS from 'aos';
 export class App implements OnInit {
   ngOnInit(): void {
     AOS.init({
-      duration: 500,
+      duration: 800,
       once: false,
       offset: 32,
       easing: 'ease-in'

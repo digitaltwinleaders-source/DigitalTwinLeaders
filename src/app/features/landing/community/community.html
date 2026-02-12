@@ -2,11 +2,11 @@
     <div class="container py-5">
 
         <div class="row my-5">
-            <div class="col-lg-6 my-lg-auto">
-                <h6 class="text-secondary mb-3 font-support" data-aos="fade-down">Our Community</h6>
-                <h1 class="display-4 mb-4 fw-bold" data-aos="fade-in">Who We Serve</h1>
-                <p class="fs-6 mt-4 me-md-3" data-aos="fade-up">Digital Twin Leaders serves professionals and organizations driving transformation across sectors. Our community includes industry experts, strategists, policy makers, academics, and early-career professionals.<br/><br/>We also engage institutions, enterprises, and partners seeking credible frameworks for learning, collaboration, and visibility within the digital twin ecosystem. This diverse network shares a single vision—advancing the responsible and impactful use of digital twins worldwide.</p>
-                <button class="btn btn-secondary text-monochrome-100 mt-3" routerLink="/" fragment="hero" data-aos="fade-up">Join Our Network</button>
+            <div class="col-lg-6 my-lg-auto" data-aos="fade-right">
+                <h6 class="text-secondary mb-3 font-support fs-7">OUR COMMUNITY</h6>
+                <h1 class="display-4 mb-4 fw-bold">Who We Serve</h1>
+                <p class="fs-6 mt-4 me-md-3">Digital Twin Leaders serves professionals and organizations driving transformation across sectors. Our community includes industry experts, strategists, policy makers, academics, and early-career professionals.<br/><br/>We also engage institutions, enterprises, and partners seeking credible frameworks for learning, collaboration, and visibility within the digital twin ecosystem. This diverse network shares a single vision—advancing the responsible and impactful use of digital twins worldwide.</p>
+                <button class="btn btn-secondary text-monochrome-100 mt-3" routerLink="/" fragment="hero">Join Our Network</button>
             </div>
 
             <div class="col-lg-6 mt-5 mt-lg-0">
@@ -14,7 +14,7 @@
                     style="background-image: url('assets/image-6.jpg'); background-size: cover; background-position: center;" data-aos="fade-left"></div>
                 <div class="row mt-3">
                     @for (card of cardList; track $index) {
-                        <div class="col-md-4 mb-4" data-aos="flip-right" attr.data-aos-delay="{{ $index * 50 }}">
+                        <div class="col-6 col-md-4 mb-4" data-aos="zoom-in" attr.data-aos-delay="{{ $index * 100 }}">
                             <div class="bg-white h-100 rounded-4 border border-1 shadow-sm p-4">
                                 <div class="bg-secondary-300 bg-opacity-25 rounded-3 d-flex justify-content-center align-items-center mb-3 mx-auto" [ngStyle]="{width: '48px', height: '48px'}">
                                     <i class="bi bi-{{ card.icon }} text-secondary text-center fs-4"></i>

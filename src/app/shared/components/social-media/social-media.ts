@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
   template: `
     <div class="d-flex gap-2">
         @for (item of socialMedia; track $index) {
-            <a href="{{ item.link }}" target="_blank" class="text-decoration-none" data-aos="fade-down-right" attr.data-aos-delay="{{ $index * 100 }}">
+            <a href="{{ item.link }}" target="_blank" class="text-decoration-none">
               <div class="bg-{{color}} bg-opacity-10 rounded-2 d-flex justify-content-center align-items-center mb-3 mx-auto" [ngStyle]="{width: '36px', height: '36px'}">
                 <i class="bi bi-{{ item.icon }} text-{{color}}"></i>
               </div>
