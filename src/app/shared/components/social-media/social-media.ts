@@ -24,6 +24,6 @@ export class SocialMediaLinks {
     { icon: 'linkedin', link: 'https://www.linkedin.com/company/digitaltwinleaders' },
     { icon: 'twitter-x', link: 'https://x.com/DigitalTwinLead' },
     { icon: 'youtube', link: 'https://youtube.com/@digitaltwinleaders?si=uPmRG4L_hQ2iEQS2' },
-    { icon: 'instagram', link: 'https://www.instagram.com/digitaltwinleaders?igsh=MWQ4eDM5MHY5a21xeQ==' }
+    { icon: 'instagram', link: 'https://www.instagram.com/digitaltwinleaders' }
   ];
 }
