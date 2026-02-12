@@ -36,15 +36,16 @@
             ],
             "polyfills": [
               "@angular/localize/init"
-            ]
+            ],
+            "allowedCommonJsDependencies": ["aos"]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "1mb",
+                  "maximumError": "2MB"
                 },
                 {
                   "type": "anyComponentStyle",

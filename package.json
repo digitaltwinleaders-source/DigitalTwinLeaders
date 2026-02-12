@@ -4,10 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0",
-    "build": "ng build --base-href /digital-twin-leaders/",
+    "build": "ng build --configuration production --base-href /",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "deploy": "npm run build && npx gh-pages -d dist/digital-twin-leaders"
+    "deploy": "npx ngh --dir=dist/digital-twin-leaders/browser"
   },
   "prettier": {
     "printWidth": 100,
