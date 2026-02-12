@@ -1,8 +1,9 @@
+import { NgStyle } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-about',
-  imports: [],
+  imports: [NgStyle],
   templateUrl: './about.html'
 })
 export class About {

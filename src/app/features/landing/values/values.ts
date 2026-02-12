@@ -1,8 +1,9 @@
+import { NgStyle } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-values',
-  imports: [],
+  imports: [NgStyle],
   templateUrl: './values.html'
 })
 export class Values {

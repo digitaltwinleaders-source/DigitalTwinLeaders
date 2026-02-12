@@ -10,7 +10,9 @@
             @for (card of cardList; track $index) {
                 <div class="col-md-6 col-lg-3 mb-4" data-aos="fade-down-right" attr.data-aos-delay="{{ $index * 100 }}">
                     <div class="bg-white h-100 rounded-4 border border-1 shadow-sm p-4">
-                        <div class="mb-4"><i class="bi bi-{{ card.icon }} bg-tertiary-100 text-monochrome-100 py-2 px-3 rounded-3 fs-3"></i></div>
+                        <div class="bg-tertiary-100 rounded-3 d-flex justify-content-center align-items-center mb-4" [ngStyle]="{width: '48px', height: '48px'}">
+                            <i class="bi bi-{{ card.icon }} text-monochrome-100 fs-4"></i>
+                        </div>
                         <h5 class="fw-bold mb-3">{{ card.title }}</h5>
                         <p class="text-monochrome-400 mb-0">{{ card.description }}</p>
                     </div>

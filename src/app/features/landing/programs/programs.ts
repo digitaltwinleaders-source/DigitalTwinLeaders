@@ -1,8 +1,9 @@
+import { NgStyle } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-programs',
-  imports: [],
+  imports: [NgStyle],
   templateUrl: './programs.html'
 })
 export class Programs {

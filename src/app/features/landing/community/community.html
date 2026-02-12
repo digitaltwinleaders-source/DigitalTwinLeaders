@@ -6,7 +6,7 @@
                 <h6 class="text-secondary mb-3 font-support" data-aos="fade-down">Our Community</h6>
                 <h1 class="display-4 mb-4 fw-bold" data-aos="fade-in">Who We Serve</h1>
                 <p class="fs-6 mt-4 me-md-3" data-aos="fade-up">Digital Twin Leaders serves professionals and organizations driving transformation across sectors. Our community includes industry experts, strategists, policy makers, academics, and early-career professionals.<br/><br/>We also engage institutions, enterprises, and partners seeking credible frameworks for learning, collaboration, and visibility within the digital twin ecosystem. This diverse network shares a single vision—advancing the responsible and impactful use of digital twins worldwide.</p>
-                <button class="btn btn-secondary text-monochrome-100 mt-3" routerLink="/" fragment="join" data-aos="fade-up">Join Our Network</button>
+                <button class="btn btn-secondary text-monochrome-100 mt-3" routerLink="/" fragment="hero" data-aos="fade-up">Join Our Network</button>
             </div>
 
             <div class="col-lg-6 mt-5 mt-lg-0">
@@ -16,7 +16,9 @@
                     @for (card of cardList; track $index) {
                         <div class="col-md-4 mb-4" data-aos="flip-right" attr.data-aos-delay="{{ $index * 50 }}">
                             <div class="bg-white h-100 rounded-4 border border-1 shadow-sm p-4">
-                                <div class="mb-4 text-center"><i class="bi bi-{{ card.icon }} bg-secondary-300 bg-opacity-25 text-secondary text-center py-2 px-3 rounded-3 fs-3"></i></div>
+                                <div class="bg-secondary-300 bg-opacity-25 rounded-3 d-flex justify-content-center align-items-center mb-3 mx-auto" [ngStyle]="{width: '48px', height: '48px'}">
+                                    <i class="bi bi-{{ card.icon }} text-secondary text-center fs-4"></i>
+                                </div>
                                 <h5 class="fs-7 fw-bold m-0 text-center">{{ card.title }}</h5>
                             </div>
                         </div>

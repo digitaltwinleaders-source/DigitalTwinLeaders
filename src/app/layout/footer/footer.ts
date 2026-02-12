@@ -1,15 +1,9 @@
 import { Component } from '@angular/core';
+import { SocialMediaLinks } from '../../shared/components/social-media/social-media';
 
 @Component({
   selector: 'app-footer',
-  imports: [],
+  imports: [SocialMediaLinks],
   templateUrl: './footer.html'
 })
-export class Footer {
-  socialMedia = [
-    { icon: 'linkedin', link: '' },
-    { icon: 'twitter-x', link: '' },
-    { icon: 'youtube', link: '' },
-    { icon: 'envelope', link: '' }
-  ];
-}
+export class Footer {}

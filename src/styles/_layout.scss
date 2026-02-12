@@ -1,18 +1,13 @@
 html {
   overflow-x: hidden;
   scroll-behavior: smooth;
-  scroll-padding-top: 60px;
-  @include media-breakpoint-up(md) {
-    scroll-padding-top: 76px;
-  }
 }
 
-body {
-  overflow-x: hidden;
-}
-
-[lang="ar"] {
-    font-family: $font-family-arabic !important;
+section[id] {
+    scroll-margin-top: 60px;
+    @include media-breakpoint-up(md) {
+      scroll-margin-top: 76px;
+    }
 }
 
 main {
@@ -39,4 +34,13 @@ main {
 
 .font-arabic {
   font-family: $font-family-arabic;
+}
+
+[lang="ar"] {
+    font-family: $font-family-arabic !important;
+}
+
+.bi {
+  line-height: 1;
+  vertical-align: -0.125em;
 }
