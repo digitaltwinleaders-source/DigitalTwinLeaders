@@ -4,9 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0",
-    "build": "ng build",
+    "build": "ng build --base-href /digital-twin-leaders/",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy": "npm run build && npx gh-pages -d dist/digital-twin-leaders"
   },
   "prettier": {
     "printWidth": 100,
@@ -42,6 +43,7 @@
     "@angular/localize": "^21.1.0",
     "@ng-bootstrap/ng-bootstrap": "^20.0.0",
     "@types/aos": "^3.0.7",
+    "gh-pages": "^6.3.0",
     "jsdom": "^27.1.0",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
