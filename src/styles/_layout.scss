@@ -11,6 +11,7 @@ section[id] {
 }
 
 main {
+  overflow-x: hidden;
   min-height: calc(100vh - 60px);
   @include media-breakpoint-up(md) {
     min-height: calc(100vh - 76px);
