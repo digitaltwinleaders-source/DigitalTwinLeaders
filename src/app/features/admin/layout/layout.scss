@@ -1,0 +1,52 @@
+/* Sidebar */
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .625rem .75rem;
+    border-radius: .5rem;
+    color: rgba(255, 255, 255, .75);
+    text-decoration: none;
+    font-size: .875rem;
+    font-weight: 400;
+    transition: background .15s, color .15s;
+}
+
+.nav-item:hover {
+    background: rgba(255, 255, 255, .1);
+    color: #fff;
+}
+
+.nav-item.active {
+    background: #0075f0;
+    color: #fff;
+    font-weight: 500;
+}
+
+/* Mobile */
+.overlay {
+    display: none;
+}
+
+@media (max-width: 1024px) {
+    .sidebar {
+        position: fixed;
+        left: -240px;
+        top: 0;
+        bottom: 0;
+        transition: left .25s ease;
+    }
+
+    .admin-shell.sidebar-open .sidebar {
+        left: 0;
+        z-index: 1040;
+    }
+
+    .admin-shell.sidebar-open .overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, .4);
+        z-index: 1030;
+    }
+}

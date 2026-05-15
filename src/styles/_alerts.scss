@@ -1,0 +1,13 @@
+.alert {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    border-radius: .5rem;
+    padding: .75rem 1rem;
+    font-size: .8125rem;
+    &.alert-danger {
+        background: rgb(from var(--bs-danger) r g b / 10%);
+        border: 1px solid rgb(from var(--bs-danger) r g b / 30%);
+        color: var(--bs-danger);
+    }
+}

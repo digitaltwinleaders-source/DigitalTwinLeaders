@@ -1,0 +1,71 @@
+<div class="d-flex align-items-center justify-content-center min-vh-100 p-4 bg-light">
+    <div class="login-card d-flex flex-column gap-3 bg-white rounded-3 shadow p-4 w-100">
+    <div class="text-center d-flex flex-column align-items-center gap-2 mb-4">
+        <div class="logo-mark">
+            <img src="assets/logo-blue-mono.png" height="48px" alt="Digital Twin Leaders Logo">
+        </div>
+        <h1 class="fs-3 text-primary-100 m-0">Admin Portal</h1>
+        <p class="fs-7 text-monochrome-400 m-0">Sign in to manage your content</p>
+    </div>
+
+    <form class="d-flex flex-column gap-3" (ngSubmit)="onSubmit()">
+        <div class="field d-flex flex-column gap-1">
+            <label class="field-label" for="email">Email address</label>
+            <input
+                id="email"
+                type="email"
+                class="form-control"
+                [(ngModel)]="email"
+                name="email"
+                placeholder="admin@example.com"
+                autocomplete="email"
+                required
+            />
+        </div>
+
+        <div class="d-flex flex-column gap-1">
+            <label class="field-label" for="password">Password</label>
+            <div class="position-relative">
+                <input
+                id="password"
+                [type]="showPassword() ? 'text' : 'password'"
+                class="form-control pe-5"
+                [(ngModel)]="password"
+                name="password"
+                placeholder="••••••••"
+                autocomplete="current-password"
+                required
+                />
+                <button
+                type="button"
+                class="toggle-pw"
+                (click)="showPassword.set(!showPassword())"
+                >
+                    <i class="bi bi-{{showPassword() ? 'eye-slash' : 'eye'}} fs-4"></i>
+                </button>
+            </div>
+        </div>
+
+        @if (error()) {
+        <div class="alert alert-danger">
+            <i class="bi bi-exclamation-circle fs-5"></i>
+            {{ error() }}
+        </div>
+        }
+
+        <button
+        type="submit"
+        class="btn btn-secondary text-monochrome-100 shadow"
+        [disabled]="loading() || !email || !password"
+        >
+        @if (loading()) {
+            Signing in…
+        } @else {
+            Sign in
+        }
+        </button>
+    </form>
+
+    <a routerLink="/" class="btn btn-sm btn-link text-monochrome-400">← Back to website</a>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+.card:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 99, .12);
+    transform: translateY(-4px);
+}
+
+.photo-ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid #0075f0;
+    opacity: 0;
+    transition: opacity .25s;
+}
+
+.card:hover .photo-ring {
+    opacity: 1;
+}
+
+/* Loading skeletons */
+.skeleton-avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: #e5e5e5;
+    animation: shimmer 1.4s infinite;
+}
+
+.skeleton-line {
+    height: 14px;
+    border-radius: 4px;
+    background: #e5e5e5;
+    animation: shimmer 1.4s infinite;
+}
+
+.skeleton-line.wide {
+    width: 70%;
+}
+
+.skeleton-line.narrow {
+    width: 45%;
+}
+
+@keyframes shimmer {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .4;
+    }
+}

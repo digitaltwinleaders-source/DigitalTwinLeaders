@@ -28,6 +28,7 @@ $warning: #f59e0b;
 $danger: #ef4444;
 $white: $monochrome-100;
 $light: $monochrome-200;
+$gray: #e5e5e5;
 $dark: $monochrome-700;
 $body-bg: $monochrome-200;
 $body-color: $monochrome-500;
@@ -61,7 +62,9 @@ $custom-colors: (
   'success': $success,
   'warning': $warning,
   'danger': $danger,
+  'white': $white,
   'light': $light,
+  'gray': $gray,
   'dark': $dark
 ) !default;
 

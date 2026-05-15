@@ -1,0 +1,89 @@
+.member-card {
+  transition: box-shadow .15s;
+}
+.member-card:hover {
+  box-shadow: 0 2px 12px rgba(0, 0, 99, .08);
+}
+
+.card-drag-handle {
+  cursor: grab;
+}
+
+/* Drawer / modal are project-specific and retained */
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .35);
+  z-index: 1030;
+}
+
+.drawer {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 420px;
+  max-width: 100vw;
+  background: #fff;
+  z-index: 1040;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -4px 0 32px rgba(0, 0, 99, .12);
+  animation: slideIn .2s ease;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.drawer-header {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.drawer-title {
+  font-family: 'TexGyreAdventor', serif;
+  font-size: 1.25rem;
+  color: #000063;
+  margin: 0;
+}
+
+.drawer-close { background: none; border: none; cursor: pointer; color: #7e7e7e; padding: 4px; display: flex; }
+.drawer-close:hover { color: #000063; }
+
+.drawer-body { flex: 1; overflow-y: auto; padding: 1.5rem; display:flex; flex-direction:column; gap:1.25rem }
+.photo-section { display:flex; flex-direction:column; gap:.375rem }
+.drawer-footer { padding:1.25rem 1.5rem; border-top:1px solid #e5e5e5; display:flex; gap:.75rem; justify-content:flex-end }
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  z-index: 300;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:1rem;
+}
+
+.modal {
+  background: #fff;
+  border-radius: .75rem;
+  padding: 1.5rem;
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+  box-shadow: 0 8px 40px rgba(0,0,0,.15);
+  /* keep visible above backdrop */
+  display: block !important;
+  z-index: 301;
+  /* constrain height and enable internal scroll */
+  position: relative !important;
+  max-height: calc(100vh - 2rem);
+  overflow: auto;
+}
