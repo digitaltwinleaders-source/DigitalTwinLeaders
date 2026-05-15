@@ -1,11 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, RouterLink } from "@angular/router";
+import { ActivatedRoute, RouterLink, RouterLinkActive } from "@angular/router";
 import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-header',
-  imports: [NgbCollapseModule, RouterLink, NgClass],
+  imports: [CommonModule, NgbCollapseModule, RouterLink, NgClass, RouterLinkActive],
   templateUrl: './header.html'
 })
 export class Header implements OnInit {

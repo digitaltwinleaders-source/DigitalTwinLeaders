@@ -1,0 +1,63 @@
+<div class="admin-shell d-flex" [class.sidebar-open]="sidebarOpen()">
+    <!-- Mobile overlay -->
+    <div class="overlay inset-0" (click)="sidebarOpen.set(false)"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar bg-primary d-flex flex-column sticky-top vh-100 overflow-y-auto" style="width: 240px;">
+    <div class="sidebar-header d-flex align-items-center justify-content-between py-4 px-3">
+        <div class="d-flex align-items-center gap-2">
+            <img src="assets/logo-white-mono.png" height="34px" alt="Digital Twin Leaders Logo">
+            <span class="fs-6 text-white">DTL Dashboard</span>
+        </div>
+        <button class="d-flex d-lg-none bg-transparent border-0 text-white p-2" (click)="sidebarOpen.set(false)">
+            <i class="bi bi-x fs-3"></i>
+        </button>
+    </div>
+
+    <nav class="sidebar-nav d-flex flex-column p-3 flex-grow-1 gap-2">
+        <p class="fs-7 text-monochrome-300 m-0">Content</p>
+        <a routerLink="/" class="nav-item" (click)="sidebarOpen.set(false)">
+            <i class="bi bi-house fs-4"></i>
+            Homepage
+        </a>
+        <a routerLink="/admin/council" routerLinkActive="active" class="nav-item" (click)="sidebarOpen.set(false)">
+            <i class="bi bi-people fs-4"></i>
+            Council Members
+        </a>
+        <a class="nav-item" (click)="sidebarOpen.set(false)" disabled>
+            <i class="bi bi-journal-text fs-4"></i>
+            Blogs
+        </a>
+    </nav>
+
+    <div class="p-3 border-top border-monochrome-600 d-flex flex-column gap-3">
+        <div class="d-flex align-items-center gap-2">
+        <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center text-white fs-7 flex-shrink-0" style="width: 34px; height: 34px;">
+            {{ adminInitial() }}
+        </div>
+        <div class="admin-details">
+            <p class="m-0 fs-7 text-white">{{ authService.adminData()?.displayName || 'Admin' }}</p>
+            <p class="m-0 fs-8 text-monochrome-300 text-truncate" style="max-width: 160px;">{{ authService.adminData()?.email }}</p>
+        </div>
+        </div>
+        <button class="btn btn-outline-monochrome-200 d-flex align-items-center gap-3" (click)="logout()">
+            <i class="bi bi-box-arrow-right fs-4"></i>
+            Sign out
+        </button>
+    </div>
+    </aside>
+
+    <!-- Main content -->
+    <div class="d-flex flex-column flex-grow-1">
+        <header class="d-flex d-lg-none bg-white align-items-center gap-3 p-3 border-bottom border-gray sticky-top">
+            <button class="bg-transparent border-0 p-2 d-flex text-primary" (click)="sidebarOpen.set(true)">
+                <i class="bi bi-list fs-3"></i>
+            </button>
+            <span class="fs-5 text-primary">Admin Panel</span>
+        </header>
+
+        <div class="flex-grow-1 p-4 overflow-auto">
+            <router-outlet />
+        </div>
+    </div>
+</div>

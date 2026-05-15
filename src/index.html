@@ -8,6 +8,15 @@
   <link rel="icon" type="image/x-icon" href="assets/favicon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.jpg">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <script>
+    // Restore URL after GitHub Pages 404 redirect
+    (function() {
+      const redirect = new URLSearchParams(window.location.search).get('redirect');
+      if (redirect) {
+        window.history.replaceState(null, '', decodeURIComponent(redirect));
+      }
+    })();
+  </script>
 </head>
 <body>
   <app-root></app-root>

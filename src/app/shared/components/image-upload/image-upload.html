@@ -1,0 +1,44 @@
+<div class="image-upload">
+    <div
+    class="upload-zone"
+    [class.has-image]="previewUrl()"
+    [class.dragging]="isDragging()"
+    (click)="fileInput.click()"
+    (dragover)="onDragOver($event)"
+    (dragleave)="isDragging.set(false)"
+    (drop)="onDrop($event)"
+    >
+    @if (previewUrl()) {
+        <img [src]="previewUrl()" [alt]="label()" class="preview-img" />
+        <div class="overlay">
+        <span class="overlay-text">Change photo</span>
+        </div>
+    } @else {
+        <div class="placeholder bg-monochrome-300">
+            <div class="upload-icon text-primary-400">
+                <i class="bi bi-upload fs-2"></i>
+            </div>
+            <p class="upload-label text-primary-400">{{ label() }}</p>
+            <p class="upload-hint text-monochrome-100">Click or drag · JPG, PNG</p>
+        </div>
+    }
+    </div>
+
+    @if (error()) {
+    <p class="upload-error">{{ error() }}</p>
+    }
+
+    @if (previewUrl()) {
+    <button type="button" class="remove-btn" (click)="removeImage()">
+        Remove photo
+    </button>
+    }
+
+    <input
+    #fileInput
+    type="file"
+    accept="image/*"
+    style="display:none"
+    (change)="onFileSelected($event)"
+    />
+</div>
