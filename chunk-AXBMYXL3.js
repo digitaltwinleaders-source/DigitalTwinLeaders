@@ -1,0 +1,1 @@
+var r=i=>{let t=String(i).trim().split(/\s+/).filter(Boolean);if(t.length>=2)return(t[0][0]+t[1][0]).toUpperCase();let e=t[0]||"A";return(e.includes("@")?e.split("@")[0]:e).slice(0,2).toUpperCase()};export{r as a};
