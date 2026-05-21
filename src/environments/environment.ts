@@ -1,11 +1,11 @@
 export const environment = {
   production: true,
   firebase: {
-    apiKey: "PASTE_YOUR_LOCAL_API_KEY",
-    authDomain: "PASTE_YOUR_LOCAL_AUTH_DOMAIN",
-    projectId: "PASTE_YOUR_LOCAL_PROJECT_ID",
-    storageBucket: "PASTE_YOUR_LOCAL_STORAGE_BUCKET",
-    messagingSenderId: "PASTE_YOUR_LOCAL_MESSAGING_SENDER_ID",
-    appId: "PASTE_YOUR_LOCAL_APP_ID"
+    apiKey: "AIzaSyBZm330nB9225eKJuJvC9jUEllwJDHN13c",
+    authDomain: "digitaltwinleaders-233df.firebaseapp.com",
+    projectId: "digitaltwinleaders-233df",
+    storageBucket: "digitaltwinleaders-233df.firebasestorage.app",
+    messagingSenderId: "1001706627486",
+    appId: "1:1001706627486:web:8c29d43752ce5bd446f68f"
   }
 };
