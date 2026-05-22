@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed, OnInit } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DragDropModule, CdkDragDrop } from '@angular/cdk/drag-drop';
@@ -81,6 +81,8 @@ export class AdminCouncilComponent implements OnInit {
         name: this.form.name!.trim(),
         role: this.form.role!.trim(),
         bio: this.form.bio?.trim() || '',
+        organization: this.form.organization?.trim() || '',
+        linkedInUrl: this.form.linkedInUrl?.trim() || '',
         order: Number(this.form.order),
         photoBase64: this.form.photoBase64 || '',
         imageUrl: this.form.imageUrl || '',
@@ -139,6 +141,8 @@ export class AdminCouncilComponent implements OnInit {
       name: '',
       role: '',
       bio: '',
+      organization: '',
+      linkedInUrl: '',
       order: (this.members().length || 0) + 1,
       photoBase64: '',
       imageUrl: ''
