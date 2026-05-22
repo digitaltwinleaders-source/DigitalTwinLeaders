@@ -42,10 +42,15 @@
                 </div>
             }
             <div>
-                <p class="member-name fs-6 fw-semibold text-primary mb-0">{{ member.name }}</p>
+                <p class="member-name fs-6 fw-semibold text-primary mb-0">
+                    {{ member.name }}
+                @if (member.linkedInUrl) {
+                    <a [href]="member.linkedInUrl" target="_blank"><i class="bi bi-linkedin fs-5 text-secondary ms-1"></i></a>
+                }
+                </p>
                 <p class="member-role fs-7 text-info mb-1">{{ member.role }}</p>
-                @if (member.bio) {
-                    <p class="member-bio small text-muted text-truncate m-0">{{ member.bio }}</p>
+                @if (member.organization) {
+                    <p class="member-organization small text-muted text-truncate m-0">{{ member.organization }}</p>
                 }
             </div>
             <div class="card-actions d-flex gap-2 ms-auto w-100 w-md-auto flex-grow-1 justify-content-end">
@@ -95,14 +100,13 @@
         </div>
 
         <div class="mb-3">
-        <label class="field-label" for="bio">Bio <span class="text-monochrome-300">(optional)</span></label>
-        <textarea
-            id="bio"
-            class="form-control"
-            [(ngModel)]="form.bio"
-            placeholder="Short description about this member…"
-            rows="3"
-        ></textarea>
+        <label class="field-label" for="organization">Organization <span class="text-monochrome-300">(optional)</span></label>
+        <input id="organization" type="text" class="form-control" [(ngModel)]="form.organization" placeholder="e.g. Energy Sector" />
+        </div>
+
+        <div class="mb-3">
+        <label class="field-label" for="linkedInUrl">LinkedIn Profile <span class="text-monochrome-300">(optional)</span></label>
+        <input id="linkedInUrl" type="text" class="form-control" [(ngModel)]="form.linkedInUrl" placeholder="e.g. https://www.linkedin.com/in/jane-doe" />
         </div>
 
         <div class="mb-3">

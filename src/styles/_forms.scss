@@ -1,6 +1,7 @@
 .form-control {
     background-color: $white !important;
     border-color: $monochrome-300 !important;
+    font-size: 1rem !important;
     
     &:focus {
         border-color: $primary-100 !important;
@@ -9,6 +10,7 @@
     
     &::placeholder {
         color: $monochrome-400 !important;
+        font-size: .875rem !important;
     }
 }
 

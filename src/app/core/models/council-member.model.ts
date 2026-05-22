@@ -3,6 +3,8 @@ export interface CouncilMember {
   name: string;
   role: string;
   bio?: string;
+  organization?: string;
+  linkedInUrl?: string;
   order: number;
   photoBase64?: string;
   imageUrl?: string;

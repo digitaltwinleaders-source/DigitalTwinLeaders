@@ -45,7 +45,12 @@
                     <div class="d-flex flex-column gap-1">
                         <h3 class="fs-6 fw-bold text-primary m-0">{{ member.name }}</h3>
                         <p class="fs-7 text-secondary m-0">{{ member.role }}</p>
-                        <p class="fs-8 text-monochrome-500 mb-0 mt-2">{{ member.bio }}</p>
+                        <p class="fs-8 text-monochrome-500 mb-0 mt-2">{{ member.organization }}</p>
+                        @if (member.linkedInUrl && member.id === hoveredId()) {
+                            <a [href]="member.linkedInUrl" target="_blank" title="LinkedIn Profile">
+                                <i class="bi bi-linkedin fs-5 text-secondary"></i>
+                            </a>
+                        }
                     </div>
                 </div>
             </div>
