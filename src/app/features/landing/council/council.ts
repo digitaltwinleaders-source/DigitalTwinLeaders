@@ -29,7 +29,7 @@ export class CouncilComponent implements OnInit {
     });
   }
 
-    nameInitial(member: CouncilMember): string {
-      return nameInitial(member.name);
-    }
+  nameInitial(member: CouncilMember): string {
+    return nameInitial(member.name);
+  }
 }

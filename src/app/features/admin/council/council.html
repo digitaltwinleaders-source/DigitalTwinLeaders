@@ -52,6 +52,9 @@
                 @if (member.organization) {
                     <p class="member-organization small text-muted text-truncate m-0">{{ member.organization }}</p>
                 }
+                @if (member.countryName) {
+                    <p class="fs-8 text-monochrome-500 mb-0 mt-2"><span class="flag flag-{{member.country!}} me-1" [title]="member.countryName"></span>{{ member.countryName }}</p>
+                }
             </div>
             <div class="card-actions d-flex gap-2 ms-auto w-100 w-md-auto flex-grow-1 justify-content-end">
                 <button class="btn btn-secondary btn-sm text-monochrome-200" (click)="openEdit(member)" title="Edit">
@@ -97,6 +100,55 @@
         <div class="mb-3">
         <label class="field-label" for="role">Role / Title <span class="text-danger">*</span></label>
         <input id="role" type="text" class="form-control" [(ngModel)]="form.role" placeholder="e.g. Head of Innovation" />
+        </div>
+
+        <div class="mb-3">
+        <label class="field-label" for="country">Country <span class="text-danger">*</span></label>
+        <div class="position-relative" [class.open]="dropdownOpen()">
+
+            <!-- Trigger input -->
+            <div class="position-relative d-flex align-items-center" (click)="dropdownOpen.set(true)">
+            <input
+                id="country"
+                type="text"
+                class="form-control cursor-pointer"
+                [(ngModel)]="countrySearch"
+                name="countrySearch"
+                placeholder="Search country…"
+                (input)="onCountrySearch(countrySearch)"
+                (focus)="dropdownOpen.set(true)"
+                autocomplete="off"
+            />
+            @if (form.country) {
+                <i class="bi bi-x-lg fs-7 position-absolute end-0 cursor-pointer pe-2" (click)="$event.stopPropagation(); clearCountry()"></i>
+            } @else {
+                <i class="bi bi-chevron-down fs-7 position-absolute end-0 cursor-pointer pe-2"></i>
+            }
+            </div>
+
+            <!-- Dropdown list -->
+            @if (dropdownOpen()) {
+            <div class="country-list-backdrop" (click)="dropdownOpen.set(false)"></div>
+            <ul class="country-list">
+                @if (filteredCountries().length === 0) {
+                <li class="fs-7 p-2 text-center">No countries found</li>
+                }
+                @for (country of filteredCountries(); track country.code) {
+                <li
+                    class="country-option d-flex align-items-center justify-content-between gap-2 px-3 py-2 cursor-pointer"
+                    [class.selected]="form.country === country.code"
+                    (click)="onCountrySelect(country)"
+                >
+                    <span class="flag flag-{{country.code}}"></span>
+                    <span class="flex-grow-1 fs-7">{{ country.name }}</span>
+                    @if (form.country === country.code) {
+                        <i class="bi bi-check-lg fs-5 text-primary"></i>
+                    }
+                </li>
+                }
+            </ul>
+            }
+        </div>
         </div>
 
         <div class="mb-3">
