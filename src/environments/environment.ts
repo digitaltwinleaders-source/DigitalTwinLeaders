@@ -1,11 +1,11 @@
 export const environment = {
   production: true,
   firebase: {
-    apiKey: "AIzaSyBZm330nB9225eKJuJvC9jUEllwJDHN13c",
-    authDomain: "digitaltwinleaders-233df.firebaseapp.com",
-    projectId: "digitaltwinleaders-233df",
-    storageBucket: "digitaltwinleaders-233df.firebasestorage.app",
-    messagingSenderId: "1001706627486",
-    appId: "1:1001706627486:web:8c29d43752ce5bd446f68f"
+    apiKey: "AIzaSyCvb1eKb3oW6reJtkL2x4q2tpYEwfwr4ns",
+    authDomain: "digital-t-leaders.firebaseapp.com",
+    projectId: "digital-t-leaders",
+    storageBucket: "digital-t-leaders.firebasestorage.app",
+    messagingSenderId: "24115657812",
+    appId: "1:24115657812:web:874ce57536d62a389f01c1"
   }
 };

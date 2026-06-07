@@ -7,6 +7,7 @@ import { ImageService } from '../../../core/services/image.service';
 import { ImageUploadComponent } from '../../../shared/components/image-upload/image-upload.';
 import { CouncilMember } from '../../../core/models/council-member.model';
 import { nameInitial } from '../../../core/utils/utils';
+import { COUNTRIES, Country } from '../../../core/data/countries.data';
 
 type FormMode = 'add' | 'edit';
 
@@ -30,10 +31,15 @@ export class AdminCouncilComponent implements OnInit {
   editingId = signal<string | null>(null);
   deleteTarget = signal<CouncilMember | null>(null);
 
+  countries = COUNTRIES;
+  filteredCountries = signal<Country[]>(COUNTRIES);
+  dropdownOpen = signal(false);
+  countrySearch = '';
+
   form: Partial<CouncilMember> = this.emptyForm();
 
   isFormValid() {
-    return !!this.form.name?.trim() && !!this.form.role?.trim() && !!this.form.order;
+    return !!this.form.name?.trim() && !!this.form.role?.trim() && !!this.form.order && !!this.form.country;
   }
 
   ngOnInit() {
@@ -52,6 +58,7 @@ export class AdminCouncilComponent implements OnInit {
     this.editingId.set(null);
     this.form = this.emptyForm();
     this.formError.set('');
+    this.countrySearch = '';
     this.drawerOpen.set(true);
   }
 
@@ -60,6 +67,12 @@ export class AdminCouncilComponent implements OnInit {
     this.editingId.set(member.id!);
     this.form = { ...member };
     this.formError.set('');
+    if (member.country && member.countryName) {
+      const found = COUNTRIES.find(c => c.code === member.country);
+      this.countrySearch = found ? found.name : member.countryName;
+    } else {
+      this.countrySearch = '';
+    }
     this.drawerOpen.set(true);
   }
 
@@ -82,6 +95,8 @@ export class AdminCouncilComponent implements OnInit {
         role: this.form.role!.trim(),
         bio: this.form.bio?.trim() || '',
         organization: this.form.organization?.trim() || '',
+        country: this.form.country || '',
+        countryName: this.form.countryName || '',
         linkedInUrl: this.form.linkedInUrl?.trim() || '',
         order: Number(this.form.order),
         photoBase64: this.form.photoBase64 || '',
@@ -117,23 +132,48 @@ export class AdminCouncilComponent implements OnInit {
     if (event.previousIndex === event.currentIndex) {
       return;
     }
-    
+
     const currentMembers = [...this.members()];
     const movedMember = currentMembers[event.previousIndex];
-    
+
     currentMembers.splice(event.previousIndex, 1);
     currentMembers.splice(event.currentIndex, 0, movedMember);
     this.members.set(currentMembers);
-    
+
     try {
       await this.councilService.updateOrder(currentMembers);
     } catch {
       // Revert to previous state if update fails
       this.councilService.getMembers().subscribe({
         next: (data) => this.members.set(data),
-        error: () => {}
+        error: () => { }
       });
     }
+  }
+
+  onCountrySearch(term: string): void {
+    const lower = term.toLowerCase();
+    this.filteredCountries.set(
+      COUNTRIES.filter(c =>
+        c.name.toLowerCase().includes(lower) ||
+        c.code.toLowerCase().includes(lower)
+      )
+    );
+  }
+
+  onCountrySelect(country: Country): void {
+    this.form.country = country.code;
+    this.form.countryName = country.name;
+    this.countrySearch = country.name;
+    this.filteredCountries.set(COUNTRIES);
+    this.dropdownOpen.set(false);
+  }
+
+  clearCountry(): void {
+    this.form.country = '';
+    this.form.countryName = '';
+    this.countrySearch = '';
+    this.filteredCountries.set(COUNTRIES);
   }
 
   private emptyForm(): Partial<CouncilMember> {
@@ -142,6 +182,7 @@ export class AdminCouncilComponent implements OnInit {
       role: '',
       bio: '',
       organization: '',
+      country: '',
       linkedInUrl: '',
       order: (this.members().length || 0) + 1,
       photoBase64: '',

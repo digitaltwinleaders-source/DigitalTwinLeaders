@@ -41,15 +41,18 @@
                             </div>
                         }
                         <div class="photo-ring"></div>
+                        @if (member.linkedInUrl && member.id === hoveredId()) {
+                            <a [href]="member.linkedInUrl" target="_blank" title="LinkedIn Profile" class="bg-white d-flex justify-content-center align-items-center position-absolute" [ngStyle]="{width: '20px', height: '20px', bottom: 0, right: 0}">
+                                <i class="bi bi-linkedin fs-3 text-secondary"></i>
+                            </a>
+                        }
                     </div>
                     <div class="d-flex flex-column gap-1">
                         <h3 class="fs-6 fw-bold text-primary m-0">{{ member.name }}</h3>
                         <p class="fs-7 text-secondary m-0">{{ member.role }}</p>
                         <p class="fs-8 text-monochrome-500 mb-0 mt-2">{{ member.organization }}</p>
-                        @if (member.linkedInUrl && member.id === hoveredId()) {
-                            <a [href]="member.linkedInUrl" target="_blank" title="LinkedIn Profile">
-                                <i class="bi bi-linkedin fs-5 text-secondary"></i>
-                            </a>
+                        @if (member.countryName) {
+                            <p class="fs-8 text-monochrome-500 mb-0 mt-2"><span class="flag flag-{{member.country!}} me-1" [title]="member.countryName"></span>{{ member.countryName }}</p>
                         }
                     </div>
                 </div>
