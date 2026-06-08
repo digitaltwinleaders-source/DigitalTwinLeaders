@@ -6,7 +6,7 @@
             }
             <div class="bg-{{alertData()?.type}} bg-opacity-25 rounded-circle d-flex justify-content-center align-items-center" [ngStyle]="{width: '48px', height: '48px'}"><i class="bi bi-{{alertData()?.icon}} fs-4 text-{{alertData()?.type}}"></i></div>
             <h6 class="fw-bold m-0">{{alertData()?.title}}</h6>
-            <p class="text-monochrome-400 fs-7 m-0">{{alertData()?.body}}</p>
+            <p class="text-monochrome-500 fs-7 m-0">{{alertData()?.body}}</p>
             @if(alertData()?.type === 'success') {
                 <app-social-media-links color="primary"/>
             }
@@ -29,7 +29,7 @@
             @if(isLoading()) {
                 <span>Subscribing...</span>
             } @else {
-                <span class="align-text-bottom">Join Our Network</span><i class="bi bi-arrow-right ms-2"></i>
+                <span>Join Our Network</span><i class="bi bi-arrow-right ms-2"></i>
             }
         </button>
     }
