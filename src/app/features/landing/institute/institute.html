@@ -1,0 +1,29 @@
+<section id="institute">
+    <div class="container py-5">
+        <div class="my-5 max-w-3xl mx-auto">
+            <h6 class="text-center text-secondary mb-3 font-support fs-7" data-aos="fade-up">DTL INSTITUTE</h6>
+            <h1 class="text-center display-3 mb-4 fw-bold" data-aos="fade-up">Professional education for Digital Twin practitioners</h1>
+            <p class="text-center fs-6 fs-md-5 mt-4" data-aos="fade-up">The DTL Institute provides vendor-neutral, project-based learning experiences designed to help professionals plan, communicate, and lead Digital Twin initiatives.</p>
+        </div>
+
+        <div class="bg-white h-100 rounded-4 border border-1 shadow-sm p-4 p-md-5 max-w-4xl mx-auto mb-5" data-aos="fade-up">
+            <h6 class="text-secondary mb-3 font-support fs-7">FEATURED PROGRAM</h6>
+            <h6 class="display-5 mb-3 fw-bold">Digital Twin Project Planner</h6>
+            <p class="fs-6 fs-md-5 mt-4 mb-4">A practical program that guides participants through the development of a complete Digital Twin planning package.</p>
+
+            <div class="row">
+                @for (item of list; track item) {
+                    <div class="col-md-6 mb-3">
+                        <div class="d-flex gap-2">
+                            <div class="bg-secondary-300 bg-opacity-25 rounded-circle d-flex justify-content-center align-items-center" [ngStyle]="{width: '24px', height: '24px'}">
+                                <i class="bi bi-check-lg text-secondary text-center fs-6"></i>
+                            </div>
+                            <h5 class="fs-6 fw-bold m-0 text-center">{{item}}</h5>
+                        </div>
+                    </div>
+                }
+            </div>
+            <button class="btn btn-secondary text-monochrome-100 mt-4" (click)="exploreInstitute()">Explore the Institute</button>
+        </div>
+    </div>
+</section>
