@@ -20,7 +20,7 @@ export class Advantages {
     },
     {
       title: 'Expert-Led',
-      body: 'Courses designed by practicing industry leaders',
+      body: 'Frameworks designed by practicing industry leaders',
       icon: 'mortarboard'
     },
     {

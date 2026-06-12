@@ -9,13 +9,13 @@ import { Component } from '@angular/core';
 export class Programs {
 cardList = [
     {
-      title: 'Vendor-Neutral Courses',
-      description: 'Comprehensive curricula designed to provide unbiased, practical knowledge applicable across all digital twin platforms and technologies.',
+      title: 'Vendor-Neutral Frameworks',
+      description: 'Comprehensive methodology designed to provide unbiased, practical knowledge applicable across all digital twin platforms and technologies.',
       icon: 'book',
-      tags: ['Self-paced learning', 'Industry-aligned content', 'Global certification']
+      tags: ['Self-Guided Access', 'Industry-aligned content', 'Global standards']
     },
     {
-      title: 'Expert-Led Masterclasses',
+      title: 'Expert-Led Talks',
       description: 'Intensive sessions led by industry pioneers, offering deep dives into specialized topics and emerging trends.',
       icon: 'camera-video',
       tags: ['Live Q&A sessions', 'Real-world case studies', 'Networking opportunities']
@@ -28,7 +28,7 @@ cardList = [
     },
     {
       title: 'Recognition Programs',
-      description: 'Certificates and credentials aligned with global standards, validating your expertise and commitment to excellence.',
+      description: 'Credentials aligned with global standards, validating your expertise and commitment to excellence.',
       icon: 'award',
       tags: ['ISO-aligned standards', 'Digital badges', 'Career advancement']
     }
