@@ -8,5 +8,5 @@ import { RouterLink } from '@angular/router';
   templateUrl: './institute.html'
 })
 export class Institute {
-  list = ["Project-Based Learning", "Practical Tools & Templates", "Certificate of Completion", "DTL Community Access"];
+  list = ["Guided modules with step-by-step frameworks", "Ready-to-use templates and planning tools", "Completion Badge", "DTL Community Access"];
 }

@@ -1,0 +1,72 @@
+.blog-row:last-child { border-bottom: none !important; }
+
+
+/* Line 1 — thumbnail, title, actions */
+.row-line-1 {
+  display: flex;
+  align-items: center;
+  gap: .875rem;
+}
+
+.row-thumb-wrap { flex: 0 0 44px; }
+.row-thumb { width: 44px; height: 33px; border-radius: .375rem; object-fit: cover; display: block; }
+.placeholder-thumb { background: #e5e5e5; }
+
+.row-title-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: .9375rem; font-weight: 500; color: #0d0d0d; margin: 0;
+  overflow: hidden; text-overflow: ellipsis;
+}
+
+/* Line 2 — category, status, date */
+.row-line-2 {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding-left: calc(44px + .875rem); /* aligns with title above, skipping the thumbnail width */
+  flex-wrap: wrap;
+}
+
+.row-category { font-size: .8125rem; color: #55575E; white-space: nowrap; }
+.dot-sep { color: #bebebe; font-size: .75rem; }
+.row-date { font-size: .8125rem; color: #7e7e7e; white-space: nowrap; }
+
+/* States */
+.loading-state, .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 4rem 2rem; color: #7e7e7e; font-size: .9375rem; }
+.spinner-lg { width: 36px; height: 36px; border: 3px solid #CCE3FC; border-top-color: #000063; border-radius: 50%; animation: spin .7s linear infinite; }
+.spinner-sm { width: 14px; height: 14px; display: inline-block; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  z-index: 300;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:1rem;
+}
+
+.modal {
+  background: #fff;
+  border-radius: .75rem;
+  padding: 1.5rem;
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+  box-shadow: 0 8px 40px rgba(0,0,0,.15);
+  /* keep visible above backdrop */
+  display: block !important;
+  z-index: 301;
+  /* constrain height and enable internal scroll */
+  position: relative !important;
+  max-height: calc(100vh - 2rem);
+  overflow: auto;
+}
+
+@media (max-width: 767px) {
+  .row-line-2 { padding-left: 0; }
+}

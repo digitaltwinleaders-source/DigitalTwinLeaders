@@ -35,7 +35,7 @@ export class Subscribe {
             type: 'success',
             icon: 'check2',
             title: "You're on the list!",
-            body: "Follow us on social media — we'll let you know when our first course launches.",
+            body: "Welcome to the Digital Twin Leaders community. Follow us for upcoming insights, events, and member updates.",
           });
         },
         error: () => {
