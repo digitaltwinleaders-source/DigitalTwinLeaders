@@ -22,6 +22,9 @@ export const routes: Routes = [
                     import('./features/admin/council/council')
                         .then(m => m.AdminCouncilComponent)
             },
+            { path: 'blog', loadComponent: () => import('./features/admin/blog-list/blog-list').then(m => m.AdminBlogListComponent) },
+            { path: 'blog/new', loadComponent: () => import('./features/admin/blog-editor/blog-editor').then(m => m.AdminBlogEditorComponent) },
+            { path: 'blog/edit/:id', loadComponent: () => import('./features/admin/blog-editor/blog-editor').then(m => m.AdminBlogEditorComponent) },
             {
                 path: '',
                 redirectTo: 'council',
@@ -56,7 +59,17 @@ export const routes: Routes = [
                 loadComponent: () =>
                     import('./features/landing/institute-planner/institute-planner')
                         .then(m => m.InstitutePlanner)
-            }
+            },
+            {
+                path: 'blog',
+                loadComponent: () =>
+                    import('./features/landing/blog/list/list').then(m => m.BlogListComponent)
+            },
+            {
+                path: 'blog/:slug',
+                loadComponent: () =>
+                    import('./features/landing/blog/details/details').then(m => m.BlogDetailComponent)
+            },
         ]
     },
     {

@@ -62,6 +62,48 @@ export class ImageService {
     });
   }
 
+  // Slightly larger limit for blog covers vs council photos
+  compressAndConvertToBase64Cover(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      if (!file.type.startsWith('image/')) {
+        reject(new Error('File must be an image'));
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let { width, height } = img;
+          const MAX_W = 1200, MAX_H = 675; // 16:9
+          if (width > MAX_W || height > MAX_H) {
+            const ratio = Math.min(MAX_W / width, MAX_H / height);
+            width = Math.round(width * ratio);
+            height = Math.round(height * ratio);
+          }
+          canvas.width = width;
+          canvas.height = height;
+          canvas.getContext('2d')!.drawImage(img, 0, 0, width, height);
+          let quality = 0.85;
+          let base64 = canvas.toDataURL('image/jpeg', quality);
+          while (this.getBase64SizeKB(base64) > 400 && quality > 0.1) {
+            quality -= 0.1;
+            base64 = canvas.toDataURL('image/jpeg', quality);
+          }
+          if (this.getBase64SizeKB(base64) > 400) {
+            reject(new Error('Image too large. Please use a smaller image.'));
+            return;
+          }
+          resolve(base64);
+        };
+        img.onerror = () => reject(new Error('Failed to load image'));
+        img.src = e.target?.result as string;
+      };
+      reader.onerror = () => reject(new Error('Failed to read file'));
+      reader.readAsDataURL(file);
+    });
+  }
+
   private getBase64SizeKB(base64: string): number {
     const base64Data = base64.split(',')[1] || base64;
     return (base64Data.length * 3) / 4 / 1024;

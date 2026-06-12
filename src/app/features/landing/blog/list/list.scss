@@ -1,0 +1,85 @@
+/* Featured */
+.featured-post:hover { box-shadow: 0 4px 24px rgba(0,0,99,.1); }
+
+.featured-image-wrap { width: 100%; aspect-ratio: 16/6; overflow: hidden; }
+.featured-image { width: 100%; height: 100%; object-fit: cover; display: block; }
+.placeholder-image {
+    width: 100%; height: 100%; background: #CCE3FC;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .75rem; letter-spacing: .1em; color: #8080C7; font-weight: 500;
+}
+
+/* Post meta */
+.post-meta { display: flex; align-items: center; gap: .375rem; font-size: .8125rem; color: #7e7e7e; }
+.read-more { font-size: .875rem; font-weight: 500; color: #0075f0; display: inline-block; margin-top: .75rem; }
+.read-more:hover { text-decoration: underline; }
+
+/* Blog grid */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.blog-card {
+    display: block; text-decoration: none;
+    background: #fff; border-radius: .75rem; overflow: hidden;
+    border: 1px solid #e5e5e5; transition: box-shadow .2s, transform .2s;
+}
+.blog-card:hover { box-shadow: 0 4px 20px rgba(0,0,99,.1); transform: translateY(-2px); }
+
+.card-image-wrap { aspect-ratio: 16/10; overflow: hidden; }
+.card-image { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
+.blog-card:hover .card-image { transform: scale(1.03); }
+
+.card-body { padding: 1rem 1.25rem 1.25rem; display: flex; flex-direction: column; gap: .5rem; }
+.card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: .25rem; }
+.card-footer .read-more { margin-top: 0; font-size: .8125rem; }
+
+/* Search */
+.search-wrap { position: relative; display: flex; align-items: center; }
+.search-icon { position: absolute; left: .75rem; color: #bebebe; pointer-events: none; }
+.search-clear { position: absolute; right: .75rem; background: none; border: none; cursor: pointer; color: #bebebe; font-size: 1.125rem; line-height: 1; padding: 0; }
+.search-clear:hover { color: #000063; }
+
+/* Categories */
+.category-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .125rem; }
+.category-item {
+    width: 100%; text-align: left; background: none; border: none;
+    padding: .375rem .5rem; border-radius: .375rem;
+    font-size: .875rem; font-family: 'Poppins', sans-serif;
+    color: #55575E; cursor: pointer; transition: all .15s;
+}
+.category-item:hover { background: #f2f2f2; color: #000063; }
+.category-item.active { color: #0075f0; font-weight: 500; }
+
+/* Recent posts */
+.recent-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .125rem; }
+.recent-item { display: block; text-decoration: none; padding: .5rem; border-radius: .375rem; transition: background .15s; }
+.recent-item:hover { background: #f2f2f2; }
+.recent-title { font-size: .875rem; color: #000063; font-weight: 500; margin: 0 0 .2rem; line-height: 1.4; }
+.recent-date { font-size: .75rem; color: #7e7e7e; margin: 0; }
+
+/* Skeleton */
+.grid-skeleton { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.skeleton-card { background: #fff; border-radius: .75rem; border: 1px solid #e5e5e5; overflow: hidden; }
+.skeleton-img { aspect-ratio: 16/10; background: #e5e5e5; animation: shimmer 1.4s infinite; }
+.skeleton-body { padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: .625rem; }
+.skeleton-line { height: 12px; border-radius: 4px; background: #e5e5e5; animation: shimmer 1.4s infinite; }
+.skeleton-line.wide { width: 90%; }
+.skeleton-line.medium { width: 70%; }
+.skeleton-line.short { width: 40%; }
+.skeleton-line.narrow { width: 25%; }
+@keyframes shimmer { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+
+.empty-state { padding: 4rem 2rem; text-align: center; color: #7e7e7e; }
+
+@media (max-width: 1280px) {
+    .blog-grid { grid-template-columns: repeat(2, 1fr); }
+    .grid-skeleton { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 1024px) {
+    .blog-grid { grid-template-columns: 1fr; }
+    .grid-skeleton { grid-template-columns: 1fr; }
+}

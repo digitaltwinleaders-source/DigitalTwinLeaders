@@ -1,0 +1,189 @@
+<section>
+    <div class="container py-6">
+        <div class="max-w-3xl mx-auto" data-aos="fade-up">
+            <h1 class="text-center display-2 fw-bold lh-1">Insights from the Digital Twin Community</h1>
+            <p class="text-center fs-5 fs-md-4 mt-4">Practical knowledge, standards, and perspectives from industry professionals</p>
+        </div>
+
+        <div class="d-flex flex-column flex-md-row align-items-start overflow-visible gap-4 mt-5 mt-md-6">
+            <!-- Main content -->
+            <div class="flex-grow-1 w-100 w-md-auto">
+                <!-- Featured post -->
+                @if (featuredBlog() && !activeCategory() && !searchQuery) {
+                    <div [routerLink]="['/blog', featuredBlog()!.slug]" class="featured-post bg-white rounded-2 border overflow-hidden mb-5 cursor-pointer transition">
+                    <div class="featured-image-wrap">
+                        @if (blogService.getCoverUrl(featuredBlog()!)) {
+                        <img
+                            [src]="blogService.getCoverUrl(featuredBlog()!)"
+                            [alt]="featuredBlog()!.title"
+                            class="featured-image"
+                        />
+                        } @else {
+                        <div class="featured-image placeholder-image">
+                            <span>FEATURED IMAGE</span>
+                        </div>
+                        }
+                    </div>
+                    <div class="p-4">
+                        <span class="badge rounded-pill py-1 px-2 fw-normal bg-secondary bg-opacity-10 text-secondary mb-3">
+                            {{ featuredBlog()!.category }}
+                        </span>
+                        <h2 class="fs-1 fw-bold text-primary mb-4">
+                        {{ featuredBlog()!.title }}
+                        </h2>
+                        <p class="fs-6 fs-md-5 text-monochrome-500">
+                        {{ featuredBlog()!.excerpt }}
+                        </p>
+                        <div class="post-meta">
+                        <i class="bi bi-calendar fs-6"></i>
+                        {{ formatDate(featuredBlog()!.createdAt) }}
+                        </div>
+                        <span class="read-more">Read more →</span>
+                    </div>
+                </div>
+                }
+            
+                <!-- Blog grid -->
+                @if (loadingBlogs()) {
+                    <div class="grid-skeleton">
+                    @for (i of [1,2,3,4,5,6]; track i) {
+                        <div class="skeleton-card">
+                        <div class="skeleton-img"></div>
+                        <div class="skeleton-body">
+                            <div class="skeleton-line short"></div>
+                            <div class="skeleton-line wide"></div>
+                            <div class="skeleton-line medium"></div>
+                            <div class="skeleton-line narrow"></div>
+                        </div>
+                        </div>
+                    }
+                    </div>
+                }
+
+                @else if (blogs().length === 0) {
+                    <div class="empty-state">
+                    <p>{{ isSearchMode() ? 'No posts match your search.' : !featuredBlog() ? 'Stay tuned!' : '' }}</p>
+                    </div>
+                } @else {
+                        <div class="blog-grid">
+                            @for (blog of blogs(); track blog.id) {
+                                <a [routerLink]="['/blog', blog.slug]" class="blog-card">
+                                <div class="card-image-wrap">
+                                    @if (blogService.getCoverUrl(blog)) {
+                                    <img
+                                        [src]="blogService.getCoverUrl(blog)"
+                                        [alt]="blog.title"
+                                        class="card-image"
+                                    />
+                                    } @else {
+                                    <div class="card-image placeholder-image"></div>
+                                    }
+                                </div>
+                                <div class="card-body align-items-start">
+                                    <span class="badge rounded-pill py-1 px-2 fw-normal bg-secondary bg-opacity-10 text-secondary mb-1">
+                                        {{ blog.category }}
+                                    </span>
+                                    <h3 class="fs-5 fw-bold text-primary">{{ blog.title }}</h3>
+                                    <p class="fs-7 text-monochrome-500">{{ blog.excerpt }}</p>
+                                    <div class="card-footer justify-content-between w-100">
+                                        <div class="post-meta">
+                                            <i class="bi bi-calendar fs-6"></i>
+                                            {{ formatDate(blog.createdAt) }}
+                                        </div>
+                                        <span class="read-more">Read more →</span>
+                                    </div>
+                                </div>
+                                </a>
+                            }
+                        </div>
+            
+                    <!-- Pagination — hidden during search since results aren't paginated -->
+                    @if (!isSearchMode()) {
+                        <div class="pagination">
+                            <button class="page-btn" [disabled]="currentPage() === 1" (click)="prevPage()">← Previous</button>
+                            <span class="page-info">Page {{ currentPage() }}</span>
+                            <button class="page-btn" [disabled]="!hasMore()" (click)="nextPage()">Next →</button>
+                        </div>
+                    }
+                }
+            </div>
+        
+
+            <!-- Sidebar -->
+            @if (featuredBlog() || blogs().length > 0) {
+                <aside class="position-sticky align-self-start d-flex flex-column gap-2 w-100 w-md-auto" style="top: 108px; flex: 0 0 320px;height: fit-content;">
+                    <!-- Search -->
+                    <div class="bg-white p-3 rounded-2 border">
+                        <label class="field-label" for="search">Search</label>
+                        <div class="search-wrap">
+                        <i class="bi bi-search search-icon"></i>
+                        <input
+                            type="text"
+                            id="search"
+                            class="form-control ps-5"
+                            [(ngModel)]="searchQuery"
+                            (ngModelChange)="onSearch($event)"
+                            placeholder="Search articles..."
+                        />
+                        @if (searchQuery) {
+                            <button class="search-clear" (click)="clearSearch()">×</button>
+                        }
+                        </div>
+                    </div>
+                
+                    <!-- Categories -->
+                    <div class="bg-white p-3 rounded-2 border">
+                        <label class="field-label">Categories</label>
+                        <ul class="category-list">
+                        <li>
+                            <button
+                            class="category-item"
+                            [class.active]="!activeCategory()"
+                            (click)="setCategory(null)"
+                            >All posts</button>
+                        </li>
+                        @for (cat of categories(); track cat) {
+                            <li>
+                            <button
+                                class="category-item"
+                                [class.active]="activeCategory() === cat"
+                                (click)="setCategory(cat)"
+                            >{{ cat }}</button>
+                            </li>
+                        }
+                        </ul>
+                    </div>
+                
+                    <!-- Recent posts -->
+                      @if (blogs().length > 0) {
+                          <div class="bg-white p-3 rounded-2 border">
+                            <label class="field-label">Recent posts</label>
+                              <ul class="recent-list">
+                              @for (post of recentBlogs(); track post.id) {
+                                  <li>
+                                  <a [routerLink]="['/blog', post.slug]" class="recent-item">
+                                      <p class="recent-title">{{ post.title }}</p>
+                                      <p class="recent-date">{{ formatDate(post.createdAt) }}</p>
+                                  </a>
+                                  </li>
+                              }
+                              </ul>
+                          </div>
+                      }
+                </aside>
+            }
+        </div>
+    </div>
+
+    <!-- CALL TO ACTION -->
+    <div id="call-to-action" class="py-5 py-md-6 border-top">
+        <div class="container">
+            <div class="max-w-2xl mx-auto">
+                <h2 class="text-center fs-1 mb-4 fw-bold lh-1">Get insights in your inbox</h2>
+                <p class="text-center fs-5 mt-4 mb-5">Practical perspectives from the digital twin community, delivered occasionally.</p>
+                <app-subscribe [subscribeButtonText]="'Subscribe'"/>
+                <p class="text-center fs-8 mt-3">No spam. Unsubscribe anytime.</p>
+            </div>
+        </div>
+    </div>
+</section>

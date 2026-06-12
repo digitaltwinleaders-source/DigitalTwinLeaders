@@ -1,0 +1,288 @@
+<div class="d-flex flex-column h-100">
+    <!-- Top bar -->
+    <div class="d-flex flex-column flex-md-row gap-2 justify-content-between align-items-start align-items-md-center mb-3 pb-4 border-bottom">
+        <a routerLink="/admin/blog" class="btn btn-sm btn-link text-monochrome-400">
+            <i class="bi bi-chevron-left"></i>
+            All posts
+        </a>
+        <div class="d-flex flex-column flex-md-row gap-2 flex-grow-1 justify-content-end w-100 w-md-auto">
+            <button class="btn btn-link text-primary w-100 w-md-auto" (click)="save('draft')" [disabled]="saving()">
+            @if (saving() && saveTarget() === 'draft') { <div class="spinner-border spinner-border-sm" role="status"></div> }
+            Save draft
+            </button>
+            <button class="btn btn-outline-primary shadow w-100 w-md-auto" (click)="togglePreview()">
+            {{ previewMode() ? 'Back to editor' : 'Preview' }}
+            </button>
+            <button class="btn btn-primary shadow w-100 w-md-auto" (click)="form.valid && save('published')" [disabled]="saving() || form.invalid">
+            @if (saving() && saveTarget() === 'published') { <div class="spinner-border spinner-border-sm" role="status"></div> }
+            {{ form.value.status === 'published' ? 'Update' : 'Publish' }}
+            </button>
+        </div>
+    </div>
+
+    @if (loading()) {
+        <div class="text-primary fs-7 m-0 d-flex flex-column align-items-center justify-content-center gap-3 py-4">
+            <div class="spinner-border" role="status"></div>
+            <p>Loading content...</p>
+        </div>
+    } @else if (previewMode()) {
+    <!-- Preview mode -->
+    <div class="max-w-3xl mx-auto">
+        <span class="badge rounded-pill py-1 px-2 fw-normal bg-warning bg-opacity-25 text-monochrome-600 mb-3">
+            Preview mode
+        </span>
+        @if (coverPreview()) {
+        <img [src]="coverPreview()" class="preview-cover" alt="Cover" />
+        }
+        <div class="px-1">
+        @if (form.value.category) {
+            <span class="badge rounded-pill py-1 px-2 fw-normal bg-secondary bg-opacity-10 text-secondary mb-3">
+                {{ form.value.category }}
+            </span>
+        }
+        <h1 class="fs-1 text-primary mb-4 text-break">{{ form.value.title || 'Untitled' }}</h1>
+        <p class="fs-5 text-break">{{ form.value.excerpt }}</p>
+        <div class="d-flex gap-2 fs-7 mb-4 text-monochrome-400">
+            <span>{{ form.value.author || 'Anonymous' }}</span>
+            <span>·</span>
+            <span>{{ form.value.readTime }} min read</span>
+        </div>
+        <div
+            class="article-content px-0 ql-editor"
+            [innerHTML]="safeContent()"
+        ></div>
+        </div>
+    </div>
+    } @else {
+    <!-- Editor mode -->
+    <form [formGroup]="form" class="d-flex flex-column flex-md-row align-items-start overflow-visible gap-4 mt-4">
+        <!-- Main editor area -->
+        <div class="flex-grow-1 w-100 w-md-auto">
+        @if (error()) {
+            <div class="alert alert-danger">{{ error() }}</div>
+        }
+
+        <!-- Title -->
+        <div class="mb-3">
+            <label class="field-label" for="title">Title <span class="text-danger">*</span></label>
+            <input
+            type="text"
+            id="title"
+            class="form-control"
+            [class.is-invalid]="titleControl.touched && titleControl.invalid"
+            formControlName="title"
+            [maxlength]="titleMaxLength"
+            placeholder="Post title..."
+            (blur)="onTitleBlur()"
+            />
+            <div class="d-flex justify-content-between mt-1">
+                @if (titleControl.touched && titleControl.errors) {
+                    <span class="text-danger fs-7">{{ getErrorMessage(titleControl.errors) }}</span>
+                } @else {
+                    <span></span>
+                }
+                <span class="text-monochrome-300 fs-7">{{ titleControl.value?.length || 0 }}/{{ titleMaxLength }}</span>
+            </div>
+        </div>
+
+        <!-- Rich text editor -->
+         <div class="mb-3">
+             <div class="quill-wrap" [class.is-invalid]="contentControl.touched && contentControl.invalid">
+                 <quill-editor
+                     formControlName="content"
+                     [modules]="quillModules"
+                     placeholder="Write your post content here..."
+                     (onContentChanged)="onContentChanged()"
+                     (onEditorCreated)="onEditorCreated($event)"
+                     style="display: block; width: 100%;"
+                 ></quill-editor>
+     
+                 @if (inlineImageUploading()) {
+                     <div class="alert alert-info mt-2 mb-0 d-flex align-items-center gap-2 rounded-0">
+                         <div class="spinner-border spinner-border-sm" role="status"></div> Uploading image…
+                     </div>
+                 }
+                 @if (inlineImageError()) {
+                     <div class="alert alert-danger mt-2 mb-0 rounded-0">
+                     {{ inlineImageError() }}
+                     </div>
+                 }
+             </div>
+             @if (contentControl.touched && contentControl.errors) {
+                 <span class="text-danger fs-7">{{ getErrorMessage(contentControl.errors) }}</span>
+             }
+         </div>
+
+                 <!-- Slug -->
+        <div class="mb-3">
+            <label class="field-label" for="slug">Slug <span class="text-danger">*</span></label>
+            <div class="position-relative">
+                <span class="position-absolute fs-6" style="top: 10px; left: 16px;">/blog/</span>
+                <input
+                type="text"
+                id="slug"
+                class="form-control"
+                [class.is-invalid]="slugControl.touched && slugControl.invalid"
+                style="padding-left: 64px !important;"
+                formControlName="slug"
+                [maxlength]="slugMaxLength"
+                placeholder="post-slug"
+                />
+            </div>
+            <div class="d-flex justify-content-between mt-1">
+                @if (slugControl.touched && slugControl.errors) {
+                    <span class="text-danger fs-7">{{ getErrorMessage(slugControl.errors) }}</span>
+                } @else {
+                    <span></span>
+                }
+                <span class="text-monochrome-300 fs-7">{{ slugControl.value?.length || 0 }}/{{ slugMaxLength }}</span>
+            </div>
+        </div>
+
+        <!-- Excerpt -->
+        <div class="mb-3 mt-3">
+            <label class="field-label">Excerpt <span class="text-monochrome-300">(Optional)</span></label>
+            <textarea
+                class="form-control"
+                [class.is-invalid]="excerptControl.touched && excerptControl.invalid"
+                formControlName="excerpt"
+                rows="3"
+                [maxlength]="excerptMaxLength"
+                placeholder="Short summary... (auto-generated if left empty)"
+            ></textarea>
+            <div class="d-flex justify-content-between mt-2">
+                @if (excerptControl.touched && excerptControl.errors) {
+                    <span class="text-danger fs-7">{{ getErrorMessage(excerptControl.errors) }}</span>
+                } @else {
+                    <span class="text-monochrome-300 fs-7">first 160 characters of content used if left blank</span>
+                }
+                <span class="text-monochrome-300 fs-7">{{ excerptControl.value?.length || 0 }}/{{ excerptMaxLength }}</span>
+            </div>
+        </div>
+        </div>
+
+        <!-- Sidebar settings -->
+        <aside class="position-sticky align-self-start d-flex flex-column gap-2 w-100 w-md-auto" style="top: 32px; flex: 0 0 280px;height: fit-content;">
+
+        <!-- Status -->
+        <div class="bg-white p-3 rounded-2 border">
+            <label class="field-label">Status</label>
+            <span class="badge rounded-pill ms-2 fw-normal {{ form.value.status === 'published' ? 'text-white bg-success' : 'text-dark bg-gray' }}">
+                {{ form.value.status === 'published' ? 'Published' : 'Draft' }}
+            </span>
+        </div>
+
+        <!-- Cover image -->
+        <div class="bg-white p-3 rounded-2 border">
+            <label class="field-label" for="cover">Cover image <span class="text-danger">*</span></label>
+            <div [class.has-image]="coverPreview()">
+            @if (coverPreview()) {
+                <img [src]="coverPreview()" class="cover-preview" alt="Cover" />
+                <button type="button" class="btn btn-outline-danger btn-sm w-100 mt-2" (click)="removeCover()">
+                Remove
+                </button>
+            } @else {
+                <label class="cover-placeholder">
+                <i class="bi bi-image fs-3"></i>
+                <span>Upload cover</span>
+                <span class="cover-hint">16:9 · JPG/PNG · Max 400KB</span>
+                <input type="file" id="cover" accept="image/*" style="display:none" (change)="onCoverSelected($event)" />
+                </label>
+            }
+            @if (coverError()) {
+                <div class="alert alert-danger mt-2 mb-0">{{ coverError() }}</div>
+            }
+            </div>
+        </div>
+
+        <!-- Category -->
+        <div class="bg-white p-3 rounded-2 border">
+            <label class="field-label" for="category">Category <span class="text-danger">*</span></label>
+
+            @if (!showNewCategoryInput()) {
+                <div class="position-relative d-flex align-items-center">
+                <select
+                class="form-control cursor-pointer"
+                [class.is-invalid]="categoryControl.touched && categoryControl.invalid"
+                id="category"
+                formControlName="category"
+                >
+                <option value="">Select category…</option>
+                @for (cat of categories(); track cat) {
+                    <option [value]="cat">{{ cat }}</option>
+                }
+                <option [value]="NEW_CATEGORY_SENTINEL" class="fw-medium text-primary">
+                    + Add new category…
+                </option>
+                </select>
+                    @if (!categoryControl.touched || !categoryControl.errors) {
+                        <i class="bi bi-chevron-down fs-7 position-absolute end-0 cursor-pointer pe-2"></i>
+                    }
+                </div>
+                @if (categoryControl.touched && categoryControl.errors) {
+                    <span class="text-danger fs-7">{{ getErrorMessage(categoryControl.errors) }}</span>
+                }
+            } @else {
+                <div class="d-flex flex-column gap-2">
+                    <input
+                        type="text"
+                        class="form-control"
+                        [class.is-invalid]="newCategoryError()"
+                        [(ngModel)]="newCategoryValue"
+                        [ngModelOptions]="{ standalone: true }"
+                        placeholder="New category name…"
+                        maxlength="40"
+                        (keydown.enter)="$event.preventDefault(); confirmNewCategory()"
+                    />
+                    @if (newCategoryError()) {
+                        <span class="text-danger fs-7">{{ newCategoryError() }}</span>
+                    }
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-primary btn-sm flex-grow-1" (click)="confirmNewCategory()">
+                            Add
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm flex-grow-1" (click)="cancelNewCategory()">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Author -->
+        <div class="bg-white p-3 rounded-2 border">
+            <label class="field-label" for="author">Author</label>
+            <input
+            id="author"
+            type="text"
+            class="form-control"
+            [class.is-invalid]="authorControl.touched && authorControl.invalid"
+            formControlName="author"
+            [maxlength]="80"
+            placeholder="Author name"
+            />
+            @if (authorControl.touched && authorControl.errors) {
+                <span class="text-danger fs-7">{{ getErrorMessage(authorControl.errors) }}</span>
+            }
+        </div>
+
+        <!-- Read time -->
+        <div class="bg-white p-3 rounded-2 border">
+            <label class="field-label" for="readTime">Read time</label>
+            <div class="d-flex align-items-center gap-2">
+            <input
+                type="number"
+                id="readTime"
+                class="form-control"
+                formControlName="readTime"
+                min="1"
+            />
+            <span class="fs-7">min</span>
+            </div>
+            <p class="text-monochrome-300 fs-7 mt-2 mb-0">Auto-calculated from content</p>
+        </div>
+
+        </aside>
+    </form>
+    }
+</div>
