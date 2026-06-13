@@ -9,6 +9,16 @@ $utilities: map-merge(
       map-get($utilities, "font-size"),
       ( responsive: true )
     ),
+    "padding": map-merge(
+      map-get($utilities, "padding"),
+      (
+        responsive: true,
+        values: map-merge(
+          map-get(map-get($utilities, "padding"), "values"),
+          (6: 6rem)
+        )
+      )
+    ),
     "bg-opacity": map-merge(
       map-get($utilities, "bg-opacity"),
       (

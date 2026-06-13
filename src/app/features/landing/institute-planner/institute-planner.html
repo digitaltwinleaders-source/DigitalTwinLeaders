@@ -1,0 +1,156 @@
+<section id="full-institute">
+    <!-- FEATURED PROGRAM -->
+    <div class="container py-5 py-md-6">
+        <div class="max-w-4xl mx-auto" data-aos="fade-up">
+            <h6 class="text-center text-secondary mb-3 font-support fs-7">DTL KNOWLEDGE HUB · FEATURED TRACK</h6>
+            <h2 class="text-center display-2 mb-4 fw-bold lh-1">Digital Twin Project Planner</h2>
+            <h3 class="text-center fs-3 mt-4 fw-bold">Plan Digital Twin Initiatives with Confidence</h3>
+            <div class="max-w-3xl mx-auto">
+                <p class="text-center fs-5 mt-4 mb-5">A practical, hands-on track that helps practitioners structure, communicate, and plan Digital Twin initiatives using a framework aligned with ISO/IEC 30173:2023.</p>
+                <p class="text-center fs-5 mt-4">As you work through the track, you progressively build a complete Digital Twin planning package — ready to support stakeholder discussions, project definition, business case development, and future implementation activities.</p>
+            </div>
+            <button class="btn btn-secondary text-monochrome-100 rounded-1 d-flex mx-auto mt-5 py-3 px-5 shadow" routerLink="/project-planner" fragment="call-to-action">Start the Track</button>
+        </div>
+    </div>
+
+    <!-- PROGRAM DETAILS -->
+     <div class="py-5 py-md-6 bg-monochrome-150">
+         <div class="container mx-auto" data-aos="fade-up">
+             <h3 class="text-center fs-1 fw-bold">Track Details</h3>
+             <div class="row mt-5">
+                 @for (card of programDetails; track $index) {
+                     <div class="col-md-6 col-lg-equal mb-4">
+                         <div class="bg-white h-100 rounded-4 border border-1 shadow-sm p-4">
+                             <div class="bg-secondary-300 bg-opacity-25 rounded-3 d-flex justify-content-center align-items-center mb-3 mx-auto" [ngStyle]="{width: '48px', height: '48px'}">
+                                 <i class="bi bi-{{ card.icon }} text-secondary text-center fs-4"></i>
+                             </div>
+                             <p class="fs-8 m-0 text-center">{{ card.title }}</p>
+                             <h6 class="text-center fs-6 fw-bold mt-2">{{ card.description }}</h6>
+                         </div>
+                     </div>
+                 }
+             </div>
+         </div>
+     </div>
+
+    <hr class="m-0 border-secondary-300">
+
+    <!-- WHY THIS PROGRAM -->
+    <div class="bg-monochrome-150">
+        <div class="container py-5 py-md-6" data-aos="fade-up">
+            <div class="max-w-3xl mx-auto">
+                <h3 class="text-center fs-1 fw-bold">Why This Track?</h3>
+                <p class="text-center fs-5 mt-4 mb-0">Many Digital Twin initiatives struggle because practitioners cannot clearly answer a few fundamental questions:</p>
+                <div class="mt-5 max-w-xl mx-auto">
+                    <div class="row">
+                        @for (card of whyThisProgram; track $index) {
+                            <div class="col-12 mb-3">
+                                <div class="bg-white h-100 rounded-3 border border-1 p-3 d-flex gap-2">
+                                    <i class="bi bi-question text-secondary text-center fs-4"></i>
+                                    <h6 class="text-center fs-6 fw-bold m-0">{{ card }}</h6>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <p class="text-center fs-5 mt-4 mb-0">Without clear answers, projects suffer from misaligned expectations, unclear scope, and difficulty demonstrating value.</p>
+                <p class="text-center fs-5 fw-bold text-primary mt-4 mb-0">This track provides a practical framework to help practitioners bring greater clarity, alignment, and confidence to Digital Twin initiatives.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- WHAT YOU WILL DEVELOP -->
+    <div class="container py-5 py-md-6">
+        <div class="max-w-4xl mx-auto" data-aos="fade-up">
+            <h3 class="text-center fs-1 fw-bold">What You'll Build</h3>
+            <p class="max-w-2xl mx-auto text-center fs-5 mt-4 mb-0">By the end of the track, you will have a complete Digital Twin planning package consisting of:</p>
+            <div class="row mt-5">
+                @for (item of developList; track item) {
+                    <div class="col-md-6 mb-3">
+                        <div class="d-flex gap-2">
+                            <div class="bg-secondary-300 bg-opacity-25 rounded-circle d-flex justify-content-center align-items-center flex-shrink-0" [ngStyle]="{width: '24px', height: '24px'}">
+                                <i class="bi bi-check-lg text-secondary text-center fs-6"></i>
+                            </div>
+                            <h5 class="fs-6 fw-bold m-0">{{item}}</h5>
+                        </div>
+                    </div>
+                }
+            </div>
+            <p class="text-center fs-6 mt-4 mb-0 fst-italic">These outputs can be adapted and reused within your own organization and projects.</p>
+        </div>
+    </div>
+
+    <!-- WHO SHOULD ATTEND -->
+    <div class="container py-5 py-md-6">
+        <div class="max-w-4xl mx-auto" data-aos="fade-up">
+            <h3 class="text-center fs-1 fw-bold">Who Is This Track For?</h3>
+            <p class="text-center fs-5 mt-4 mb-0">Built for practitioners involved in Digital Twin initiatives across:</p>
+            <div class="row mt-5">
+                @for (item of whoShouldAttend; track item) {
+                    <div class="col-md-6 mb-3">
+                        <div class="d-flex gap-2">
+                            <div class="bg-secondary-300 bg-opacity-25 rounded-circle d-flex justify-content-center align-items-center flex-shrink-0" [ngStyle]="{width: '24px', height: '24px'}">
+                                <i class="bi bi-check-lg text-secondary text-center fs-6"></i>
+                            </div>
+                            <h5 class="fs-6 fw-bold m-0">{{item}}</h5>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- PROGRAM STRUCTURE -->
+     <div class="bg-monochrome-150">
+        <div class="container py-5 py-md-6" data-aos="fade-up">
+            <div class="max-w-5xl mx-auto">
+                <h3 class="text-center fs-1 fw-bold">Track Contents</h3>
+                <div class="row mt-5">
+                    @for (item of programStructure; track item) {
+                        <div class="col-md-6 mb-3">
+                            <div class="bg-white h-100 rounded-4 border border-1 shadow-sm" [ngStyle]="{padding: '2rem'}">
+                                <h6 class="text-secondary mb-2 font-support fs-7 fw-bold">{{item.module}}</h6>
+                                <h6 class="fs-3 mb-3 fw-bold">{{item.title}}</h6>
+                                <p class="fs-6 m-0">{{item.description}}</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CERTIFICATE -->
+    <div class="container py-5 py-md-6">
+        <div class="max-w-3xl mx-auto" data-aos="fade-up">
+            <div class="bg-secondary-300 bg-opacity-25 rounded-3 d-flex justify-content-center align-items-center mb-3 mx-auto" [ngStyle]="{width: '64px', height: '64px'}">
+                <i class="bi bi-award text-secondary text-center fs-1"></i>
+            </div>
+            <h3 class="text-center fs-1 fw-bold">Upon Completion</h3>
+            <p class="text-center fs-5 mt-4 mb-0">Practitioners who finish the track receive:</p>
+            <div class="max-w-xl mx-auto row mt-5">
+                @for (item of certificates; track item) {
+                    <div class="col-12 mb-3">
+                        <div class="d-flex gap-2">
+                            <div class="bg-secondary-300 bg-opacity-25 rounded-circle d-flex justify-content-center align-items-center flex-shrink-0" [ngStyle]="{width: '24px', height: '24px'}">
+                                <i class="bi bi-check-lg text-secondary text-center fs-6"></i>
+                            </div>
+                            <h5 class="fs-6 fw-bold m-0">{{item}}</h5>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- CALL TO ACTION -->
+    <div id="call-to-action" class="py-5 py-md-6 bg-primary">
+        <div class="container">
+            <div class="max-w-3xl mx-auto" data-aos="fade-up">
+                <h2 class="text-center display-3 mb-4 fw-bold lh-1 text-monochrome-100">Ready to lead your next Digital Twin initiative?</h2>
+                <p class="text-center fs-5 mt-4 mb-5 text-monochrome-100 text-opacity-75">Join practitioners worldwide building the frameworks, tools, and confidence to plan Digital Twin projects that deliver real value.</p>
+                <app-subscribe [subscribeButtonText]="'Start the Track'"/>
+            </div>
+        </div>
+    </div>
+</section>

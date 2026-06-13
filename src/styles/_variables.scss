@@ -15,7 +15,8 @@ $tertiary-300: #5C8AD6;
 $tertiary-400: #0F3F84;
 
 $monochrome-100: #ffffff;
-$monochrome-200: #f2f2f2;
+$monochrome-150: #fafafa;
+$monochrome-200: #f8f8f9;
 $monochrome-300: #bebebe;
 $monochrome-400: #7e7e7e;
 $monochrome-500: #55575E;
@@ -52,6 +53,7 @@ $custom-colors: (
   'tertiary-400': $tertiary-400,
   'monochrome': $monochrome-100,
   'monochrome-100': $monochrome-100,
+  'monochrome-150': $monochrome-150,
   'monochrome-200': $monochrome-200,
   'monochrome-300': $monochrome-300,
   'monochrome-400': $monochrome-400,
