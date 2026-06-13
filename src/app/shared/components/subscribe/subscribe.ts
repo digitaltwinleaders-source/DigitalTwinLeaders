@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, input } from '@angular/core';
 import { Mailchimp } from '../../../core/services/mailchimp';
 import { finalize } from 'rxjs';
 import { FormsModule } from '@angular/forms';
@@ -20,7 +20,7 @@ export class Subscribe {
   email: string = '';
   isLoading = signal<boolean>(false);
   alertData = signal<AlertData | null>(null);
-  
+  subscribeButtonText = input<string>('Join Our Network');
   private mailchimp = inject(Mailchimp);
 
   subscribe() {

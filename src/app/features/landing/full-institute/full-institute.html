@@ -1,0 +1,74 @@
+<section id="full-institute">
+    <div class="container py-5">
+        <div class="py-5 max-w-4xl mx-auto" data-aos="fade-up">
+            <h6 class="text-center text-secondary mb-3 font-support fs-7">DTL KNOWLEDGE HUB</h6>
+            <h1 class="text-center display-2 fw-bold lh-1">Practical Resources to Plan, Deliver, and Lead Digital Twin Initiatives</h1>
+            <div class="max-w-2xl mx-auto mt-4">
+                <p class="text-center fs-5 fs-md-4">The DTL Knowledge Hub is the resource platform of Digital Twin Leaders — providing vendor-neutral, self-paced development tracks for professionals working on real Digital Twin initiatives.</p>
+                <p class="fs-5 mt-5">Built for practitioners across smart cities, infrastructure, the built environment, utilities, manufacturing, transportation, and related industries, the Hub provides practical frameworks, tools, and decision-making resources that apply directly to how Digital Twin initiatives are planned, structured, and delivered.</p>
+            </div>
+        </div>
+
+        <div class="py-5 max-w-4xl mx-auto" data-aos="fade-up">
+            <h2 class="text-center fs-1 mb-4 fw-bold">What Makes the DTL Knowledge Hub Different?</h2>
+            <div class="max-w-3xl mx-auto mt-5">
+                <div class="row">
+                    @for (item of differentials; track item) {
+                        <div class="col-12 col-md-6 mb-4">
+                            <div class="d-flex gap-3 align-items-center">
+                                <div class="bg-secondary rounded-circle" [ngStyle]="{width: '8px', height: '8px'}"></div>
+                                <h5 class="fs-6 fw-bold m-0">{{item}}</h5>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <hr class="m-0 border-secondary-300">
+
+        <div class="py-5 max-w-4xl mx-auto" data-aos="fade-up">
+            <h6 class="text-center text-secondary mb-3 font-support fs-7">FEATURED TRACK</h6>
+            <h2 class="text-center display-3 mb-4 fw-bold">Digital Twin Project Planner</h2>
+            <div class="max-w-3xl mx-auto">
+                <p class="text-center fs-5 mt-4">A practical, hands-on track that guides practitioners through structuring, communicating, and planning a Digital Twin initiative from the ground up.</p>
+                <p class="text-center fs-5 mt-4">By the end of the track, you will have built a complete Digital Twin planning package, ready to support stakeholder discussions, project definition, and business case development.</p>
+            </div>
+            <div class="row my-5">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <div class="bg-white h-100 rounded-1 border border-1 shadow-sm p-4 p-md-5 max-w-4xl mx-auto">
+                        <h6 class="text-secondary mb-4 font-support fs-6 fw-bold">WHAT YOU'LL BUILD</h6>
+                        @for (item of developed; track item; let last = $last) {
+                            <div class="d-flex gap-3" [ngClass]="{'mb-3': !last}">
+                                <i class="bi bi-check-lg text-secondary fs-4"></i>
+                                <h5 class="fs-6 m-0">{{item}}</h5>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="bg-white h-100 rounded-1 border border-1 shadow-sm p-4 p-md-5 max-w-4xl mx-auto">
+                        <h6 class="text-secondary mb-4 font-support fs-6 fw-bold">TRACK DETAILS</h6>
+                        @for (item of programs; track item; let last = $last) {
+                            <div class="d-flex gap-3" [ngClass]="{'mb-3': !last}">
+                                <i class="bi bi-check-lg text-secondary fs-4"></i>
+                                <h5 class="fs-6 m-0">{{item}}</h5>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-secondary text-monochrome-100 rounded-1 d-flex mx-auto py-3 px-5 shadow" routerLink="/project-planner">EXPLORE THE TRACK</button>
+        </div>
+
+        <hr class="m-0 border-secondary-300">
+
+        <div class="py-5 max-w-4xl mx-auto" data-aos="fade-up">
+            <h2 class="text-center fs-1 mb-4 fw-bold">Part of Something Bigger</h2>
+            <div class="max-w-2xl mx-auto">
+                <p class="text-center fs-5 mt-4">The DTL Knowledge Hub sits within the broader Digital Twin Leaders ecosystem, combining resources, community, thought leadership, and professional collaboration. Practitioners join a growing global network advancing Digital Twin practice across industries.</p>
+            </div>
+        </div>
+
+    </div>
+</section>

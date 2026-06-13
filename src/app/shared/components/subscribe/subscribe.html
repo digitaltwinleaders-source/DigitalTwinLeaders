@@ -29,7 +29,7 @@
             @if(isLoading()) {
                 <span>Subscribing...</span>
             } @else {
-                <span>Join Our Network</span><i class="bi bi-arrow-right ms-2"></i>
+                <span>{{subscribeButtonText()}}</span><i class="bi bi-arrow-right ms-2"></i>
             }
         </button>
     }

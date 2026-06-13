@@ -45,6 +45,18 @@ export const routes: Routes = [
                     import('./features/landing/council/council')
                         .then(m => m.CouncilComponent)
             },
+            {
+                path: 'institute',
+                loadComponent: () =>
+                    import('./features/landing/full-institute/full-institute')
+                        .then(m => m.FullInstitute)
+            },
+            {
+                path: 'project-planner',
+                loadComponent: () =>
+                    import('./features/landing/institute-planner/institute-planner')
+                        .then(m => m.InstitutePlanner)
+            }
         ]
     },
     {

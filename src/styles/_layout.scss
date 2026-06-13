@@ -18,7 +18,7 @@ section[id] {
 }
 
 main {
-  overflow-x: hidden;
+  overflow: hidden;
   min-height: calc(100vh - 60px);
   @include media-breakpoint-up(md) {
     min-height: calc(100vh - 76px);
@@ -57,10 +57,30 @@ main {
   cursor: pointer;
 }
 
+.max-w-xl {
+    max-width: 36rem;
+}
+
+.max-w-2xl {
+    max-width: 42rem;
+}
+
 .max-w-3xl {
   max-width: 48rem;
 }
 
 .max-w-4xl {
   max-width: 56rem;
+}
+
+.max-w-5xl {
+    max-width: 64rem;
+}
+
+@media (min-width: 1025px) {
+  .col-lg-equal {
+    flex: 0 0 20% !important;
+    max-width: 20% !important;
+    width: 20% !important;
+  }
 }
