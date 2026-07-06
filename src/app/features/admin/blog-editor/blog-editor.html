@@ -32,9 +32,11 @@
             Preview mode
         </span>
         @if (coverPreview()) {
-        <img [src]="coverPreview()" class="preview-cover" alt="Cover" />
+            <div class="preview-image-wrap">
+                <img [src]="coverPreview()" class="preview-cover" alt="Cover" />
+            </div>
         }
-        <div class="px-1">
+        <div class="px-1 mt-5">
         @if (form.value.category) {
             <span class="badge rounded-pill py-1 px-2 fw-normal bg-secondary bg-opacity-10 text-secondary mb-3">
                 {{ form.value.category }}
@@ -177,7 +179,9 @@
             <label class="field-label" for="cover">Cover image <span class="text-danger">*</span></label>
             <div [class.has-image]="coverPreview()">
             @if (coverPreview()) {
-                <img [src]="coverPreview()" class="cover-preview" alt="Cover" />
+                <div class="preview-image-wrap">
+                    <img [src]="coverPreview()" class="preview-cover" alt="Cover" />
+                </div>
                 <button type="button" class="btn btn-outline-danger btn-sm w-100 mt-2" (click)="removeCover()">
                 Remove
                 </button>

@@ -111,8 +111,19 @@
 
 
 /* Preview */
-.preview-cover { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: .75rem; margin-bottom: 1.5rem; }
+.preview-image-wrap {
+  width: 100%;
+  aspect-ratio: 16/6;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--bs-secondary-400), var(--bs-monochrome-200));
+}
 
+.preview-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
 @media (max-width: 1024px) {
     .editor-sidebar { position: static; }
 }
