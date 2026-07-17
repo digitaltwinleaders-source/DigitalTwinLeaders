@@ -5,6 +5,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { BlogService } from '../../../../core/services/blog.service';
 import { Blog } from '../../../../core/models/blog.model';
 import { nameInitial } from '../../../../core/utils/utils';
+import { SeoService } from '../../../../core/services/seo.service';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class BlogDetailComponent implements OnInit {
   blogService = inject(BlogService);
   private route = inject(ActivatedRoute);
   private sanitizer = inject(DomSanitizer);
+  private seo = inject(SeoService);
 
   blog = signal<Blog | null>(null);
   loading = signal(true);
@@ -48,6 +50,33 @@ export class BlogDetailComponent implements OnInit {
         console.log('✅ getBlogBySlug succeeded:', blog);
         this.blog.set(blog);
         this.loading.set(false);
+
+        if (blog) {
+          this.seo.update({
+            title: blog.title,
+            description: blog.excerpt || blog.title,
+            image: blog.coverImageUrl,
+            url: `/blog/${blog.slug}`,
+            type: 'article',
+            jsonLd: {
+              '@context': 'https://schema.org',
+              '@type': 'Article',
+              headline: blog.title,
+              description: blog.excerpt || blog.title,
+              image: blog.coverImageUrl || undefined,
+              datePublished: blog.createdAt ? new Date(blog.createdAt).toISOString() : undefined,
+              publisher: {
+                '@type': 'Organization',
+                name: 'Digital Twin Leaders',
+                logo: { '@type': 'ImageObject', url: 'https://www.digitaltwinleaders.com/assets/logo.png' },
+              },
+              mainEntityOfPage: {
+                '@type': 'WebPage',
+                '@id': `https://www.digitaltwinleaders.com/blog/${blog.slug}`,
+              },
+            },
+          });
+        }
 
         if (blog?.createdAt) {
           try {

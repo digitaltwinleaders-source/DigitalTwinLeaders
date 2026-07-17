@@ -28,6 +28,7 @@
               "src/CNAME",
               "src/assets",
               "src/404.html",
+              "src/google66ae889d12005d40.html",
               {
                 "glob": "**/*",
                 "input": "public"
@@ -41,7 +42,14 @@
             "polyfills": [
               "@angular/localize/init"
             ],
-            "allowedCommonJsDependencies": ["aos"]
+            "allowedCommonJsDependencies": [
+              "aos"
+            ],
+            "server": "src/main.server.ts",
+            "outputMode": "static",
+            "security": {
+              "allowedHosts": []
+            }
           },
           "configurations": {
             "production": {

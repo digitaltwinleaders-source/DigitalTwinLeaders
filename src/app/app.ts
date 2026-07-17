@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, afterNextRender, inject } from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs';
 import * as AOS from 'aos';
 
 @Component({
@@ -7,13 +8,24 @@ import * as AOS from 'aos';
   imports: [RouterOutlet],
   template: '<router-outlet/>'
 })
-export class App implements OnInit {
-  ngOnInit(): void {
-    AOS.init({
-      duration: 800,
-      once: false,
-      offset: 32,
-      easing: 'ease-in'
+export class App {
+  private router = inject(Router);
+
+  constructor() {
+    afterNextRender(() => {
+      AOS.init({
+        duration: 800,
+        once: false,
+        offset: 32,
+        easing: 'ease-in'
+      });
+      document.body.classList.add('aos-initialized');
+    });
+
+    this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe(() => {
+      if (typeof window !== 'undefined') {
+        setTimeout(() => AOS.refresh(), 200);
+      }
     });
   }
 }

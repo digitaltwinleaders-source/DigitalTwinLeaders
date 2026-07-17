@@ -4,10 +4,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0",
-    "build": "ng build --configuration production --base-href /",
+    "build": "ng build --configuration production --base-href / && npx tsx scripts/generate-sitemap.mts",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "deploy": "npx ngh --dir=dist/digital-twin-leaders/browser"
+    "deploy": "npx ngh --dir=dist/digital-twin-leaders/browser",
+    "serve:ssr:digital-twin-leaders": "node dist/digital-twin-leaders/server/server.mjs"
   },
   "prettier": {
     "printWidth": 100,
@@ -31,10 +32,13 @@
     "@angular/fire": "19.2.0",
     "@angular/forms": "^21.1.0",
     "@angular/platform-browser": "^21.1.0",
+    "@angular/platform-server": "^21.1.0",
     "@angular/router": "^21.1.0",
+    "@angular/ssr": "^21.2.14",
     "@popperjs/core": "^2.11.8",
     "aos": "^2.3.4",
     "bootstrap": "^5.3.8",
+    "express": "^5.1.0",
     "firebase": "11.10.0",
     "ngx-quill": "^31.0.0",
     "quill": "^2.0.3",
@@ -48,9 +52,12 @@
     "@angular/localize": "^21.1.0",
     "@ng-bootstrap/ng-bootstrap": "^20.0.0",
     "@types/aos": "^3.0.7",
+    "@types/express": "^5.0.1",
+    "@types/node": "^20.17.19",
     "@types/quill": "^2.0.14",
     "gh-pages": "^6.3.0",
     "jsdom": "^27.1.0",
+    "tsx": "^4.23.1",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
   }
