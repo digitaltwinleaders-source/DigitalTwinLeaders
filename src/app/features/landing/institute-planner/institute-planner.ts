@@ -1,14 +1,17 @@
 import { NgStyle } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Subscribe } from '../../../shared/components/subscribe/subscribe';
 import { RouterLink } from '@angular/router';
+import { SeoService } from '../../../core/services/seo.service';
 
 @Component({
   selector: 'app-institute-planner',
   templateUrl: './institute-planner.html',
   imports: [NgStyle, Subscribe, RouterLink],
 })
-export class InstitutePlanner {
+export class InstitutePlanner implements OnInit {
+  private seo = inject(SeoService);
+
   programDetails = [
     {
       title: 'FORMAT',
@@ -101,4 +104,13 @@ export class InstitutePlanner {
     "Access to the Digital Twin Leaders Community",
     "A complete Digital Twin planning package built throughout the track"
   ];
+
+  ngOnInit() {
+    this.seo.update({
+      title: 'Project Planner',
+      description: 'A practical, hands-on track that helps practitioners structure, communicate, and plan Digital Twin initiatives using a framework aligned with ISO/IEC 30173:2023.',
+      url: '/project-planner',
+      keywords: 'digital twin project planner, digital twin planning, ISO 30173, digital twin training, digital twin course',
+    });
+  }
 }

@@ -9,6 +9,7 @@ import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { BlogService } from '../../../../core/services/blog.service';
 import { Blog } from '../../../../core/models/blog.model';
 import { Subscribe } from '../../../../shared/components/subscribe/subscribe';
+import { SeoService } from '../../../../core/services/seo.service';
 
 @Component({
   selector: 'app-blog-list',
@@ -19,6 +20,7 @@ import { Subscribe } from '../../../../shared/components/subscribe/subscribe';
 })
 export class BlogListComponent implements OnInit, OnDestroy {
   blogService = inject(BlogService);
+  private seo = inject(SeoService);
 
   featuredBlog = signal<Blog | null>(null);
   recentBlogs = signal<Blog[]>([]);
@@ -39,6 +41,11 @@ export class BlogListComponent implements OnInit, OnDestroy {
   private pageStack: (QueryDocumentSnapshot | null)[] = [null];
 
   async ngOnInit() {
+    this.seo.update({
+      title: 'Blog',
+      description: 'Latest articles and insights from Digital Twin Leaders.',
+      url: '/blog',
+    });
     this.blogService.getFeaturedBlog().pipe(takeUntil(this.destroy$)).subscribe(b => {
       this.featuredBlog.set(b);
       this.blogService.getRecentBlogs(4, b?.id).pipe(takeUntil(this.destroy$)).subscribe(r => this.recentBlogs.set(r));

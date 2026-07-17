@@ -43,7 +43,7 @@ export const routes: Routes = [
                 loadComponent: () => import('./features/landing/landing').then(m => m.Landing)
             },
             {
-                path: 'institute',
+                path: 'knowledge-hub',
                 loadComponent: () =>
                     import('./features/landing/full-institute/full-institute')
                         .then(m => m.FullInstitute)

@@ -1,2 +1,11 @@
 @import './styles/fonts';
 @import './styles/theme';
+
+// Prevent AOS from hiding content before JS initializes (fixes SSR/prerender flash)
+[data-aos] {
+  body:not(.aos-initialized) & {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
