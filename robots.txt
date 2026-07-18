@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin
 
-Sitemap: https://digitaltwinleaders.com/sitemap.xml
+Sitemap: https://www.digitaltwinleaders.com/sitemap.xml
