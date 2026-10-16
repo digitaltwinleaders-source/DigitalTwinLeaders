@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { PillBadge } from '../../../shared/components/pill-badge/pill-badge';
-import { RouterLink } from "@angular/router";
+import { Subscribe } from '../../../shared/components/subscribe/subscribe';
 
 @Component({
   selector: 'app-join',
-  imports: [PillBadge, RouterLink],
+  imports: [Subscribe],
   templateUrl: './join.html'
 })
 export class Join {}

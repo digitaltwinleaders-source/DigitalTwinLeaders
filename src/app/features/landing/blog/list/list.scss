@@ -128,7 +128,7 @@
 .skeleton-line.narrow { width: 25%; }
 @keyframes shimmer { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
 
-.empty-state { padding: 4rem 2rem; text-align: center; color: #7e7e7e; }
+.empty-state { padding: 3rem 1.5rem; text-align: center; color: #55575e; max-width: 640px; margin: 0 auto; }
 
 @media (max-width: 1280px) {
     .blog-grid { grid-template-columns: repeat(2, 1fr); }

@@ -1,0 +1,24 @@
+<section id="membership" class="bg-monochrome-300 bg-opacity-10">
+    <div class="container py-5">
+        <div class="bg-white rounded-4 border border-1 shadow-sm p-4 p-md-5 max-w-4xl mx-auto my-5" data-aos="fade-up">
+            <p class="text-secondary mb-3 font-support fs-7">MEMBERSHIP</p>
+            <h2 class="display-5 fw-bold mb-3">Become a Council Member</h2>
+            <p class="fs-6 fs-md-5 mb-4">The first members join at a founding rate. Join the waiting list to get it.</p>
+
+            <ul class="list-unstyled mb-4">
+                @for (item of benefits; track item) {
+                    <li class="d-flex gap-2 align-items-start mb-3">
+                        <div class="bg-secondary-300 bg-opacity-25 rounded-circle d-flex justify-content-center align-items-center flex-shrink-0 mt-1" [ngStyle]="{width: '24px', height: '24px'}">
+                            <i class="bi bi-check-lg text-secondary fs-6" aria-hidden="true"></i>
+                        </div>
+                        <span class="fs-6">{{ item }}</span>
+                    </li>
+                }
+            </ul>
+
+            <app-subscribe
+                [subscribeButtonText]="'Join the membership waiting list'"
+                [note]="'Joining with colleagues? Team Membership covers groups of 3 or more. No spam. Unsubscribe anytime.'"/>
+        </div>
+    </div>
+</section>

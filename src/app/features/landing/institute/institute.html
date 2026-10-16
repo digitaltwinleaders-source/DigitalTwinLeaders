@@ -1,29 +1,23 @@
 <section id="knowledge-hub">
     <div class="container py-5">
-        <div class="my-5 max-w-3xl mx-auto">
-            <p class="text-center text-secondary mb-3 font-support fs-7" data-aos="fade-up">DTL KNOWLEDGE HUB</p>
-            <h2 class="text-center display-3 mb-4 fw-bold" data-aos="fade-up">Practical resources for Digital Twin practitioners</h2>
-            <p class="text-center fs-6 fs-md-5 mt-4" data-aos="fade-up">The DTL Knowledge Hub provides vendor-neutral, self-paced development tracks designed to help practitioners plan, communicate, and lead Digital Twin initiatives.</p>
-        </div>
-
-        <div class="bg-white h-100 rounded-4 border border-1 shadow-sm p-4 p-md-5 max-w-4xl mx-auto mb-5" data-aos="fade-up">
+        <div class="bg-white h-100 rounded-4 border border-1 shadow-sm p-4 p-md-5 max-w-4xl mx-auto my-5" data-aos="fade-up">
             <p class="text-secondary mb-3 font-support fs-7">FEATURED TRACK</p>
-            <h3 class="display-5 mb-3 fw-bold">Digital Twin Project Planner</h3>
-            <p class="fs-6 fs-md-5 mt-4 mb-4">A practical framework inspired by ISO/IEC 30173:2023 that guides you through building a ready-to-use digital twin planning package covering scope definition, stakeholder alignment, and initiative roadmapping.</p>
+            <h2 class="display-5 mb-3 fw-bold">Plan your next digital twin with the Digital Twin Project Planner (DTPP)</h2>
+            <p class="fs-6 fs-md-5 mt-4 mb-4">Six chapters, about 6 hours, at your own pace. You finish with a complete planning package you can take into stakeholder meetings: a readiness checklist, a scope and value statement, a stakeholder alignment toolkit, an architecture outline and a Digital Twin Project Canvas. Inspired by ISO/IEC 30173.</p>
 
-            <div class="row">
+            <ul class="row list-unstyled mb-0">
                 @for (item of list; track item) {
-                    <div class="col-md-6 mb-3">
-                        <div class="d-flex gap-2">
+                    <li class="col-md-6 mb-3">
+                        <div class="d-flex gap-2 align-items-center">
                             <div class="bg-secondary-300 bg-opacity-25 rounded-circle d-flex justify-content-center align-items-center flex-shrink-0" [ngStyle]="{width: '24px', height: '24px'}">
-                                <i class="bi bi-check-lg text-secondary text-center fs-6"></i>
+                                <i class="bi bi-check-lg text-secondary text-center fs-6" aria-hidden="true"></i>
                             </div>
-                            <h5 class="fs-6 fw-bold m-0 text-center">{{item}}</h5>
+                            <span class="fs-6 fw-bold">{{item}}</span>
                         </div>
-                    </div>
+                    </li>
                 }
-            </div>
-            <button class="btn btn-secondary text-monochrome-100 mt-4" routerLink="/knowledge-hub">Explore the Hub</button>
+            </ul>
+            <a class="btn btn-secondary text-monochrome-100 mt-4" routerLink="/project-planner">See what's in the track</a>
         </div>
     </div>
 </section>

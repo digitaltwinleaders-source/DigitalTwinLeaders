@@ -4,12 +4,12 @@
         <div class="max-w-4xl mx-auto" data-aos="fade-up">
             <p class="text-center text-secondary mb-3 font-support fs-7">DTL KNOWLEDGE HUB · FEATURED TRACK</p>
             <h1 class="text-center display-2 mb-4 fw-bold lh-1">Digital Twin Project Planner</h1>
-            <p class="text-center fs-3 mt-4 fw-bold">Plan Digital Twin Initiatives with Confidence</p>
+            <p class="text-center fs-3 mt-4 fw-bold">Plan a Digital Twin in 6 Steps</p>
             <div class="max-w-3xl mx-auto">
-                <p class="text-center fs-5 mt-4 mb-5">A practical, hands-on track that helps practitioners structure, communicate, and plan Digital Twin initiatives using a framework aligned with ISO/IEC 30173:2023.</p>
-                <p class="text-center fs-5 mt-4">As you work through the track, you progressively build a complete Digital Twin planning package — ready to support stakeholder discussions, project definition, business case development, and future implementation activities.</p>
+                <p class="text-center fs-5 mt-4 mb-4">The Digital Twin Project Planner (DTPP) is a self-paced, vendor-neutral track that takes you from "is this really a digital twin?" to a complete project canvas in six chapters. It is inspired by ISO/IEC 30173.</p>
+                <p class="text-center fs-5 mt-4">Each chapter ends with a planning tool you keep, so by the end you have a full planning package ready for stakeholder discussions, project definition and the business case.</p>
             </div>
-            <button class="btn btn-secondary text-monochrome-100 rounded-1 d-flex mx-auto mt-5 py-3 px-5 shadow" routerLink="/project-planner" fragment="call-to-action">Start the Track</button>
+            <a class="btn btn-secondary text-monochrome-100 rounded-1 d-flex justify-content-center mx-auto mt-5 py-3 px-5 shadow" style="width: fit-content;" routerLink="/project-planner" fragment="call-to-action">Join the waiting list</a>
         </div>
     </div>
 
@@ -109,8 +109,8 @@
                     @for (item of programStructure; track item) {
                         <div class="col-md-6 mb-3">
                             <div class="bg-white h-100 rounded-4 border border-1 shadow-sm" [ngStyle]="{padding: '2rem'}">
-                                <h6 class="text-secondary mb-2 font-support fs-7 fw-bold">{{item.module}}</h6>
-                                <h6 class="fs-3 mb-3 fw-bold">{{item.title}}</h6>
+                                <p class="text-secondary mb-2 font-support fs-7 fw-bold">{{item.module}}</p>
+                                <h3 class="fs-3 mb-3 fw-bold">{{item.title}}</h3>
                                 <p class="fs-6 m-0">{{item.description}}</p>
                             </div>
                         </div>
@@ -143,13 +143,28 @@
         </div>
     </div>
 
+    <!-- FAQ -->
+    <div class="bg-monochrome-150">
+        <div class="container py-5 py-md-6" data-aos="fade-up">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-center fs-1 fw-bold mb-5">Common questions</h2>
+                @for (faq of faqs; track faq.question) {
+                    <div class="bg-white rounded-3 border border-1 p-4 mb-3">
+                        <h3 class="fs-5 fw-bold mb-2">{{ faq.question }}</h3>
+                        <p class="fs-6 m-0">{{ faq.answer }}</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
     <!-- CALL TO ACTION -->
     <div id="call-to-action" class="py-5 py-md-6 bg-primary">
         <div class="container">
             <div class="max-w-3xl mx-auto" data-aos="fade-up">
                 <h2 class="text-center display-3 mb-4 fw-bold lh-1 text-monochrome-100">Ready to lead your next Digital Twin initiative?</h2>
-                <p class="text-center fs-5 mt-4 mb-5 text-monochrome-100 text-opacity-75">Join practitioners worldwide building the frameworks, tools, and confidence to plan Digital Twin projects that deliver real value.</p>
-                <app-subscribe [subscribeButtonText]="'Start the Track'"/>
+                <p class="text-center fs-5 mt-4 mb-5 text-monochrome-100 text-opacity-75">The track is included in Council Membership. Join the waiting list and be the first to know when membership opens, with a founding rate for the first members.</p>
+                <app-subscribe [subscribeButtonText]="'Join the waiting list'" [dark]="true"/>
             </div>
         </div>
     </div>

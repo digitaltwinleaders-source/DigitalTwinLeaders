@@ -8,7 +8,7 @@ export async function getPublishedSlugs(): Promise<{ slug: string }[]> {
     const db = getFirestore(app);
     const q = query(
       collection(db, 'blogs'),
-      where('published', '==', true)
+      where('status', '==', 'published')
     );
     const snapshot = await getDocs(q);
     const slugs = snapshot.docs

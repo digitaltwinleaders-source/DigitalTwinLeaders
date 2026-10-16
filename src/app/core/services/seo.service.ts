@@ -4,6 +4,8 @@ import { DOCUMENT } from '@angular/common';
 
 export interface SeoData {
   title: string;
+  /** Use this exact title instead of "<title> | Digital Twin Leaders". */
+  fullTitle?: string;
   description: string;
   image?: string;
   url?: string;
@@ -22,15 +24,19 @@ export class SeoService {
 
   private readonly siteName = 'Digital Twin Leaders';
   private readonly baseUrl = 'https://www.digitaltwinleaders.com';
+  private readonly defaultImage = 'https://www.digitaltwinleaders.com/assets/og-image.jpg';
 
   update(data: SeoData) {
-    const fullTitle = data.title ? `${data.title} | ${this.siteName}` : this.siteName;
+    const fullTitle = data.fullTitle || (data.title ? `${data.title} | ${this.siteName}` : this.siteName);
+    const image = data.image || this.defaultImage;
     this.title.setTitle(fullTitle);
 
     this.meta.updateTag({ name: 'description', content: data.description });
 
     if (data.keywords) {
       this.meta.updateTag({ name: 'keywords', content: data.keywords });
+    } else {
+      this.meta.removeTag('name="keywords"');
     }
 
     // Open Graph
@@ -39,9 +45,7 @@ export class SeoService {
     this.meta.updateTag({ property: 'og:title', content: fullTitle });
     this.meta.updateTag({ property: 'og:description', content: data.description });
     this.meta.updateTag({ property: 'og:type', content: data.type || 'website' });
-    if (data.image) {
-      this.meta.updateTag({ property: 'og:image', content: data.image });
-    }
+    this.meta.updateTag({ property: 'og:image', content: image });
     if (data.url) {
       this.meta.updateTag({ property: 'og:url', content: `${this.baseUrl}${data.url}` });
       this.updateCanonical(`${this.baseUrl}${data.url}`);
@@ -51,9 +55,7 @@ export class SeoService {
     this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
     this.meta.updateTag({ name: 'twitter:title', content: fullTitle });
     this.meta.updateTag({ name: 'twitter:description', content: data.description });
-    if (data.image) {
-      this.meta.updateTag({ name: 'twitter:image', content: data.image });
-    }
+    this.meta.updateTag({ name: 'twitter:image', content: image });
 
     // JSON-LD structured data
     if (data.jsonLd) {

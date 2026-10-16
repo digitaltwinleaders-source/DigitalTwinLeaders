@@ -7,26 +7,21 @@ import { Component } from '@angular/core';
   templateUrl: './values.html'
 })
 export class Values {
-cardList = [
+  cardList = [
     {
-      title: 'Credibility',
-      description: 'Rooted in our neutrality, rigorous research, and alignment with international standards.',
+      title: 'Vendor-neutral',
+      description: 'No platform to sell, no product agenda.',
       icon: 'shield-check'
     },
     {
-      title: 'Authority',
-      description: 'Forged through cutting-edge thought leadership and the curated contributions of global experts.',
-      icon: 'award'
+      title: 'Inspired by ISO/IEC 30173',
+      description: 'Grounded in the international digital twin standard.',
+      icon: 'globe'
     },
     {
-      title: 'Community',
-      description: 'Cultivated by fostering open knowledge exchange and meaningful peer-to-peer collaboration.',
-      icon: 'people'
-    },
-    {
-      title: 'Innovation',
-      description: 'Driven by the continuous evolution of methods, tools, and insights that empower professionals.',
-      icon: 'lightbulb'
+      title: 'Built by practitioners',
+      description: 'Frameworks written by people who deliver digital twins.',
+      icon: 'tools'
     }
   ];
 }

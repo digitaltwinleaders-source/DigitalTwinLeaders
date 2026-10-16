@@ -29,13 +29,13 @@ export class InstitutePlanner implements OnInit {
       icon: 'calendar2'
     },
     {
-      title: 'BADGE',
-      description: 'Completion Badge',
+      title: 'STATUS',
+      description: 'DTPP Practitioner Status',
       icon: 'award'
     },
     {
-      title: 'COMMUNITY',
-      description: 'DTL Community Access',
+      title: 'MEMBERSHIP',
+      description: 'Included in Council Membership',
       icon: 'people'
     }
   ];
@@ -52,65 +52,111 @@ export class InstitutePlanner implements OnInit {
     "Digital Twin Readiness Checklist",
     "Communication Diagnostic Toolkit",
     "Scope & Value Definition",
-    "Stakeholder Alignment Plan",
+    "Team & Timeline Package (incl. Stakeholder Alignment Toolkit)",
     "Digital Twin 3-Stages Engine",
     "Digital Twin Project Canvas"
   ];
   
   whoShouldAttend = [
     "Smart Cities & Infrastructure",
-    "GIS & Geospatial",
     "AEC & Built Environment",
-    "Asset Management & Utilities",
-    "Consulting & Advisory",
-    "Innovation & Transformation"
+    "GIS & Geospatial",
+    "Utilities & Energy",
+    "Transportation",
+    "Manufacturing",
+    "Consulting & Advisory"
   ];
   
   programStructure = [
     {
-      module: "01",
+      module: "CHAPTER 01",
       title: "Cutting Through the Hype",
       description: "Assess whether an initiative truly qualifies as a Digital Twin."
     },
     {
-      module: "02",
+      module: "CHAPTER 02",
       title: "Communication Diagnostics",
       description: "Define what is being twinned, how it is represented, and why it exists."
     },
     {
-      module: "03",
+      module: "CHAPTER 03",
       title: "Scope and Value",
       description: "Define initiative scope and expected value."
     },
     {
-      module: "04",
+      module: "CHAPTER 04",
       title: "Team and Timeline",
       description: "Identify stakeholders, responsibilities, and lifecycle considerations."
     },
     {
-      module: "05",
+      module: "CHAPTER 05",
       title: "Digital Twin Architecture",
       description: "Define how inputs, processing, and outputs work together to create value."
     },
     {
-      module: "06",
+      module: "CHAPTER 06",
       title: "Digital Twin Project Canvas",
       description: "Consolidate your work into a complete Digital Twin planning framework."
     },
   ];
 
   certificates = [
-    "DTL Completion Badge",
-    "Access to the Digital Twin Leaders Community",
+    "DTPP Practitioner Status",
+    "A LinkedIn congratulations post from Digital Twin Leaders",
     "A complete Digital Twin planning package built throughout the track"
+  ];
+
+  faqs = [
+    {
+      question: "Is the Digital Twin Project Planner a certification?",
+      answer: "No. Completing the track earns you DTPP Practitioner Status, which recognises that you have worked through the full planning method. It is not an accredited certification."
+    },
+    {
+      question: "How long does the track take?",
+      answer: "About 6 hours in total, at your own pace. There are six chapters, and each one ends with a planning tool you keep."
+    },
+    {
+      question: "Which software does it use?",
+      answer: "None. The track is vendor-neutral: the method works with whatever platforms your project uses."
+    },
+    {
+      question: "How do I join?",
+      answer: "The track is included in Council Membership. Join the waiting list and we will let you know as soon as membership opens, including the founding rate for the first members."
+    }
   ];
 
   ngOnInit() {
     this.seo.update({
       title: 'Project Planner',
-      description: 'A practical, hands-on track that helps practitioners structure, communicate, and plan Digital Twin initiatives using a framework aligned with ISO/IEC 30173:2023.',
+      fullTitle: 'Digital Twin Project Planner: Plan a Digital Twin in 6 Steps | DTL',
+      description: 'A self-paced track of six chapters that takes you from "is this really a digital twin?" to a complete project canvas. Inspired by ISO/IEC 30173.',
       url: '/project-planner',
-      keywords: 'digital twin project planner, digital twin planning, ISO 30173, digital twin training, digital twin course',
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'Course',
+            name: 'Digital Twin Project Planner (DTPP)',
+            description: 'A vendor-neutral, self-paced track of six chapters for planning digital twin initiatives, from readiness checks to a complete Digital Twin Project Canvas.',
+            url: 'https://www.digitaltwinleaders.com/project-planner',
+            timeRequired: 'PT6H',
+            inLanguage: 'en',
+            provider: {
+              '@type': 'Organization',
+              name: 'Digital Twin Leaders',
+              url: 'https://www.digitaltwinleaders.com',
+            },
+          },
+          {
+            '@type': 'FAQPage',
+            mainEntity: this.faqs.map(faq => ({
+              '@type': 'Question',
+              name: faq.question,
+              acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+            })),
+          },
+        ],
+      },
     });
   }
 }
