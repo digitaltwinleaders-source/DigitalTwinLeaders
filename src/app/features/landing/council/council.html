@@ -4,7 +4,7 @@
         <p class="text-secondary mb-3 font-support fs-7">COUNCIL</p>
         <h2 class="display-3 fw-bold mb-3">The DTL Council</h2>
         <p class="fs-6 fs-md-5 text-monochrome-500 mb-0">
-        Practitioners from around the world who shape DTL's frameworks. Every member joins the Council.
+        Every DTL member joins the Council and gets a profile on this page. Meet the founding members, practitioners from eight countries who helped shape DTL's frameworks.
         </p>
     </div>
 
@@ -25,6 +25,7 @@
         <p>Our first Council members will appear here soon.</p>
         </div>
     } @else {
+        <h3 class="fs-7 fw-bold text-monochrome-500 font-support mb-3">FOUNDING MEMBERS</h3>
         <ul class="row list-unstyled mb-0">
         @for (member of members(); track member.id) {
             <li class="col-6 col-lg-3 mb-3 mb-md-4">
@@ -48,12 +49,12 @@
                     <div class="d-flex flex-column gap-1">
                         <h3 class="fs-6 fw-bold text-primary m-0">{{ member.name }}</h3>
                         <p class="fs-7 text-monochrome-600 m-0">{{ member.role }}</p>
-                        <p class="fs-8 text-monochrome-500 mb-0 mt-1">{{ member.organization }}</p>
+                        <p class="fs-7 text-monochrome-500 mb-0 mt-1">{{ member.organization }}</p>
                         @if (member.countryName) {
-                            <p class="fs-8 text-monochrome-500 mb-0 mt-1"><span class="flag flag-{{member.country!}} me-1" aria-hidden="true"></span>{{ member.countryName }}</p>
+                            <p class="fs-7 text-monochrome-500 mb-0 mt-1"><span class="flag flag-{{member.country!}} me-1" aria-hidden="true"></span>{{ member.countryName }}</p>
                         }
                         @if (member.linkedInUrl) {
-                            <a [href]="member.linkedInUrl" target="_blank" rel="noopener" class="member-linkedin fs-8 text-secondary text-decoration-none mt-1" [attr.aria-label]="member.name + ' on LinkedIn'">
+                            <a [href]="member.linkedInUrl" target="_blank" rel="noopener" class="member-linkedin fs-7 text-secondary text-decoration-none mt-1" [attr.aria-label]="member.name + ' on LinkedIn'">
                                 <i class="bi bi-linkedin me-1" aria-hidden="true"></i>LinkedIn
                             </a>
                         }
