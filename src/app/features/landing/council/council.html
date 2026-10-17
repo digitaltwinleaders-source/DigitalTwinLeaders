@@ -4,7 +4,7 @@
         <p class="text-secondary mb-3 font-support fs-7">COUNCIL</p>
         <h2 class="display-3 fw-bold mb-3">The DTL Council</h2>
         <p class="fs-6 fs-md-5 text-monochrome-500 mb-0">
-        Every DTL member joins the Council and gets a profile on this page. Meet the founding members, practitioners from eight countries who helped shape DTL's frameworks.
+        Every DTL member joins the Council and gets a profile on this page. Today's members are practitioners from eight countries.
         </p>
     </div>
 
@@ -25,7 +25,6 @@
         <p>Our first Council members will appear here soon.</p>
         </div>
     } @else {
-        <h3 class="fs-7 fw-bold text-monochrome-500 font-support mb-3">FOUNDING MEMBERS</h3>
         <ul class="row list-unstyled mb-0">
         @for (member of members(); track member.id) {
             <li class="col-6 col-lg-3 mb-3 mb-md-4">
@@ -64,6 +63,9 @@
         }
         </ul>
     }
+
+    <h3 class="fs-2 fw-bold mt-6 mb-4">From members who finished the Project Planner</h3>
+    <app-testimonials/>
 
     <div class="text-center mt-4">
         <a class="btn btn-secondary text-monochrome-100" routerLink="/" fragment="membership">Become a Council Member</a>

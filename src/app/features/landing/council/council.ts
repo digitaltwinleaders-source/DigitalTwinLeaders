@@ -1,6 +1,7 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { Testimonials } from '../../../shared/components/testimonials/testimonials';
 import { CouncilService } from '../../../core/services/council.service';
 import { ImageService } from '../../../core/services/image.service';
 import { CouncilMember } from '../../../core/models/council-member.model';
@@ -10,7 +11,7 @@ import { nameInitial } from '../../../core/utils/utils';
 @Component({
   selector: 'app-council',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, Testimonials],
   templateUrl: './council.html',
   styleUrls: ['./council.scss']
 })
