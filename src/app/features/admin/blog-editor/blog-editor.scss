@@ -107,13 +107,13 @@
 }
 .cover-placeholder:hover { background: #f2f2f2; }
 .cover-hint { font-size: .7rem; color: #bebebe; }
-.cover-preview { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; border-radius: .5rem; }
+.cover-preview { width: 100%; aspect-ratio: 16/9; object-fit: contain; display: block; border-radius: .5rem; }
 
 
 /* Preview */
 .preview-image-wrap {
   width: 100%;
-  aspect-ratio: 16/6;
+  aspect-ratio: 16/9;
   overflow: hidden;
   background: linear-gradient(135deg, var(--bs-secondary-400), var(--bs-monochrome-200));
 }
