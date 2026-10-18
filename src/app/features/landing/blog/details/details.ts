@@ -52,6 +52,12 @@ export class BlogDetailComponent implements OnInit {
         this.loading.set(false);
 
         if (blog) {
+          const createdAtDate = blog.createdAt
+            ? typeof blog.createdAt.toDate === 'function'
+              ? blog.createdAt.toDate()
+              : new Date(blog.createdAt)
+            : null;
+
           this.seo.update({
             title: blog.title,
             description: blog.excerpt || blog.title,
@@ -64,7 +70,9 @@ export class BlogDetailComponent implements OnInit {
               headline: blog.title,
               description: blog.excerpt || blog.title,
               image: blog.coverImageUrl || undefined,
-              datePublished: blog.createdAt ? new Date(blog.createdAt).toISOString() : undefined,
+              datePublished: createdAtDate && !Number.isNaN(createdAtDate.getTime())
+                ? createdAtDate.toISOString()
+                : undefined,
               publisher: {
                 '@type': 'Organization',
                 name: 'Digital Twin Leaders',

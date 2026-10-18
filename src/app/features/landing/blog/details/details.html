@@ -12,12 +12,20 @@
     } @else {
     <!-- Cover image -->
     @if (blogService.getCoverUrl(blog()!)) {
+        <div class="cover-hero">
+        <img
+            [src]="blogService.getCoverUrl(blog()!)"
+            class="cover-backdrop"
+            alt=""
+            aria-hidden="true"
+        />
         <div class="cover-wrap">
         <img
             [src]="blogService.getCoverUrl(blog()!)"
             [alt]="blog()!.title"
             class="cover-image"
         />
+        </div>
         </div>
     }
 

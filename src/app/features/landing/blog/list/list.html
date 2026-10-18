@@ -15,6 +15,12 @@
                         @if (blogService.getCoverUrl(featuredBlog()!)) {
                         <img
                             [src]="blogService.getCoverUrl(featuredBlog()!)"
+                            class="featured-image-backdrop"
+                            alt=""
+                            aria-hidden="true"
+                        />
+                        <img
+                            [src]="blogService.getCoverUrl(featuredBlog()!)"
                             [alt]="featuredBlog()!.title"
                             class="featured-image"
                         />
@@ -70,6 +76,7 @@
                                 <a [routerLink]="['/blog', blog.slug]" class="blog-card">
                                     <div class="card-image-wrap">
                                         @if (blogService.getCoverUrl(blog)) {
+                                            <img [src]="blogService.getCoverUrl(blog)" class="card-image-backdrop" alt="" aria-hidden="true" />
                                             <img [src]="blogService.getCoverUrl(blog)" [alt]="blog.title" class="card-image" />
                                         } @else {
                                             <div class="card-image placeholder-image"></div>
@@ -153,7 +160,7 @@
                     </div>
                 
                     <!-- Recent posts -->
-                      @if (blogs().length > 0) {
+                      @if (blogs().length > 1) {
                           <div class="bg-white p-3 rounded-2 border">
                             <label class="field-label">Recent posts</label>
                               <ul class="recent-list">
