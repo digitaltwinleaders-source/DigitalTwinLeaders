@@ -184,8 +184,8 @@ export class AdminBlogEditorComponent implements OnInit {
     }
   }
 
-  onContentChanged() {
-    const readTime = this.blogService.calculateReadTime(this.contentControl.value || '');
+  onContentChanged(event: { text: string }) {
+    const readTime = this.blogService.calculateReadTime(event.text);
     this.form.patchValue({ readTime }, { emitEvent: false });
     this.contentControl.markAsTouched();
     this.contentControl.updateValueAndValidity();

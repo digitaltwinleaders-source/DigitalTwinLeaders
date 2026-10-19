@@ -94,7 +94,7 @@
                      formControlName="content"
                      [modules]="quillModules"
                      placeholder="Write your post content here..."
-                     (onContentChanged)="onContentChanged()"
+                     (onContentChanged)="onContentChanged($event)"
                      (onEditorCreated)="onEditorCreated($event)"
                      style="display: block; width: 100%;"
                  ></quill-editor>
