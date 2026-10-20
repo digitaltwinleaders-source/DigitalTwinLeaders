@@ -32,7 +32,7 @@
     <div class="container">
         <div class="d-flex flex-column flex-lg-row align-items-start overflow-visible gap-4 mt-5 mt-md-6">
             <!-- Main article -->
-            <article class="flex-grow-1 w-100 w-md-auto">
+            <article class="article flex-grow-1 w-100 w-md-auto">
                 <nav aria-label="Breadcrumb">
                     <a routerLink="/blog" class="breadcrumb">← All posts</a>
                 </nav>
@@ -43,7 +43,7 @@
                     </span>
                 }
 
-                <h1 class="fs-1 fw-bold text-primary mb-4 text-break">{{ blog()!.title }}</h1>
+                <h1 class="fs-1 fw-bold text-primary mb-4">{{ blog()!.title }}</h1>
 
                 <div class="d-flex flex-wrap gap-3 fs-7 mb-4 text-monochrome-400">
                     <!-- <span>
@@ -67,7 +67,7 @@
                     @if (prevPost()) {
                         <a [routerLink]="['/blog', prevPost()!.slug]" class="nav-post prev w-100 w-lg-50">
                             <span class="nav-label">← Previous</span>
-                            <span class="nav-title text-break">{{ prevPost()!.title }}</span>
+                            <span class="nav-title">{{ prevPost()!.title }}</span>
                         </a>
                     } @else {
                         <div></div>
@@ -75,7 +75,7 @@
                     @if (nextPost()) {
                         <a [routerLink]="['/blog', nextPost()!.slug]" class="nav-post next w-100 w-lg-50">
                             <span class="nav-label">Next →</span>
-                            <span class="nav-title text-break">{{ nextPost()!.title }}</span>
+                            <span class="nav-title">{{ nextPost()!.title }}</span>
                         </a>
                     }
                 </div>
