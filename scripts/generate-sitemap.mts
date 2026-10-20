@@ -23,17 +23,26 @@ async function generate() {
 
   const q = query(collection(db, 'blogs'), where('status', '==', 'published'));
   const snapshot = await getDocs(q);
-  const slugs = snapshot.docs.map(doc => doc.data()['slug']).filter(Boolean);
+  const today = new Date().toISOString().slice(0, 10);
+  const toDate = (value: any): string => {
+    if (!value) return today;
+    const d = typeof value.toDate === 'function' ? value.toDate() : new Date(value);
+    return isNaN(d.getTime()) ? today : d.toISOString().slice(0, 10);
+  };
 
-  const staticRoutes = ['/', '/blog', '/knowledge-hub', '/project-planner'];
-  const blogRoutes = slugs.map((slug: string) => `/blog/${slug}`);
+  const staticRoutes = ['/', '/blog', '/knowledge-hub', '/project-planner'].map(path => ({ path, lastmod: today }));
+  const blogRoutes = snapshot.docs
+    .map(doc => doc.data())
+    .filter(data => !!data['slug'])
+    .map(data => ({ path: `/blog/${data['slug']}`, lastmod: toDate(data['updatedAt'] || data['createdAt']) }));
   const allRoutes = [...staticRoutes, ...blogRoutes];
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${allRoutes.map(route => `  <url>
-    <loc>${baseUrl}${route}</loc>
-    <changefreq>${route === '/' ? 'weekly' : 'monthly'}</changefreq>
+    <loc>${baseUrl}${route.path}</loc>
+    <lastmod>${route.lastmod}</lastmod>
+    <changefreq>${route.path === '/' ? 'weekly' : 'monthly'}</changefreq>
   </url>`).join('\n')}
 </urlset>`;
 

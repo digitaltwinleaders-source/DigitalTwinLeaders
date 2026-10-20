@@ -1,11 +1,23 @@
 <footer class="bg-primary py-5">
-    <div class="container d-flex justify-content-between align-items-center flex-column flex-md-row gap-4">
-        <a class="navbar-brand" href="/" aria-label="Digital Twin Leaders Home">
-          <img src="assets/logo-white.png" height="34px" alt="Digital Twin Leaders Logo">
-        </a>
-        <nav aria-label="Social media links">
-            <app-social-media-links/>
-        </nav>
-        <p class="mb-0 fs-7 text-monochrome-100 text-opacity-75">&copy; 2026 Digital Twin Leaders</p>
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center flex-column flex-md-row gap-4">
+            <a class="navbar-brand" routerLink="/" aria-label="Digital Twin Leaders home">
+              <img src="assets/logo-white.png" height="34" width="119" alt="Digital Twin Leaders">
+            </a>
+            <nav aria-label="Footer">
+                <ul class="list-unstyled d-flex flex-wrap justify-content-center gap-3 gap-md-4 m-0">
+                    <li><a class="text-monochrome-100 text-opacity-75 text-decoration-none fs-7" routerLink="/" fragment="about">About</a></li>
+                    <li><a class="text-monochrome-100 text-opacity-75 text-decoration-none fs-7" routerLink="/project-planner">Project Planner</a></li>
+                    <li><a class="text-monochrome-100 text-opacity-75 text-decoration-none fs-7" routerLink="/knowledge-hub">Knowledge Hub</a></li>
+                    <li><a class="text-monochrome-100 text-opacity-75 text-decoration-none fs-7" routerLink="/" fragment="council">Council</a></li>
+                    <li><a class="text-monochrome-100 text-opacity-75 text-decoration-none fs-7" routerLink="/" fragment="membership">Membership</a></li>
+                    <li><a class="text-monochrome-100 text-opacity-75 text-decoration-none fs-7" routerLink="/blog">Blog</a></li>
+                </ul>
+            </nav>
+            <nav aria-label="Social media links">
+                <app-social-media-links/>
+            </nav>
+        </div>
+        <p class="mb-0 mt-4 fs-7 text-monochrome-100 text-opacity-75 text-center text-md-start">&copy; 2026 Digital Twin Leaders</p>
     </div>
 </footer>

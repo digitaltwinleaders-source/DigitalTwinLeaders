@@ -1,10 +1,10 @@
 <nav class="navbar navbar-expand-md bg-white shadow-sm py-2 py-md-3" aria-label="Main navigation">
   <div class="container">
     <a class="navbar-brand" routerLink="/">
-      <img src="assets/logo.png" height="34px" alt="Digital Twin Leaders Logo">
+      <img src="assets/logo.png" height="34" width="119" alt="Digital Twin Leaders home">
     </a>
 
-    <button class="navbar-toggler border-0 shadow-none" (click)="isMenuCollapsed = !isMenuCollapsed">
+    <button type="button" class="navbar-toggler border-0 shadow-none" (click)="isMenuCollapsed = !isMenuCollapsed" [attr.aria-expanded]="!isMenuCollapsed" aria-label="Toggle navigation">
       @if (isMenuCollapsed) {
         <i class="bi bi-list text-primary fs-2"></i>
       } @else {
@@ -18,27 +18,20 @@
           <a class="nav-link px-md-1 px-lg-2 text-primary text-opacity-75 fs-7" routerLink="/" fragment="about" [ngClass]="{'fw-bold': activeFragment === 'about'}">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link px-md-1 px-lg-2 text-primary text-opacity-75 fs-7" routerLink="/" fragment="programs" [ngClass]="{'fw-bold': activeFragment === 'programs'}">Programs</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link px-md-1 px-lg-2 text-primary text-opacity-75 fs-7" routerLink="/" fragment="values" [ngClass]="{'fw-bold': activeFragment === 'values'}">Values</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link px-md-1 px-lg-2 text-primary text-opacity-75 fs-7" routerLink="/" fragment="community" [ngClass]="{'fw-bold': activeFragment === 'community'}">Community</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link px-md-1 px-lg-2 text-primary text-opacity-75 fs-7" routerLink="/" fragment="knowledge-hub" [ngClass]="{'fw-bold': activeFragment === 'knowledge-hub'}">Knowledge Hub</a>
+          <a class="nav-link px-md-1 px-lg-2 text-primary text-opacity-75 fs-7" routerLink="/project-planner" routerLinkActive="fw-bold">Planner</a>
         </li>
         <li class="nav-item">
           <a class="nav-link px-md-1 px-lg-2 text-primary text-opacity-75 fs-7" routerLink="/" fragment="council" [ngClass]="{'fw-bold': activeFragment === 'council'}">Council</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-md-1 px-lg-2 text-primary text-opacity-75 fs-7" routerLink="/" fragment="membership" [ngClass]="{'fw-bold': activeFragment === 'membership'}">Membership</a>
         </li>
         <li class="nav-item">
           <a class="nav-link px-md-1 px-lg-2 text-primary text-opacity-75 fs-7" routerLink="/blog" routerLinkActive="fw-bold">Blog</a>
         </li>
       </ul>
 
-      <button class="btn btn-secondary text-monochrome-100 fs-7 w-100 w-md-auto" routerLink="/" fragment="hero">Join Our Network</button>
-      
+      <a class="btn btn-secondary text-monochrome-100 fs-7 w-100 w-md-auto" routerLink="/" fragment="hero">Get free updates</a>
     </div>
   </div>
 </nav>

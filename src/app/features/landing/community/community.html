@@ -1,31 +1,14 @@
-<section id="community" class="bg-monochrome-300 bg-opacity-10">
+<section id="community">
     <div class="container py-5">
-
-        <div class="row my-5">
-            <div class="col-lg-6 my-lg-auto" data-aos="fade-right">
-                <p class="text-secondary mb-3 font-support fs-7">OUR COMMUNITY</p>
-                <h2 class="fs-1 mb-4 fw-bold">Who We Serve</h2>
-                <p class="fs-6 mt-4 me-md-3">Digital Twin Leaders serves professionals and organizations driving transformation across sectors. Our community includes industry experts, strategists, policy makers, academics, and early-career professionals.<br/><br/>We also engage institutions, enterprises, and partners seeking credible frameworks for learning, collaboration, and visibility within the digital twin ecosystem. This diverse network shares a single vision—advancing the responsible and impactful use of digital twins worldwide.</p>
-                <button class="btn btn-secondary text-monochrome-100 mt-3" routerLink="/" fragment="hero">Join Our Network</button>
-            </div>
-
-            <div class="col-lg-6 mt-5 mt-lg-0">
-                <div class="py-6 py-md-10 rounded-4 shadow mb-4"
-                    style="background-image: url('assets/image-6.jpg'); background-size: cover; background-position: center;" data-aos="fade-left"
-                    role="img" aria-label="Digital Twin Leaders community members collaborating"></div>
-                <div class="row mt-3">
-                    @for (card of cardList; track $index) {
-                        <div class="col-6 col-md-4 mb-4" data-aos="zoom-in" attr.data-aos-delay="{{ $index * 100 }}">
-                            <div class="bg-white h-100 rounded-4 border border-1 shadow-sm p-4">
-                                <div class="bg-secondary-300 bg-opacity-25 rounded-3 d-flex justify-content-center align-items-center mb-3 mx-auto" [ngStyle]="{width: '48px', height: '48px'}">
-                                    <i class="bi bi-{{ card.icon }} text-secondary text-center fs-4"></i>
-                                </div>
-                                <h5 class="fs-7 fw-bold m-0 text-center">{{ card.title }}</h5>
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
+        <div class="my-5 max-w-3xl mx-auto" data-aos="fade-up">
+            <p class="text-secondary mb-3 font-support fs-7">WHO IT'S FOR</p>
+            <h2 class="fs-1 mb-4 fw-bold">Built for people who deliver digital twins</h2>
+            <p class="fs-6 fs-md-5 mb-4">Engineers, planners, GIS specialists, asset managers and consultants working on real digital twin initiatives.</p>
+            <ul class="list-unstyled d-flex flex-wrap gap-2 mb-0">
+                @for (item of industries; track item) {
+                    <li class="bg-secondary-400 bg-opacity-50 text-primary rounded-4 py-1 px-3 fs-7">{{ item }}</li>
+                }
+            </ul>
         </div>
     </div>
 </section>

@@ -1,38 +1,42 @@
-<div class="d-flex flex-column flex-md-row justify-content-center align-items-center align-items-md-start gap-2">
+<div class="d-flex flex-column align-items-center">
     @if(alertData() !== null) {
-        <div class="bg-monochrome-100 rounded-4 shadow-sm p-4 d-flex flex-column justify-content-center align-items-center gap-3" [ngStyle]="{'max-width': '450px'}">
+        <div class="bg-monochrome-100 rounded-4 shadow-sm p-4 d-flex flex-column justify-content-center align-items-center gap-3 text-center" [ngStyle]="{'max-width': '450px'}" role="status">
             @if(alertData()?.type === 'danger') {
-                <i role="button" class="bi bi-x-lg fs-5 ms-auto" (click)="alertData.set(null)"></i>
+                <button type="button" class="btn btn-link p-0 ms-auto text-monochrome-500" aria-label="Close and try again" (click)="alertData.set(null)"><i class="bi bi-x-lg fs-5"></i></button>
             }
             <div class="bg-{{alertData()?.type}} bg-opacity-25 rounded-circle d-flex justify-content-center align-items-center" [ngStyle]="{width: '48px', height: '48px'}"><i class="bi bi-{{alertData()?.icon}} fs-4 text-{{alertData()?.type}}"></i></div>
-            <h6 class="fw-bold m-0">{{alertData()?.title}}</h6>
+            <h3 class="fs-6 fw-bold m-0">{{alertData()?.title}}</h3>
             <p class="text-monochrome-500 fs-7 m-0">{{alertData()?.body}}</p>
             @if(alertData()?.type === 'success') {
                 <app-social-media-links color="primary"/>
             }
         </div>
     } @else {
-        <form class="w-100 w-md-auto">
-            <label for="heroSubscribtionInput" class="visually-hidden">Email address</label>
-            <input type="email" class="form-control" [(ngModel)]="email" #emailModel="ngModel" required email name="email" id="heroSubscribtionInput" placeholder="Enter Your Email" [class.is-invalid]="emailModel.invalid && emailModel.touched" style="min-width: 300px;">
-            @if (emailModel.invalid && emailModel.touched) {
-                <div class="text-danger text-start w-100 mt-1 small ms-1">
-                    @if (emailModel.errors?.['required']) {
-                        <span>Email is required.</span>
-                    }
-                    @if (emailModel.errors?.['email']) {
-                        <span>Please enter a valid email address.</span>
+        <form class="subscribe-form d-flex flex-column flex-md-row justify-content-center align-items-stretch align-items-md-start gap-2 w-100" (ngSubmit)="submit(emailModel)" novalidate>
+            <div class="subscribe-field text-start">
+                <label [for]="inputId" class="visually-hidden">Email address</label>
+                <input type="email" class="form-control" [(ngModel)]="email" #emailModel="ngModel" required email name="email" [id]="inputId" placeholder="Your work email" autocomplete="email"
+                    [class.is-invalid]="emailModel.invalid && (emailModel.touched || submitted())"
+                    [attr.aria-invalid]="emailModel.invalid && (emailModel.touched || submitted())"
+                    [attr.aria-describedby]="inputId + '-error'">
+                <div [id]="inputId + '-error'" class="small mt-1 ms-1" [class.text-danger]="!dark()" [class.text-warning]="dark()" aria-live="polite">
+                    @if (emailModel.invalid && (emailModel.touched || submitted())) {
+                        @if (emailModel.errors?.['required']) {
+                            <span>Enter your email address.</span>
+                        } @else if (emailModel.errors?.['email']) {
+                            <span>Enter a valid email address.</span>
+                        }
                     }
                 </div>
-            }
+            </div>
+            <button type="submit" class="btn btn-secondary text-monochrome-100" [disabled]="isLoading()">
+                @if(isLoading()) {
+                    <span>Subscribing...</span>
+                } @else {
+                    <span>{{subscribeButtonText()}}</span><i class="bi bi-arrow-right ms-2" aria-hidden="true"></i>
+                }
+            </button>
         </form>
-        <button class="btn btn-secondary text-monochrome-100 w-100 w-md-auto" (click)="!emailModel.invalid && !isLoading() && subscribe()" [disabled]="(emailModel.invalid && emailModel.touched) || isLoading()">
-            @if(isLoading()) {
-                <span>Subscribing...</span>
-            } @else {
-                <span>{{subscribeButtonText()}}</span><i class="bi bi-arrow-right ms-2"></i>
-            }
-        </button>
+        <p class="fs-7 mt-2 mb-0 text-center" [class.text-monochrome-100]="dark()" [class.text-opacity-75]="dark()" [class.text-monochrome-500]="!dark()">{{ note() }}</p>
     }
-
 </div>

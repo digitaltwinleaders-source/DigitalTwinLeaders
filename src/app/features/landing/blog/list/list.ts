@@ -43,7 +43,8 @@ export class BlogListComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     this.seo.update({
       title: 'Blog',
-      description: 'Latest articles and insights from Digital Twin Leaders.',
+      fullTitle: 'Digital Twin Articles by Practitioners | DTL',
+      description: 'Practical articles on planning, scoping and delivering digital twins, written by members of the Digital Twin Leaders (DTL) Council.',
       url: '/blog',
     });
     this.blogService.getFeaturedBlog().pipe(takeUntil(this.destroy$)).subscribe(b => {

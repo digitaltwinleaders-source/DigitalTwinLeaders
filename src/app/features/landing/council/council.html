@@ -1,16 +1,17 @@
 <section id="council" class="py-6">
     <div class="container">
-    <div class="text-center mb-5">
-        <h2 class="mb-2">DTL Council</h2>
-        <p class="fs-6 fs-md-5 text-monochrome-500">
-        Industry professionals helping shape the digital twin knowledge ecosystem
+    <div class="text-center mb-5 max-w-3xl mx-auto">
+        <p class="text-secondary mb-3 font-support fs-7">COUNCIL</p>
+        <h2 class="display-3 fw-bold mb-3">The DTL Council</h2>
+        <p class="fs-6 fs-md-5 text-monochrome-500 mb-0">
+        Every DTL member joins the Council and gets a profile on this page. Today's members are practitioners from eight countries.
         </p>
     </div>
 
     @if (loading()) {
         <div class="row">
         @for (i of skeletons; track i) {
-            <div class="col-md-6 col-lg-3 mb-4">
+            <div class="col-6 col-lg-3 mb-4">
                 <div class="card align-items-center gap-3 text-center">
                     <div class="skeleton-avatar"></div>
                     <div class="skeleton-line wide"></div>
@@ -20,45 +21,54 @@
         }
         </div>
     } @else if (members().length === 0) {
-        <div class="text-center p-5 text-monochrome-400 fs-6">
-        <p>Council information coming soon.</p>
+        <div class="text-center p-5 text-monochrome-500 fs-6">
+        <p>Our first Council members will appear here soon.</p>
         </div>
     } @else {
-        <div class="row">
+        <ul class="row list-unstyled mb-0">
         @for (member of members(); track member.id) {
-            <div class="col-md-6 col-lg-3 mb-4">
-                <div class="card align-items-center gap-3 text-center" (mouseenter)="hoveredId.set(member.id!)" (mouseleave)="hoveredId.set(null)">
-                    <div class="position-relative flex-shrink-0" style="width: 88px; height: 88px;">
+            <li class="col-6 col-lg-3 mb-3 mb-md-4">
+                <div class="card member-card h-100 align-items-center gap-2 gap-md-3 text-center">
+                    <div class="member-photo position-relative flex-shrink-0">
                         @if (imageService.getDisplayUrl(member)) {
                             <img
                             [src]="imageService.getDisplayUrl(member)"
                             [alt]="member.name"
+                            width="88" height="88"
+                            loading="lazy"
                             class="rounded-circle w-100 h-100 object-fit-cover position-relative"
                             />
                         } @else {
-                            <div class="d-flex align-items-center justify-content-center bg-monochrome-200 text-secondary fw-bold rounded-circle fs-5 w-100 h-100">
+                            <div class="d-flex align-items-center justify-content-center text-secondary fw-bold rounded-circle fs-5 w-100 h-100" aria-hidden="true">
                                 {{nameInitial(member)}}
                             </div>
                         }
                         <div class="photo-ring"></div>
-                        @if (member.linkedInUrl && member.id === hoveredId()) {
-                            <a [href]="member.linkedInUrl" target="_blank" title="LinkedIn Profile" class="bg-white d-flex justify-content-center align-items-center position-absolute" [ngStyle]="{width: '20px', height: '20px', bottom: 0, right: 0}">
-                                <i class="bi bi-linkedin fs-3 text-secondary"></i>
-                            </a>
-                        }
                     </div>
                     <div class="d-flex flex-column gap-1">
                         <h3 class="fs-6 fw-bold text-primary m-0">{{ member.name }}</h3>
-                        <p class="fs-7 text-secondary m-0">{{ member.role }}</p>
-                        <p class="fs-8 text-monochrome-500 mb-0 mt-2">{{ member.organization }}</p>
+                        <p class="fs-7 text-monochrome-600 m-0">{{ member.role }}</p>
+                        <p class="fs-7 text-monochrome-500 mb-0 mt-1">{{ member.organization }}</p>
                         @if (member.countryName) {
-                            <p class="fs-8 text-monochrome-500 mb-0 mt-2"><span class="flag flag-{{member.country!}} me-1" [title]="member.countryName"></span>{{ member.countryName }}</p>
+                            <p class="fs-7 text-monochrome-500 mb-0 mt-1"><span class="flag flag-{{member.country!}} me-1" aria-hidden="true"></span>{{ member.countryName }}</p>
+                        }
+                        @if (member.linkedInUrl) {
+                            <a [href]="member.linkedInUrl" target="_blank" rel="noopener" class="member-linkedin fs-7 text-secondary text-decoration-none mt-1" [attr.aria-label]="member.name + ' on LinkedIn'">
+                                <i class="bi bi-linkedin me-1" aria-hidden="true"></i>LinkedIn
+                            </a>
                         }
                     </div>
                 </div>
-            </div>
+            </li>
         }
-        </div>
+        </ul>
     }
+
+    <h3 class="fs-2 fw-bold mt-6 mb-4">From members who finished the Project Planner</h3>
+    <app-testimonials/>
+
+    <div class="text-center mt-4">
+        <a class="btn btn-secondary text-monochrome-100" routerLink="/" fragment="membership">Become a Council Member</a>
+    </div>
     </div>
 </section>

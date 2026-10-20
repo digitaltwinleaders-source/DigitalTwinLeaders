@@ -1,15 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Redirecting...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>Page not found | Digital Twin Leaders</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.png">
     <script>
-      // Encode the full URL into a query param and redirect to index.html
-      const path = window.location.pathname + window.location.search + window.location.hash;
-      window.location.replace(
-        window.location.origin + '/?redirect=' + encodeURIComponent(path)
-      );
+      // Pages that are rendered in the browser (admin, and blog posts published since the
+      // last deploy) are handed to the app, which restores the URL from ?redirect=.
+      // Every other unknown address shows the "not found" page below.
+      (function () {
+        var path = window.location.pathname;
+        if (/^\/(admin|blog\/[^/]+)\/?/.test(path)) {
+          var full = path + window.location.search + window.location.hash;
+          window.location.replace(window.location.origin + '/?redirect=' + encodeURIComponent(full));
+        }
+      })();
     </script>
+    <style>
+      :root { color-scheme: light; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f8f8f9;
+        color: #55575e;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.5;
+      }
+      main { max-width: 520px; padding: 32px 16px; text-align: center; }
+      img { height: 34px; margin-bottom: 32px; }
+      h1 { color: #00003d; font-size: 2rem; margin: 0 0 12px; }
+      p { margin: 0 0 24px; font-size: 1.0625rem; }
+      nav { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+      a {
+        display: inline-block;
+        padding: 12px 20px;
+        border-radius: 8px;
+        border: 1px solid #0075f0;
+        color: #0075f0;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      a.primary { background: #0075f0; color: #ffffff; }
+      a:focus-visible { outline: 3px solid #00003d; outline-offset: 2px; }
+    </style>
   </head>
-  <body></body>
+  <body>
+    <main>
+      <img src="/assets/logo.png" alt="Digital Twin Leaders">
+      <h1>Page not found</h1>
+      <p>The page you're looking for has moved or doesn't exist.</p>
+      <nav aria-label="Helpful links">
+        <a class="primary" href="/">Go to the homepage</a>
+        <a href="/project-planner">Digital Twin Project Planner</a>
+        <a href="/blog">Articles</a>
+      </nav>
+    </main>
+  </body>
 </html>

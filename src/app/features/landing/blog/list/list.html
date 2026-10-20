@@ -68,7 +68,18 @@
 
                 @else if (blogs().length === 0) {
                     <div class="empty-state">
-                    <p>{{ isSearchMode() ? 'No posts match your search.' : !featuredBlog() ? 'Stay tuned!' : '' }}</p>
+                    @if (isSearchMode()) {
+                        <p>No posts match your search.</p>
+                    } @else if (!featuredBlog()) {
+                        <h2 class="fs-4 fw-bold text-primary mb-3">The first articles are on their way</h2>
+                        <p class="mb-3">Coming soon from DTL Council members:</p>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2">Is it really a digital twin? A 5-point readiness checklist</li>
+                            <li class="mb-2">ISO/IEC 30173 explained in plain language</li>
+                            <li class="mb-2">Digital twin vs BIM: what's the difference?</li>
+                        </ul>
+                        <p class="mb-0">Get them in your inbox below, or start with the <a routerLink="/project-planner">Digital Twin Project Planner</a>.</p>
+                    }
                     </div>
                 } @else {
                         <div class="blog-grid">
@@ -186,8 +197,7 @@
             <div class="max-w-2xl mx-auto">
                 <h2 class="text-center fs-1 mb-4 fw-bold lh-1">Get insights in your inbox</h2>
                 <p class="text-center fs-5 mt-4 mb-5">Practical perspectives from the digital twin community, delivered occasionally.</p>
-                <app-subscribe [subscribeButtonText]="'Subscribe'"/>
-                <p class="text-center fs-8 mt-3">No spam. Unsubscribe anytime.</p>
+                <app-subscribe [subscribeButtonText]="'Subscribe'" [note]="'No spam. Unsubscribe anytime.'"/>
             </div>
         </div>
     </div>

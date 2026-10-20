@@ -1,22 +1,19 @@
 <section id="about" class="position-relative">
-    <div class="position-absolute top-0 left-0 w-100" [ngStyle]="{height: '128px', background: 'linear-gradient(to top, rgba(255, 255, 255, 0) 0%, #ffffff 100%)'}"></div>
     <div class="container py-5">
-        <div class="py-6 py-md-10 rounded-4 shadow my-5"
-        style="background: linear-gradient(rgba(0, 117, 240, 0.10), rgba(0, 117, 240, 0.30)), url('assets/image-5.jpg'); background-size: cover; background-position: center;" data-aos="fade-in"
-        role="img" aria-label="Digital Twin Leaders - advancing digital twin technology globally"></div>
-        <p class="text-center text-secondary mb-3 font-support fs-7" data-aos="fade-up">WHO WE ARE</p>
-        <h2 class="text-center display-3 mb-4 fw-bold" data-aos="fade-up">A Global Knowledge Ecosystem</h2>
-        <p class="text-center fs-6 fs-md-5 mt-4 w-100 w-md-75 w-xl-50 mx-auto" data-aos="fade-up">Digital Twin Leaders is advancing excellence in digital twin practice, transforming complex concepts into practical, real-world solutions.</p>
-    
+        <div class="my-5 max-w-3xl mx-auto">
+            <p class="text-center text-secondary mb-3 font-support fs-7" data-aos="fade-up">WHAT YOU GET</p>
+            <h2 class="text-center display-3 mb-4 fw-bold" data-aos="fade-up">Practical tools, real visibility, the right peers</h2>
+        </div>
+
         <div class="row my-5">
             @for (card of cardList; track $index) {
-                <div class="col-md-4 mb-4" data-aos="fade-up" attr.data-aos-delay="{{ $index * 250 }}">
+                <div class="col-md-4 mb-4" data-aos="fade-up" attr.data-aos-delay="{{ $index * 150 }}">
                     <div class="bg-white h-100 rounded-4 border border-1 shadow-sm p-4">
                         <div class="bg-secondary-300 bg-opacity-25 rounded-3 d-flex justify-content-center align-items-center mb-4" [ngStyle]="{width: '56px', height: '56px'}">
-                            <i class="bi bi-{{ card.icon }} fs-3 text-secondary"></i>
+                            <i class="bi bi-{{ card.icon }} fs-3 text-secondary" aria-hidden="true"></i>
                         </div>
-                        <h5 class="fw-bold mb-3">{{ card.title }}</h5>
-                        <p class="text-monochrome-500 mb-0 fs-7 fs-md-6">{{ card.description }}</p>
+                        <h3 class="fs-5 fw-bold mb-3">{{ card.title }}</h3>
+                        <p class="text-monochrome-500 mb-0 fs-6">{{ card.description }}</p>
                     </div>
                 </div>
             }
