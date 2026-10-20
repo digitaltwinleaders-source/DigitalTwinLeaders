@@ -26,8 +26,11 @@ export class BlogDetailComponent implements OnInit {
   prevPost = signal<Blog | null>(null);
   nextPost = signal<Blog | null>(null);
 
-  safeContent = () =>
-    this.sanitizer.bypassSecurityTrustHtml(this.blog()?.content || '');
+  safeContent = () => {
+    const content = this.blog()?.content || '';
+    const wrappingContent = content.replace(/(?:\u00a0|&nbsp;|&#0*160;|&#x0*a0;)/gi, ' ');
+    return this.sanitizer.bypassSecurityTrustHtml(wrappingContent);
+  };
 
   async ngOnInit() {
     this.route.paramMap.subscribe(async (params) => {
