@@ -10,12 +10,12 @@ export class Values {
 cardList = [
     {
       title: 'Credibility',
-      description: 'Rooted in our neutrality, rigorous research, and alignment with international standards.',
+      description: 'Rooted in vendor neutrality and methods inspired by international standards.',
       icon: 'shield-check'
     },
     {
-      title: 'Authority',
-      description: 'Forged through cutting-edge thought leadership and the curated contributions of global experts.',
+      title: 'Contribution',
+      description: 'Built on members sharing real project experience, with editorial support from DTL.',
       icon: 'award'
     },
     {
@@ -25,7 +25,7 @@ cardList = [
     },
     {
       title: 'Innovation',
-      description: 'Driven by the continuous evolution of methods, tools, and insights that empower professionals.',
+      description: 'Driven by new ideas from practitioners and the continuous evolution of digital twin methods.',
       icon: 'lightbulb'
     }
   ];

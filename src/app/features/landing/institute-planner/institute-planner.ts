@@ -20,7 +20,7 @@ export class InstitutePlanner implements OnInit {
     },
     {
       title: 'EFFORT',
-      description: 'Approximately 6 Hours',
+      description: 'Six Weeks, About 1 Hour per Week',
       icon: 'clock'
     },
     {
@@ -29,13 +29,13 @@ export class InstitutePlanner implements OnInit {
       icon: 'calendar2'
     },
     {
-      title: 'BADGE',
-      description: 'Completion Badge',
+      title: 'STATUS',
+      description: 'DTPP Practitioner Status',
       icon: 'award'
     },
     {
-      title: 'COMMUNITY',
-      description: 'DTL Community Access',
+      title: 'MEMBERSHIP',
+      description: 'Included with Council Membership',
       icon: 'people'
     }
   ];
@@ -52,7 +52,7 @@ export class InstitutePlanner implements OnInit {
     "Digital Twin Readiness Checklist",
     "Communication Diagnostic Toolkit",
     "Scope & Value Definition",
-    "Stakeholder Alignment Plan",
+    "Stakeholder Alignment Toolkit",
     "Digital Twin 3-Stages Engine",
     "Digital Twin Project Canvas"
   ];
@@ -100,8 +100,8 @@ export class InstitutePlanner implements OnInit {
   ];
 
   certificates = [
-    "DTL Completion Badge",
-    "Access to the Digital Twin Leaders Community",
+    "DTPP Practitioner Status",
+    "A congratulations post on the DTL LinkedIn page",
     "A complete Digital Twin planning package built throughout the track"
   ];
 

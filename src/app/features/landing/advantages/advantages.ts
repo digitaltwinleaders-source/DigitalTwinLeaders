@@ -15,17 +15,17 @@ export class Advantages {
     },
     {
       title: 'Global Standards',
-      body: 'Aligned with ISO, IEC, and industry frameworks',
+      body: 'Methods inspired by ISO/IEC 30173 and industry frameworks',
       icon: 'globe'
     },
     {
-      title: 'Expert-Led',
-      body: 'Frameworks designed by practicing industry leaders',
+      title: 'Practitioner-Led',
+      body: 'Built by practicing industry professionals',
       icon: 'mortarboard'
     },
     {
-      title: 'Peer-Reviewed',
-      body: 'Content validated by cross-sector advisory board',
+      title: 'Editorial Support',
+      body: 'We help members shape and publish their work',
       icon: 'award'
     }
   ];

@@ -9,28 +9,28 @@ import { Component } from '@angular/core';
 export class Programs {
 cardList = [
     {
-      title: 'Vendor-Neutral Frameworks',
-      description: 'Comprehensive methodology designed to provide unbiased, practical knowledge applicable across all digital twin platforms and technologies.',
+      title: 'Publish Your Articles',
+      description: 'Share what worked, what failed, and what you learned. DTL reviews and edits accepted articles, publishes them, and shares them through its channels.',
       icon: 'book',
-      tags: ['Self-Guided Access', 'Industry-aligned content', 'Global standards']
+      tags: ['Editorial support', 'Published on the DTL website', 'Shared on DTL channels']
     },
     {
-      title: 'Expert-Led Talks',
-      description: 'Intensive sessions led by industry pioneers, offering deep dives into specialized topics and emerging trends.',
+      title: 'Speak at DTL Events',
+      description: 'Apply to speak at DTL events and webinars and share your project experience with practitioners around the world.',
       icon: 'camera-video',
-      tags: ['Live Q&A sessions', 'Real-world case studies', 'Networking opportunities']
+      tags: ['Events and webinars', 'Real project experience', 'Global audience']
     },
     {
-      title: 'Peer-to-Peer Forums',
-      description: 'Collaborative spaces where professionals share insights, solve challenges, and build meaningful connections.',
+      title: 'Written Interviews',
+      description: 'Answer a few questions by email. DTL edits your answers for your review, then publishes the interview.',
       icon: 'chat-left',
-      tags: ['Topic-based discussions', 'Expert mentorship', 'Global community']
+      tags: ['Answer by email', 'Edited for your review', 'Featured by DTL']
     },
     {
-      title: 'Recognition Programs',
-      description: 'Credentials aligned with global standards, validating your expertise and commitment to excellence.',
+      title: 'Digital Twin Project Planner',
+      description: 'Included with membership: a six-week track that helps you turn your idea into a clear project plan, with Practitioner Status on completion.',
       icon: 'award',
-      tags: ['ISO-aligned standards', 'Digital badges', 'Career advancement']
+      tags: ['Included with membership', 'Six weeks', 'Practitioner Status']
     }
   ];
 }
