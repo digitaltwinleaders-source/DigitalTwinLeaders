@@ -29,6 +29,7 @@
               "src/assets",
               "src/404.html",
               "src/google66ae889d12005d40.html",
+              "src/googleba4258c0020900ac.html",
               {
                 "glob": "**/*",
                 "input": "public"
