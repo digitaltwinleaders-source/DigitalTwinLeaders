@@ -21,16 +21,16 @@ export class Landing implements OnInit {
   ngOnInit() {
     this.seo.update({
       title: '',
-      description: 'Digital Twin Leaders is the global digital twin community offering vendor-neutral courses, certificates, and credentials. Explore digital twin standards, smart city initiatives, BIM, GIS, and IoT frameworks aligned with ISO 30173.',
+      description: 'Digital Twin Leaders is a global professional community where digital twin professionals make their mark: stay current, exchange ideas with practitioners worldwide, and build a reputation through what you contribute.',
       url: '/',
-      keywords: 'digital twin, digital twins, digital twin course, digital twin certificate, digital twin credentials, digital twin community, digital twin council, smart cities, smart city, BIM, GIS, IoT, digital twin standards, digital twin ISO, digital twin training, digital twin professionals',
+      keywords: 'digital twin, digital twins, digital twin community, digital twin professionals, digital twin council, digital twin project planning, digital twin articles, digital twin events, smart cities, smart city, BIM, GIS, IoT, digital twin standards, ISO/IEC 30173',
       jsonLd: {
         '@context': 'https://schema.org',
         '@type': 'Organization',
         name: 'Digital Twin Leaders',
         url: 'https://www.digitaltwinleaders.com',
         logo: 'https://www.digitaltwinleaders.com/assets/logo.png',
-        description: 'A global digital twin community and knowledge ecosystem offering courses, certificates, and credentials for professionals working with digital twins, smart cities, BIM, GIS, and IoT.',
+        description: 'A global professional community where digital twin professionals make their mark by sharing what they have learned, connecting with peers, and growing their standing in the field.',
         sameAs: [],
       },
     });

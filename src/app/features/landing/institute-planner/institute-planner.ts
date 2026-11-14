@@ -108,9 +108,9 @@ export class InstitutePlanner implements OnInit {
   ngOnInit() {
     this.seo.update({
       title: 'Project Planner',
-      description: 'A practical, hands-on track that helps practitioners structure, communicate, and plan Digital Twin initiatives using a framework aligned with ISO/IEC 30173:2023.',
+      description: 'A practical, hands-on track that helps practitioners structure, communicate, and plan Digital Twin initiatives using a framework inspired by ISO/IEC 30173.',
       url: '/project-planner',
-      keywords: 'digital twin project planner, digital twin planning, ISO 30173, digital twin training, digital twin course',
+      keywords: 'digital twin project planner, digital twin planning, ISO 30173, digital twin project plan, digital twin community',
     });
   }
 }
