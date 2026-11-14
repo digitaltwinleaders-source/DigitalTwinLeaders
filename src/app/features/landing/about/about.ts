@@ -10,17 +10,17 @@ export class About {
   cardList = [
     {
       title: 'Our Purpose',
-      description: 'To simplify, standardize, and amplify digital twin knowledge for professionals worldwide. We bridge the gap between education, collaboration, and real-world application—aligning global practices with emerging standards.',
+      description: 'To help practitioners turn what they learn on real projects into knowledge others in the field can use.',
       icon: 'bullseye'
     },
     {
       title: 'Our Direction',
-      description: 'To become the indispensable global reference point for digital twin competence. We evolve a shared knowledge framework that translates into intelligent, data-driven, and sustainable decision-making.',
+      description: 'To make contributing easy, with editorial support and opportunities to publish articles, give written interviews, and speak at events.',
       icon: 'compass'
     },
     {
       title: 'Our Vision',
-      description: 'Shaping the future of industries and cities through responsible and impactful use of digital twins. We empower professionals to lead transformation across sectors worldwide.',
+      description: 'A field where lessons from digital twin projects no longer stay locked inside one company, and practitioners grow by sharing them.',
       icon: 'eye'
     }
   ];
