@@ -139,7 +139,7 @@ export class Membership implements OnInit {
   ngOnInit() {
     this.seo.update({
       title: 'Membership',
-      description: 'Join our membership program to access exclusive resources, networking opportunities, and professional development in the field of Digital Twins.',
+      description: 'Become a Digital Twin Leaders Council Member: publish articles, give written interviews, apply to speak at DTL events, and get the Digital Twin Project Planner included.',
       url: '/membership',
     });
   }
