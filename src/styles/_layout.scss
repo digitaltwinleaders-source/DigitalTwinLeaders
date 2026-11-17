@@ -53,6 +53,11 @@ main {
   vertical-align: -0.125em;
 }
 
+.badge {
+  display: inline-flex;
+  align-items: center;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }

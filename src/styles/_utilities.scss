@@ -24,7 +24,7 @@ $utilities: map-merge(
       (
         values: map-merge(
           map-get(map-get($utilities, "bg-opacity"), "values"),
-          (5: .05)
+          (5: .05, 15: .15)
         )
       )
     ),

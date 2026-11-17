@@ -13,12 +13,12 @@
     </button>
 
     <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse my-3 my-md-0">
-      <ul class="navbar-nav mx-auto mb-2 mb-md-0 gap-1 gap-md-2 gap-lg-3">
+      <ul class="navbar-nav mx-auto mb-2 mb-md-0 gap-1 gap-md-2 gap-lg-3 flex-wrap justify-content-center">
         <li class="nav-item">
           <a class="nav-link px-md-1 px-lg-2 text-primary text-opacity-75 fs-7" routerLink="/" fragment="about" [ngClass]="{'fw-bold': activeFragment === 'about'}">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link px-md-1 px-lg-2 text-primary text-opacity-75 fs-7" routerLink="/" fragment="membership" [ngClass]="{'fw-bold': activeFragment === 'membership'}">Membership</a>
+          <a class="nav-link px-md-1 px-lg-2 text-primary text-opacity-75 fs-7" routerLink="/membership" routerLinkActive="fw-bold">Membership</a>
         </li>
         <li class="nav-item">
           <a class="nav-link px-md-1 px-lg-2 text-primary text-opacity-75 fs-7" routerLink="/" fragment="values" [ngClass]="{'fw-bold': activeFragment === 'values'}">Values</a>
@@ -37,7 +37,7 @@
         </li>
       </ul>
 
-      <button class="btn btn-secondary text-monochrome-100 fs-7 w-100 w-md-auto" routerLink="/" fragment="hero">Join Our Network</button>
+      <button class="btn btn-secondary text-monochrome-100 fs-7 w-100 w-md-auto flex-shrink-0" routerLink="/membership">Become a Member</button>
       
     </div>
   </div>
