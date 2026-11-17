@@ -24,4 +24,20 @@
     <loc>https://www.digitaltwinleaders.com/blog/the-six-decisions-that-shape-every-digital-twin-project/</loc>
     <changefreq>monthly</changefreq>
   </url>
+  <url>
+    <loc>https://www.digitaltwinleaders.com/membership/</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.digitaltwinleaders.com/terms/</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.digitaltwinleaders.com/refund-policy/</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.digitaltwinleaders.com/privacy/</loc>
+    <changefreq>monthly</changefreq>
+  </url>
 </urlset>
