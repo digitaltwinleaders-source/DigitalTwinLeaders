@@ -64,6 +64,26 @@ export const routes: Routes = [
                 loadComponent: () =>
                     import('./features/landing/blog/details/details').then(m => m.BlogDetailComponent)
             },
+            {
+                path: 'membership',
+                loadComponent: () =>
+                    import('./features/landing/membership/membership').then(m => m.Membership)
+            },
+            {
+                path: 'terms',
+                loadComponent: () =>
+                    import('./features/legal/terms/terms').then(m => m.Terms)
+            },
+            {
+                path: 'refund-policy',
+                loadComponent: () =>
+                    import('./features/legal/refund-policy/refund-policy').then(m => m.RefundPolicy)
+            },
+            {
+                path: 'privacy',
+                loadComponent: () =>
+                    import('./features/legal/privacy/privacy').then(m => m.Privacy)
+            }
         ]
     },
     {
