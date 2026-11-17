@@ -25,7 +25,7 @@ async function generate() {
   const snapshot = await getDocs(q);
   const slugs = snapshot.docs.map(doc => doc.data()['slug']).filter(Boolean);
 
-  const staticRoutes = ['/', '/blog', '/knowledge-hub', '/project-planner'];
+  const staticRoutes = ['/', '/membership', '/blog', '/knowledge-hub', '/project-planner', '/terms', '/refund-policy', '/privacy'];
   const blogRoutes = slugs.map((slug: string) => `/blog/${slug}`);
   const allRoutes = [...staticRoutes, ...blogRoutes];
 
