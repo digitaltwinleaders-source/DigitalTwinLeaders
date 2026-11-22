@@ -42,4 +42,29 @@
 <link rel="modulepreload" href="chunk-PIWBUZ3R.js">
 
 
-<script id="ng-state" type="application/json">{"__nghData__":[{"t":{"5":"t0","6":"t1"},"c":{"5":[{"i":"t0","r":1}],"6":[]}},{"t":{"18":"t2","36":"t3","42":"t4"},"c":{"18":[{"i":"t2","r":1,"x":5}],"36":[{"i":"t3","r":1,"x":6}],"42":[{"i":"t4","r":1,"x":4}]}},{"t":{"1":"t5"},"c":{"1":[]}},{"t":{"2":"t6"},"c":{"2":[{"i":"t6","r":1,"x":4}]}},{},{"c":{"3":[{"i":"c679340671","r":1}]}},{"c":{"0":[{"i":"c3759020794","r":1}]}}]}</script><script id="dtl-legal-links">(function(){function a(){var f=document.querySelector('footer');if(!f||f.querySelector('.dtl-legal'))return;var p=f.querySelector('p.mb-0')||f.lastElementChild;var d=document.createElement('div');d.className='dtl-legal fs-7';d.style.cssText='display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:8px';[['Terms','/terms/'],['Privacy','/privacy/'],['Refund Policy','/refund-policy/']].forEach(function(l){var e=document.createElement('a');e.textContent=l[0];e.href=l[1];e.style.cssText='color:rgba(255,255,255,.75);text-decoration:none';d.appendChild(e)});p.parentNode.insertBefore(d,p.nextSibling)}document.addEventListener('DOMContentLoaded',a);window.addEventListener('load',a);new MutationObserver(a).observe(document.documentElement,{childList:true,subtree:true})})();</script></body></html>
+<script id="ng-state" type="application/json">{"__nghData__":[{"t":{"5":"t0","6":"t1"},"c":{"5":[{"i":"t0","r":1}],"6":[]}},{"t":{"18":"t2","36":"t3","42":"t4"},"c":{"18":[{"i":"t2","r":1,"x":5}],"36":[{"i":"t3","r":1,"x":6}],"42":[{"i":"t4","r":1,"x":4}]}},{"t":{"1":"t5"},"c":{"1":[]}},{"t":{"2":"t6"},"c":{"2":[{"i":"t6","r":1,"x":4}]}},{},{"c":{"3":[{"i":"c679340671","r":1}]}},{"c":{"0":[{"i":"c3759020794","r":1}]}}]}</script><script id="dtl-legal-links">(function(){function a(){var f=document.querySelector('footer');if(!f||f.querySelector('.dtl-legal'))return;var p=f.querySelector('p.mb-0')||f.lastElementChild;var d=document.createElement('div');d.className='dtl-legal fs-7';d.style.cssText='display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:8px';[['Terms','/terms/'],['Privacy','/privacy/'],['Refund Policy','/refund-policy/']].forEach(function(l){var e=document.createElement('a');e.textContent=l[0];e.href=l[1];e.style.cssText='color:rgba(255,255,255,.75);text-decoration:none';d.appendChild(e)});p.parentNode.insertBefore(d,p.nextSibling)}document.addEventListener('DOMContentLoaded',a);window.addEventListener('load',a);new MutationObserver(a).observe(document.documentElement,{childList:true,subtree:true})})();</script><script id="dtl-text-links">(function(){
+var started=false;
+function linkText(p,label,href){
+  if(!p||p.querySelector('a.dtl-pp'))return;
+  var w=document.createTreeWalker(p,NodeFilter.SHOW_TEXT),n;
+  while((n=w.nextNode())){var i=n.nodeValue.indexOf(label);if(i<0)continue;
+    var a=document.createElement('a');a.className='dtl-pp';a.href=href;a.textContent=label;
+    var rest=n.splitText(i);rest.nodeValue=rest.nodeValue.slice(label.length);
+    rest.parentNode.insertBefore(a,rest);return;}
+}
+function findP(text){var ps=document.querySelectorAll('p');for(var i=0;i<ps.length;i++){if(ps[i].textContent.indexOf(text)>-1)return ps[i];}return null;}
+function run(){
+  var path=location.pathname.replace(/\/+$/,'');
+  if(path==='/membership')linkText(findP('By joining you agree'),'Privacy Policy','/privacy/');
+  if(path==='/terms')linkText(findP('consumer laws of your own country'),'Privacy Policy','/privacy/');
+  if(path==='/project-planner'){
+    var c=document.getElementById('call-to-action');
+    if(c&&!c.querySelector('.dtl-cta')){var s=c.querySelector('app-subscribe');if(s){
+      s.style.display='none';var d=document.createElement('div');d.className='dtl-cta text-center';
+      d.innerHTML='<a class="btn btn-secondary text-monochrome-100 shadow" href="/membership/#membership-plans">Become a Member<i class="bi bi-arrow-right ms-2" aria-hidden="true"></i></a><p class="fs-7 text-secondary-200 mt-3 mb-0">Full refund within 14 days.</p>';
+      s.parentNode.insertBefore(d,s.nextSibling);}}
+  }
+}
+function start(){if(started)return;started=true;run();new MutationObserver(run).observe(document.body,{childList:true,subtree:true});}
+window.addEventListener('load',function(){setTimeout(start,300);});
+})();</script></body></html>
