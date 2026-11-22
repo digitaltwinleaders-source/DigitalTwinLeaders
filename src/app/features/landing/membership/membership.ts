@@ -2,7 +2,6 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit } from '@angular/core
 import { RouterLink } from '@angular/router';
 import { SeoService } from '../../../core/services/seo.service';
 import { PillBadge } from '../../../shared/components/pill-badge/pill-badge';
-import { Subscribe } from '../../../shared/components/subscribe/subscribe';
 
 interface MembershipFaq {
   question: string;
@@ -19,7 +18,7 @@ interface MembershipFaq {
   templateUrl: './membership.html',
   styleUrls: ['./membership.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [PillBadge, RouterLink, Subscribe],
+  imports: [PillBadge, RouterLink],
 })
 export class Membership implements OnInit {
   private seo = inject(SeoService);
