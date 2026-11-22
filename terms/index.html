@@ -55,7 +55,11 @@ function linkText(p,label,href){
 function findP(text){var ps=document.querySelectorAll('p');for(var i=0;i<ps.length;i++){if(ps[i].textContent.indexOf(text)>-1)return ps[i];}return null;}
 function run(){
   var path=location.pathname.replace(/\/+$/,'');
-  if(path==='/membership')linkText(findP('By joining you agree'),'Privacy Policy','/privacy/');
+  if(path==='/membership'){
+    linkText(findP('By joining you agree'),'Privacy Policy','/privacy/');
+    var ps=document.querySelectorAll('p.text-secondary-200');for(var k=0;k<ps.length;k++){if(ps[k].textContent.trim()==='Full refund within 14 days.')ps[k].style.display='none';}
+    var nr=findP('Not ready to join yet?');if(nr){nr.style.display='none';var sb=nr.nextElementSibling;if(sb&&sb.tagName==='APP-SUBSCRIBE')sb.style.display='none';}
+  }
   if(path==='/terms')linkText(findP('consumer laws of your own country'),'Privacy Policy','/privacy/');
   if(path==='/project-planner'){
     var c=document.getElementById('call-to-action');
