@@ -5,24 +5,22 @@
             <h1 class="display-2 text-monochrome-100 fw-bold my-3">Make Your Mark in <span class="text-secondary">Digital Twins</span></h1>
             <p class="fs-5 fs-md-4 text-monochrome-100 text-opacity-75 mb-5">Stay current, exchange ideas with practitioners around the world, and build your reputation through what you contribute.</p>
             <a class="btn btn-secondary text-monochrome-100 shadow" routerLink="/membership" fragment="membership-plans">See membership plans</a>
-            <p class="fs-7 text-secondary-200 mt-3 mb-0">Full refund within 14 days.</p>
         </div>
     </div>
 </section>
 
 <section id="membership-plans" class="membership-plans container pt-5" aria-label="Membership plans">
-    <stripe-pricing-table
-        pricing-table-id="prctbl_1Uc2h3HxK29xVzMVVinQnVmw"
-        publishable-key="pk_live_51UZyBrHxK29xVzMVA2JxIxRaHczzHEjhHbggbuA4OieHhrEoSqTZj5sjy3OMsA7Odg2cG7JLdueDTEFx6kO29PuG00G4YAwcL6">
-    </stripe-pricing-table>
-    <p class="text-center text-primary fw-bold mt-3 mb-0">
-        <i class="bi bi-shield-check text-secondary me-1 align-baseline" aria-hidden="true"></i>
-        Full refund within 14 days.
-    </p>
-    <p class="text-center fs-7 mt-2 mb-5">By joining you agree to our <a routerLink="/terms">Terms</a> and <a routerLink="/refund-policy">Refund Policy</a>, and confirm you've read our <a routerLink="/privacy">Privacy Policy</a>.</p>
-
-    <p class="text-center text-primary fs-7 mb-2">Not ready to join yet? Get free digital twin updates.</p>
-    <app-subscribe [subscribeButtonText]="'Subscribe for free'"/>
+    <div class="max-w-5xl mx-auto" data-aos="fade-up">
+        <stripe-pricing-table
+            pricing-table-id="prctbl_1Uc2h3HxK29xVzMVVinQnVmw"
+            publishable-key="pk_live_51UZyBrHxK29xVzMVA2JxIxRaHczzHEjhHbggbuA4OieHhrEoSqTZj5sjy3OMsA7Odg2cG7JLdueDTEFx6kO29PuG00G4YAwcL6">
+        </stripe-pricing-table>
+        <p class="text-center text-primary fw-bold mt-3 mb-0">
+            <i class="bi bi-shield-check text-secondary me-1 align-baseline" aria-hidden="true"></i>
+            Full refund within 14 days.
+        </p>
+        <p class="text-center fs-7 mt-2 mb-5">By joining you agree to our <a routerLink="/terms">Terms</a> and <a routerLink="/refund-policy">Refund Policy</a>, and confirm you've read our <a routerLink="/privacy">Privacy Policy</a>.</p>
+    </div>
 </section>
 
 <section class="bg-monochrome-300 bg-opacity-10">
