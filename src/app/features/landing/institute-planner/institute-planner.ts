@@ -1,13 +1,12 @@
 import { NgStyle } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { Subscribe } from '../../../shared/components/subscribe/subscribe';
 import { RouterLink } from '@angular/router';
 import { SeoService } from '../../../core/services/seo.service';
 
 @Component({
   selector: 'app-institute-planner',
   templateUrl: './institute-planner.html',
-  imports: [NgStyle, Subscribe, RouterLink],
+  imports: [NgStyle, RouterLink],
 })
 export class InstitutePlanner implements OnInit {
   private seo = inject(SeoService);
@@ -101,6 +100,7 @@ export class InstitutePlanner implements OnInit {
 
   certificates = [
     "DTPP Practitioner Status",
+    "A certificate of completion and a Practitioner badge",
     "A congratulations post on the DTL LinkedIn page",
     "A complete Digital Twin planning package built throughout the track"
   ];
