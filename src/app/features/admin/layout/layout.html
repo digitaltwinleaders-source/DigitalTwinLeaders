@@ -48,7 +48,7 @@
     </aside>
 
     <!-- Main content -->
-    <div class="d-flex flex-column flex-grow-1">
+    <div class="admin-main d-flex flex-column flex-grow-1">
         <header class="d-flex d-lg-none bg-white align-items-center gap-3 p-3 border-bottom border-gray sticky-top">
             <button class="bg-transparent border-0 p-2 d-flex text-primary" (click)="sidebarOpen.set(true)">
                 <i class="bi bi-list fs-3"></i>
@@ -56,7 +56,7 @@
             <span class="fs-5 text-primary">Admin Panel</span>
         </header>
 
-        <div class="flex-grow-1 p-4">
+        <div class="admin-main-content flex-grow-1 p-4">
             <router-outlet />
         </div>
     </div>

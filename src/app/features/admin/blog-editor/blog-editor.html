@@ -57,9 +57,9 @@
     </div>
     } @else {
     <!-- Editor mode -->
-    <form [formGroup]="form" class="d-flex flex-column flex-md-row align-items-start overflow-visible gap-4 mt-4">
+    <form [formGroup]="form" class="blog-editor-form d-flex flex-column flex-md-row align-items-start overflow-visible gap-4 mt-4">
         <!-- Main editor area -->
-        <div class="flex-grow-1 w-100 w-md-auto">
+        <div class="blog-editor-main flex-grow-1 w-100 w-md-auto">
         @if (error()) {
             <div class="alert alert-danger">{{ error() }}</div>
         }
@@ -89,15 +89,14 @@
 
         <!-- Rich text editor -->
          <div class="mb-3">
-             <div class="quill-wrap" [class.is-invalid]="contentControl.touched && contentControl.invalid">
-                 <quill-editor
+             <div class="jodit-wrap" [class.is-invalid]="contentControl.touched && contentControl.invalid">
+                 <jodit-editor
                      formControlName="content"
-                     [modules]="quillModules"
-                     placeholder="Write your post content here..."
-                     (onContentChanged)="onContentChanged($event)"
-                     (onEditorCreated)="onEditorCreated($event)"
+                     [config]="joditConfig"
+                     (onChange)="onContentChanged($event)"
+                     (onReady)="onEditorCreated($event)"
                      style="display: block; width: 100%;"
-                 ></quill-editor>
+                 ></jodit-editor>
      
                  @if (inlineImageUploading()) {
                      <div class="alert alert-info mt-2 mb-0 d-flex align-items-center gap-2 rounded-0">
@@ -110,6 +109,9 @@
                      </div>
                  }
              </div>
+             <p class="text-monochrome-300 fs-7 mt-2 mb-0">
+                 Paste with Ctrl+V to keep the copied formatting and layout.
+             </p>
              @if (contentControl.touched && contentControl.errors) {
                  <span class="text-danger fs-7">{{ getErrorMessage(contentControl.errors) }}</span>
              }

@@ -2,45 +2,45 @@
   flex: 0 0 280px;
 }
 
-/* Quill */
-.quill-wrap {
-  border: 1.5px solid #bebebe;
+.blog-editor-form,
+.blog-editor-main {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.blog-editor-form {
+  width: 100%;
+}
+
+.blog-editor-main {
+  flex: 1 1 0;
+}
+
+.jodit-wrap {
   border-radius: .5rem;
-  overflow: hidden;
   width: 100%;
   min-width: 0;
+  max-width: 100%;
 }
-.quill-wrap:focus-within { border-color: #000063; }
-::ng-deep .ql-container.ql-snow { border: none; }
-::ng-deep .ql-toolbar { border: none !important; border-bottom: 1px solid #e5e5e5 !important; background: #fafafa; }
-::ng-deep .ql-container {
-  width: 100%;
+
+.jodit-wrap ::ng-deep .jodit-container {
+  width: 100% !important;
   min-width: 0;
+  max-width: 100%;
 }
-::ng-deep .ql-editor {
-  min-height: 320px;
-  padding: 1rem;
-  width: 100%;
+
+.jodit-wrap ::ng-deep .jodit-workplace,
+.jodit-wrap ::ng-deep .jodit-wysiwyg {
   min-width: 0;
-  word-break: break-word;
-  overflow-wrap: anywhere; /* stronger than break-word — forces breaks on long unbroken strings like URLs */
+  max-width: 100%;
 }
-::ng-deep .ql-editor pre {
-  max-width: 100% !important;
-  min-width: 0 !important;
-  overflow-x: auto !important;
-  white-space: pre-wrap !important;
-  word-wrap: break-word !important;
-  word-break: break-word !important;
-}
-::ng-deep .ql-editor.ql-blank::before { color: #bebebe; font-style: normal; }
 
 .is-invalid {
   border-color: var(--bs-danger) !important;
 }
 
-.quill-wrap.is-invalid {
-  border: 1px solid var(--bs-danger);
+.jodit-wrap.is-invalid ::ng-deep .jodit-container {
+  border-color: var(--bs-danger) !important;
 }
 
 /* Preview */
