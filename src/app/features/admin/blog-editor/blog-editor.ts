@@ -1,5 +1,5 @@
 import {
-  Component, inject, signal, computed, OnInit
+  Component, inject, signal, OnInit
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -7,8 +7,9 @@ import {
   FormsModule
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { QuillModule } from 'ngx-quill';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { JoditAngularComponent, type JoditConfig } from 'jodit-angular';
+import type { Jodit } from 'jodit';
 import { BlogService } from '../../../core/services/blog.service';
 import { ImageService } from '../../../core/services/image.service';
 import { AuthService } from '../../../core/services/auth.service';
@@ -31,7 +32,7 @@ const AUTHOR_MAX_LENGTH = 80;
 @Component({
   selector: 'app-admin-blog-editor',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, QuillModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, JoditAngularComponent],
   templateUrl: './blog-editor.html',
   styleUrls: ['./blog-editor.scss']
 })
@@ -68,7 +69,7 @@ export class AdminBlogEditorComponent implements OnInit {
   newCategoryError = signal('');
 
   readonly NEW_CATEGORY_SENTINEL = '__add_new__';
-  private quillEditorInstance: any;
+  private joditEditorInstance: Jodit | null = null;
 
   // ── Reactive form replaces the old plain `form: Partial<Blog>` object ──
   form: FormGroup = this.fb.group({
@@ -109,29 +110,38 @@ export class AdminBlogEditorComponent implements OnInit {
   get categoryControl() { return this.form.get('category')!; }
   get authorControl() { return this.form.get('author')!; }
 
-  quillModules = {
-    toolbar: [
-      [{ header: [1, 2, 3, false] }],
-      ['bold', 'italic', 'underline'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      [{ align: [] }],
-      ['link', 'image'],
-      ['clean']
-    ]
+  joditConfig: JoditConfig = {
+    width: '100%',
+    height: 360,
+    minHeight: 320,
+    placeholder: 'Write your blog content here...',
+    askBeforePasteHTML: false,
+    askBeforePasteFromWord: false,
+    defaultActionOnPaste: 'insert_as_html',
+    defaultActionOnPasteFromWord: 'insert_as_html',
+    processPasteHTML: true,
+    processPasteFromWord: true,
+    cleanHTML: {
+      allowedStyles: false,
+      removeEventAttributes: true,
+      safeJavaScriptLink: true,
+      safeLinksTarget: true
+    },
+    removeButtons: ['image'],
+    extraButtons: [{
+      name: 'uploadBlogImage',
+      icon: 'image',
+      tooltip: 'Upload image',
+      exec: () => this.triggerImageUpload()
+    }]
   };
-
-  quillFormats = [
-    'header', 'bold', 'italic', 'underline',
-    'list', 'bullet', 'align', 'link'
-  ];
 
   // formValid signal removed entirely — form.invalid (from FormGroup) replaces it
   // and updates automatically via Angular's reactive forms change stream,
   // which is what fixes the "doesn't update until I touch another field" bug
 
-  safeContent = computed<SafeHtml>(() =>
-    this.sanitizer.bypassSecurityTrustHtml(this.form.value.content || '')
-  );
+  safeContent = (): SafeHtml =>
+    this.sanitizer.bypassSecurityTrustHtml(this.contentControl.value || '');
 
   async ngOnInit() {
     // Merge in any categories already used across existing blogs
@@ -150,7 +160,10 @@ export class AdminBlogEditorComponent implements OnInit {
       this.loading.set(true);
       const blog = await this.blogService.getBlogById(id);
       if (blog) {
-        this.form.patchValue(blog);
+        this.form.patchValue({
+          ...blog,
+          content: this.normalizeNonBreakingSpaces(blog.content || '')
+        });
         this.coverPreview.set(blog.coverImageBase64 || blog.coverImageUrl || '');
         this.setCoverValidity();
       } else {
@@ -184,17 +197,15 @@ export class AdminBlogEditorComponent implements OnInit {
     }
   }
 
-  onContentChanged(event: { text: string }) {
-    const readTime = this.blogService.calculateReadTime(event.text);
+  onContentChanged(event: { editor: Jodit }) {
+    const readTime = this.blogService.calculateReadTime(event.editor.text);
     this.form.patchValue({ readTime }, { emitEvent: false });
     this.contentControl.markAsTouched();
     this.contentControl.updateValueAndValidity();
   }
 
-  onEditorCreated(editor: any) {
-    this.quillEditorInstance = editor;
-    const toolbar = editor.getModule('toolbar');
-    toolbar.addHandler('image', () => this.triggerImageUpload());
+  onEditorCreated(editor: Jodit) {
+    this.joditEditorInstance = editor;
   }
 
   onCategorySelectChange(value: string) {
@@ -257,30 +268,41 @@ export class AdminBlogEditorComponent implements OnInit {
   }
 
   triggerImageUpload() {
+    const editor = this.joditEditorInstance;
+    if (!editor) return;
+
+    editor.s.save();
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = 'image/*';
     input.onchange = () => {
       const file = input.files?.[0];
-      if (file) this.handleInlineImage(file);
+      if (file) void this.handleInlineImage(file, editor);
+      else editor.s.restore();
       input.remove();
     };
+    input.addEventListener('cancel', () => {
+      editor.s.restore();
+      input.remove();
+    }, { once: true });
     input.click();
   }
 
-  private async handleInlineImage(file: File) {
+  private async handleInlineImage(file: File, editor: Jodit) {
     this.inlineImageError.set('');
     this.inlineImageUploading.set(true);
     await new Promise(resolve => setTimeout(resolve, 0));
+    let selectionSaved = true;
 
     try {
       const base64 = await this.imageService.compressAndConvertToBase64Cover(file);
-      const range = this.quillEditorInstance.getSelection(true) || { index: this.quillEditorInstance.getLength() };
-      this.quillEditorInstance.insertEmbed(range.index, 'image', base64, 'user');
-      this.quillEditorInstance.setSelection(range.index + 1);
+      editor.s.restore();
+      selectionSaved = false;
+      editor.s.insertImage(base64);
     } catch (err: any) {
       this.inlineImageError.set(err.message || 'Failed to upload image. Please try a smaller file.');
     } finally {
+      if (selectionSaved) editor.s.restore();
       this.inlineImageUploading.set(false);
     }
   }
@@ -344,7 +366,7 @@ export class AdminBlogEditorComponent implements OnInit {
       const payload: Omit<Blog, 'id'> = {
         title: stripUnsafeContent(raw.title.trim()),
         slug: stripUnsafeContent(raw.slug.trim()),
-        content: this.sanitizeRichTextHtml(raw.content || ''),
+        content: this.normalizeNonBreakingSpaces(raw.content || ''),
         excerpt: stripUnsafeContent(raw.excerpt?.trim()) || this.generateExcerptFromContent(raw.content || ''),
         coverImageBase64: raw.coverImageBase64 || '',
         coverImageUrl: raw.coverImageUrl || '',
@@ -374,6 +396,10 @@ export class AdminBlogEditorComponent implements OnInit {
     return textarea.value;
   }
 
+  private normalizeNonBreakingSpaces(html: string): string {
+    return html.replace(/&nbsp;|&#0*160;|&#x0*a0;|\u00a0/gi, ' ');
+  }
+
   private generateExcerptFromContent(html: string): string {
     const withoutTags = html.replace(/<[^>]+>/g, ' ');
     const decoded = this.decodeHtmlEntities(withoutTags);
@@ -382,17 +408,4 @@ export class AdminBlogEditorComponent implements OnInit {
     return text.length > 160 ? text.slice(0, 160).trim() + '…' : text;
   }
 
-  private sanitizeRichTextHtml(html: string): string {
-    if (!html) return html;
-
-    // Strip explicit width/height inline styles and attributes that override our CSS
-    let cleaned = html
-      .replace(/\swidth\s*=\s*["']?\d+["']?/gi, '')
-      .replace(/\sheight\s*=\s*["']?\d+["']?/gi, '')
-      .replace(/style\s*=\s*"[^"]*width\s*:[^;"]*;?/gi, 'style="')
-      .replace(/style\s*=\s*"[^"]*height\s*:[^;"]*;?/gi, 'style="')
-      .replace(/style\s*=\s*""/gi, ''); // clean up any now-empty style attrs
-
-    return cleaned;
-  }
 }

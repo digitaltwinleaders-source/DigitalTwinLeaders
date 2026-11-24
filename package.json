@@ -40,7 +40,8 @@
     "bootstrap": "^5.3.8",
     "express": "^5.1.0",
     "firebase": "11.10.0",
-    "ngx-quill": "^31.0.0",
+    "jodit": "^4.21.0",
+    "jodit-angular": "^2.0.0",
     "quill": "^2.0.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
@@ -54,7 +55,6 @@
     "@types/aos": "^3.0.7",
     "@types/express": "^5.0.1",
     "@types/node": "^20.17.19",
-    "@types/quill": "^2.0.14",
     "gh-pages": "^6.3.0",
     "jsdom": "^27.1.0",
     "tsx": "^4.23.1",

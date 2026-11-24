@@ -35,7 +35,6 @@ export class BlogDetailComponent implements OnInit {
   async ngOnInit() {
     this.route.paramMap.subscribe(async (params) => {
       const slug = params.get('slug');
-      console.log('🔍 Slug from route:', slug);
 
       if (!slug) {
         this.loading.set(false);
@@ -48,9 +47,7 @@ export class BlogDetailComponent implements OnInit {
       this.nextPost.set(null);
 
       try {
-        console.log('🔍 Attempting getBlogBySlug for:', slug);
         const blog = await this.blogService.getBlogBySlug(slug);
-        console.log('✅ getBlogBySlug succeeded:', blog);
         this.blog.set(blog);
         this.loading.set(false);
 
@@ -91,9 +88,7 @@ export class BlogDetailComponent implements OnInit {
 
         if (blog?.createdAt) {
           try {
-            console.log('🔍 Attempting getAdjacentBlogs');
             const adjacent = await this.blogService.getAdjacentBlogs(blog.createdAt);
-            console.log('✅ getAdjacentBlogs succeeded:', adjacent);
             this.prevPost.set(adjacent.prev);
             this.nextPost.set(adjacent.next);
           } catch (err) {

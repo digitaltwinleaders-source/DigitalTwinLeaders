@@ -24,6 +24,11 @@
 }
 
 /* Mobile */
+.admin-main,
+.admin-main-content {
+    min-width: 0;
+}
+
 .overlay {
     display: none;
 }
