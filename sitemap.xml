@@ -5,6 +5,10 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>https://www.digitaltwinleaders.com/membership/</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://www.digitaltwinleaders.com/blog/</loc>
     <changefreq>monthly</changefreq>
   </url>
@@ -17,18 +21,6 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://www.digitaltwinleaders.com/blog/the-readiness-test-most-digital-twin-projects-skip/</loc>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://www.digitaltwinleaders.com/blog/the-six-decisions-that-shape-every-digital-twin-project/</loc>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://www.digitaltwinleaders.com/membership/</loc>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
     <loc>https://www.digitaltwinleaders.com/terms/</loc>
     <changefreq>monthly</changefreq>
   </url>
@@ -38,6 +30,14 @@
   </url>
   <url>
     <loc>https://www.digitaltwinleaders.com/privacy/</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.digitaltwinleaders.com/blog/the-readiness-test-most-digital-twin-projects-skip/</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.digitaltwinleaders.com/blog/the-six-decisions-that-shape-every-digital-twin-project/</loc>
     <changefreq>monthly</changefreq>
   </url>
 </urlset>
