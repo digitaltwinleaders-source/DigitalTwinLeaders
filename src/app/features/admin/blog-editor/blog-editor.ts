@@ -119,6 +119,7 @@ export class AdminBlogEditorComponent implements OnInit {
     askBeforePasteFromWord: false,
     defaultActionOnPaste: 'insert_as_html',
     defaultActionOnPasteFromWord: 'insert_as_html',
+    countTextSpaces: true,
     processPasteHTML: true,
     processPasteFromWord: true,
     cleanHTML: {
@@ -346,6 +347,7 @@ export class AdminBlogEditorComponent implements OnInit {
     if (errors.unsafeContent) return 'This text contains content that isn\'t allowed.';
     if (errors.invalidSlugFormat) return 'Use lowercase letters, numbers, and hyphens only (e.g. my-post-title).';
     if (errors.richTextMinLength) return `Content must be at least ${errors.richTextMinLength.required} characters.`;
+    if (errors.richTextMaxLength) return `Content must be no more than ${errors.richTextMaxLength.required} characters.`;
     return 'This field is invalid.';
   }
 

@@ -57,7 +57,7 @@ export function richTextMaxLengthValidator(maxLength: number): ValidatorFn {
 
     return textOnly.length <= maxLength
       ? null
-      : { richTextMinLength: { required: maxLength, actual: textOnly.length } };
+      : { richTextMaxLength: { required: maxLength, actual: textOnly.length } };
   };
 }
 
