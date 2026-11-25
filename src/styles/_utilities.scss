@@ -30,3 +30,7 @@ $utilities: map-merge(
     ),
   )
 );
+
+.hover-bg-opacity-25:hover {
+  --bs-bg-opacity: 0.25 !important;
+}

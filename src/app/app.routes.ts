@@ -70,6 +70,11 @@ export const routes: Routes = [
                     import('./features/landing/membership/membership').then(m => m.Membership)
             },
             {
+                path: 'council',
+                loadComponent: () =>
+                    import('./features/landing/council/council').then(m => m.CouncilComponent)
+            },
+            {
                 path: 'terms',
                 loadComponent: () =>
                     import('./features/legal/terms/terms').then(m => m.Terms)

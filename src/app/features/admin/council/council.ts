@@ -99,6 +99,7 @@ export class AdminCouncilComponent implements OnInit {
         countryName: this.form.countryName || '',
         linkedInUrl: this.form.linkedInUrl?.trim() || '',
         order: Number(this.form.order),
+        featured: this.form.featured === true,
         photoBase64: this.form.photoBase64 || '',
         imageUrl: this.form.imageUrl || '',
       };
@@ -185,6 +186,7 @@ export class AdminCouncilComponent implements OnInit {
       country: '',
       linkedInUrl: '',
       order: (this.members().length || 0) + 1,
+      featured: false,
       photoBase64: '',
       imageUrl: ''
     };
