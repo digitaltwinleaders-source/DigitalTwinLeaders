@@ -8,15 +8,15 @@ export async function getPublishedSlugs(): Promise<{ slug: string }[]> {
     const db = getFirestore(app);
     const q = query(
       collection(db, 'blogs'),
-      where('published', '==', true)
+      where('status', '==', 'published')
     );
     const snapshot = await getDocs(q);
     const slugs = snapshot.docs
       .map(doc => doc.data()['slug'])
-      .filter((slug): slug is string => !!slug);
+      .filter((slug): slug is string => typeof slug === 'string' && slug.length > 0);
     return slugs.map(slug => ({ slug }));
   } catch (error) {
-    console.warn('Failed to fetch blog slugs for prerendering:', error);
-    return [];
+    console.error('Failed to fetch blog slugs for prerendering:', error);
+    throw error;
   }
 }

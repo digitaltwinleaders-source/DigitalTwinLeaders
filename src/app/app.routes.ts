@@ -1,5 +1,15 @@
-import { Routes } from '@angular/router';
+import { inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { ResolveFn, Routes } from '@angular/router';
 import { adminGuard } from './core/guards/admin.guard';
+import { Blog } from './core/models/blog.model';
+import { BlogService } from './core/services/blog.service';
+
+const blogResolver: ResolveFn<Blog | null> = route => {
+    const slug = route.paramMap.get('slug');
+    if (!slug || isPlatformBrowser(inject(PLATFORM_ID))) return null;
+    return inject(BlogService).getBlogBySlug(slug);
+};
 
 export const routes: Routes = [
     // ── Admin routes ──────────────────────
@@ -61,6 +71,7 @@ export const routes: Routes = [
             },
             {
                 path: 'blog/:slug',
+                resolve: { blog: blogResolver },
                 loadComponent: () =>
                     import('./features/landing/blog/details/details').then(m => m.BlogDetailComponent)
             },

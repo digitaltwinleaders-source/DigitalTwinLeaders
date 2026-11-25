@@ -43,8 +43,9 @@ export class SeoService {
       this.meta.updateTag({ property: 'og:image', content: data.image });
     }
     if (data.url) {
-      this.meta.updateTag({ property: 'og:url', content: `${this.baseUrl}${data.url}` });
-      this.updateCanonical(`${this.baseUrl}${data.url}`);
+      const canonicalUrl = this.getCanonicalUrl(data.url);
+      this.meta.updateTag({ property: 'og:url', content: canonicalUrl });
+      this.updateCanonical(canonicalUrl);
     }
 
     // Twitter
@@ -59,6 +60,12 @@ export class SeoService {
     if (data.jsonLd) {
       this.updateJsonLd(data.jsonLd);
     }
+  }
+
+  private getCanonicalUrl(path: string): string {
+    const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+    if (normalizedPath === '/') return `${this.baseUrl}/`;
+    return `${this.baseUrl}${normalizedPath.replace(/\/+$/, '')}/`;
   }
 
   private updateCanonical(url: string) {

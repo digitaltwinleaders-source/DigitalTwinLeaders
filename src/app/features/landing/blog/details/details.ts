@@ -1,5 +1,5 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, signal, OnInit, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { BlogService } from '../../../../core/services/blog.service';
@@ -20,6 +20,7 @@ export class BlogDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private sanitizer = inject(DomSanitizer);
   private seo = inject(SeoService);
+  private platformId = inject(PLATFORM_ID);
 
   blog = signal<Blog | null>(null);
   loading = signal(true);
@@ -32,75 +33,88 @@ export class BlogDetailComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustHtml(wrappingContent);
   };
 
-  async ngOnInit() {
-    this.route.paramMap.subscribe(async (params) => {
-      const slug = params.get('slug');
-
-      if (!slug) {
-        this.loading.set(false);
+  ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      const blog = this.route.snapshot.data['blog'] as Blog | null;
+      if (blog) {
+        this.setBlog(blog);
         return;
       }
 
-      this.loading.set(true);
-      this.blog.set(null);
-      this.prevPost.set(null);
-      this.nextPost.set(null);
-
-      try {
-        const blog = await this.blogService.getBlogBySlug(slug);
-        this.blog.set(blog);
-        this.loading.set(false);
-
-        if (blog) {
-          const createdAtDate = blog.createdAt
-            ? typeof blog.createdAt.toDate === 'function'
-              ? blog.createdAt.toDate()
-              : new Date(blog.createdAt)
-            : null;
-
-          this.seo.update({
-            title: blog.title,
-            description: blog.excerpt || blog.title,
-            image: blog.coverImageUrl,
-            url: `/blog/${blog.slug}`,
-            type: 'article',
-            jsonLd: {
-              '@context': 'https://schema.org',
-              '@type': 'Article',
-              headline: blog.title,
-              description: blog.excerpt || blog.title,
-              image: blog.coverImageUrl || undefined,
-              datePublished: createdAtDate && !Number.isNaN(createdAtDate.getTime())
-                ? createdAtDate.toISOString()
-                : undefined,
-              publisher: {
-                '@type': 'Organization',
-                name: 'Digital Twin Leaders',
-                logo: { '@type': 'ImageObject', url: 'https://www.digitaltwinleaders.com/assets/logo.png' },
-              },
-              mainEntityOfPage: {
-                '@type': 'WebPage',
-                '@id': `https://www.digitaltwinleaders.com/blog/${blog.slug}`,
-              },
-            },
-          });
-        }
-
-        if (blog?.createdAt) {
-          try {
-            const adjacent = await this.blogService.getAdjacentBlogs(blog.createdAt);
-            this.prevPost.set(adjacent.prev);
-            this.nextPost.set(adjacent.next);
-          } catch (err) {
-            console.warn('🟡 getAdjacentBlogs failed (non-fatal):', err);
-          }
-        }
-      } catch (err) {
-        console.error('🔴 getBlogBySlug failed:', err);
+      const slug = params.get('slug');
+      if (slug && isPlatformBrowser(this.platformId)) {
+        this.loading.set(true);
         this.blog.set(null);
-        this.loading.set(false);
+        this.blogService.getBlogBySlug(slug)
+          .then(result => {
+            if (this.route.snapshot.paramMap.get('slug') === slug) {
+              this.setBlog(result);
+            }
+          })
+          .catch(err => {
+            if (this.route.snapshot.paramMap.get('slug') === slug) {
+              console.error('🔴 getBlogBySlug failed:', err);
+              this.setBlog(null);
+            }
+          });
+        return;
       }
+
+      this.setBlog(null);
     });
+  }
+
+  private setBlog(blog: Blog | null) {
+    this.blog.set(blog);
+    this.prevPost.set(null);
+    this.nextPost.set(null);
+    this.loading.set(false);
+
+    if (!blog) return;
+
+    const createdAtDate = blog.createdAt
+      ? typeof blog.createdAt.toDate === 'function'
+        ? blog.createdAt.toDate()
+        : new Date(blog.createdAt)
+      : null;
+
+    this.seo.update({
+      title: blog.title,
+      description: blog.excerpt || blog.title,
+      image: blog.coverImageUrl,
+      url: `/blog/${blog.slug}/`,
+      type: 'article',
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: blog.title,
+        description: blog.excerpt || blog.title,
+        image: blog.coverImageUrl || undefined,
+        datePublished: createdAtDate && !Number.isNaN(createdAtDate.getTime())
+          ? createdAtDate.toISOString()
+          : undefined,
+        publisher: {
+          '@type': 'Organization',
+          name: 'Digital Twin Leaders',
+          logo: { '@type': 'ImageObject', url: 'https://www.digitaltwinleaders.com/assets/logo.png' },
+        },
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': `https://www.digitaltwinleaders.com/blog/${blog.slug}/`,
+        },
+      },
+    });
+
+    if (blog.createdAt && isPlatformBrowser(this.platformId)) {
+      this.blogService.getAdjacentBlogs(blog.createdAt)
+        .then(adjacent => {
+          this.prevPost.set(adjacent.prev);
+          this.nextPost.set(adjacent.next);
+        })
+        .catch(err => {
+          console.warn('🟡 getAdjacentBlogs failed (non-fatal):', err);
+        });
+    }
   }
 
   formatDate(ts: any): string {

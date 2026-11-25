@@ -1,4 +1,6 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, PLATFORM_ID } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { isPlatformBrowser } from '@angular/common';
 import {
   Firestore,
   collection,
@@ -18,9 +20,10 @@ import {
   QueryDocumentSnapshot,
   Timestamp
 } from '@angular/fire/firestore';
-import { Observable, from } from 'rxjs';
+import { Observable, firstValueFrom, from } from 'rxjs';
 import { map, timeout } from 'rxjs/operators';
 import { Blog } from '../models/blog.model';
+import { environment } from '../../../environments/environment';
 
 const TIMEOUT_MS = 8000;
 const PAGE_SIZE = 6;
@@ -28,6 +31,8 @@ const PAGE_SIZE = 6;
 @Injectable({ providedIn: 'root' })
 export class BlogService {
   private firestore = inject(Firestore);
+  private http = inject(HttpClient);
+  private platformId = inject(PLATFORM_ID);
   private readonly COLLECTION = 'blogs';
   private allPublishedCache: Blog[] | null = null;
 
@@ -154,6 +159,10 @@ export class BlogService {
 
   // blog.service.ts
   async getBlogBySlug(slug: string): Promise<Blog | null> {
+    if (!isPlatformBrowser(this.platformId)) {
+      return this.getBlogBySlugFromRest(slug);
+    }
+
     const ref = collection(this.firestore, this.COLLECTION);
     const q = query(
       ref,
@@ -164,6 +173,64 @@ export class BlogService {
     const snap = await getDocs(q);
     if (snap.empty) return null;
     return { id: snap.docs[0].id, ...snap.docs[0].data() } as Blog;
+  }
+
+  private async getBlogBySlugFromRest(slug: string): Promise<Blog | null> {
+    const url = `https://firestore.googleapis.com/v1/projects/${environment.firebase.projectId}/databases/(default)/documents:runQuery`;
+    const response = await firstValueFrom(this.http.post<{
+      document?: {
+        name: string;
+        fields?: Record<string, Record<string, unknown>>;
+      };
+    }[]>(url, {
+      structuredQuery: {
+        from: [{ collectionId: this.COLLECTION }],
+        where: {
+          compositeFilter: {
+            op: 'AND',
+            filters: [
+              {
+                fieldFilter: {
+                  field: { fieldPath: 'slug' },
+                  op: 'EQUAL',
+                  value: { stringValue: slug }
+                }
+              },
+              {
+                fieldFilter: {
+                  field: { fieldPath: 'status' },
+                  op: 'EQUAL',
+                  value: { stringValue: 'published' }
+                }
+              }
+            ]
+          }
+        },
+        limit: 1
+      }
+    }));
+
+    const document = response.find(result => result.document)?.document;
+    if (!document) return null;
+
+    const data = Object.fromEntries(
+      Object.entries(document.fields || {}).map(([key, value]) => [
+        key,
+        this.decodeFirestoreValue(value)
+      ])
+    );
+    const id = document.name.split('/').pop() || '';
+    return { id, ...data } as Blog;
+  }
+
+  private decodeFirestoreValue(value: Record<string, unknown>): unknown {
+    if ('stringValue' in value) return value['stringValue'];
+    if ('integerValue' in value) return Number(value['integerValue']);
+    if ('doubleValue' in value) return value['doubleValue'];
+    if ('booleanValue' in value) return value['booleanValue'];
+    if ('timestampValue' in value) return new Date(value['timestampValue'] as string);
+    if ('nullValue' in value) return null;
+    return undefined;
   }
 
   async getAdjacentBlogs(createdAt: any): Promise<{ prev: Blog | null; next: Blog | null }> {
