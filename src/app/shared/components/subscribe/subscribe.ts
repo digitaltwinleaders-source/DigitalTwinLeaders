@@ -2,7 +2,7 @@ import { Component, inject, signal, input } from '@angular/core';
 import { Mailchimp } from '../../../core/services/mailchimp';
 import { finalize } from 'rxjs';
 import { FormsModule } from '@angular/forms';
-import { NgStyle } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 import { SocialMediaLinks } from '../social-media/social-media';
 
 interface AlertData {
@@ -14,13 +14,14 @@ interface AlertData {
 @Component({
   selector: 'app-subscribe',
   templateUrl: './subscribe.html',
-  imports: [FormsModule, NgStyle, SocialMediaLinks],
+  imports: [FormsModule, NgClass, NgStyle, SocialMediaLinks],
 })
 export class Subscribe {
   email: string = '';
   isLoading = signal<boolean>(false);
   alertData = signal<AlertData | null>(null);
   subscribeButtonText = input<string>('Join Our Network');
+  buttonClass = input<string>('btn-secondary text-monochrome-100');
   private mailchimp = inject(Mailchimp);
 
   subscribe() {

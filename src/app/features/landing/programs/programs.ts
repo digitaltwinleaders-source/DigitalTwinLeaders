@@ -1,9 +1,10 @@
 import { NgStyle } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-programs',
-  imports: [NgStyle],
+  imports: [NgStyle, RouterLink],
   templateUrl: './programs.html'
 })
 export class Programs {

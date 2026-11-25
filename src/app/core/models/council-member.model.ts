@@ -8,6 +8,7 @@ export interface CouncilMember {
   organization?: string;
   linkedInUrl?: string;
   order: number;
+  featured?: boolean;
   photoBase64?: string;
   imageUrl?: string;
   createdAt?: Date;

@@ -1,7 +1,10 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SeoService } from '../../../core/services/seo.service';
 import { PillBadge } from '../../../shared/components/pill-badge/pill-badge';
+import { CouncilService } from '../../../core/services/council.service';
+import { ImageService } from '../../../core/services/image.service';
+import { CouncilMember } from '../../../core/models/council-member.model';
 
 interface MembershipFaq {
   question: string;
@@ -22,70 +25,18 @@ interface MembershipFaq {
 })
 export class Membership implements OnInit {
   private seo = inject(SeoService);
+  private councilService = inject(CouncilService);
+  readonly imageService = inject(ImageService);
 
-  readonly memberJourney = [
-    {
-      label: 'FROM DAY ONE',
-      title: 'Your profile goes live',
-      items: [
-        {
-          icon: 'person-badge',
-          title: 'Council Member listing',
-          description: 'Your member page on the DTL website, with a link you can share.',
-        },
-        {
-          icon: 'file-text',
-          title: 'Articles and written interviews',
-          description: 'Submit an article or request an interview. We edit with you and publish accepted work on the DTL website.',
-        },
-        {
-          icon: 'mic',
-          title: 'Apply to speak',
-          description: 'Share your project experience at DTL events and webinars.',
-        },
-        {
-          icon: 'journal-richtext',
-          title: 'Digital Twin Project Planner',
-          description: 'Full access to the six-week track in the DTL Knowledge Hub.',
-        },
-      ],
-    },
-    {
-      label: 'ONCE YOUR PROFILE IS READY',
-      title: 'We introduce you to the community',
-      items: [
-        {
-          icon: 'linkedin',
-          title: 'Welcome post on LinkedIn',
-          description: 'DTL introduces you to its network on LinkedIn.',
-        },
-        {
-          icon: 'share',
-          title: 'Your work, shared',
-          description: "Your published articles and interviews promoted on DTL's LinkedIn page.",
-        },
-        {
-          icon: 'star',
-          title: 'Recognition as you grow',
-          description: 'Practitioner Status and a new badge with every membership year.',
-        },
-      ],
-    },
-  ];
+  featuredMembers = signal<CouncilMember[]>([]);
+  councilLoading = signal(true);
 
-  readonly plannerChapters = [
-    { title: 'Cutting Through the Hype' },
-    { title: 'Communication Diagnostics' },
-    { title: 'Scope and Value' },
-    { title: 'Team and Timeline' },
-    { title: 'Digital Twin Architecture' },
-    { title: 'Digital Twin Project Canvas' },
-  ];
-
-  readonly practitionerBenefits = [
-    'Practitioner badge on your member page',
-    'Certificate',
-    "Congratulations post on DTL's LinkedIn page",
+  readonly memberBenefits = [
+    { icon: 'person-badge', title: 'Your listing.', description: 'A member page on the DTL website from day one, with a link you can put in a CV, a proposal or an email signature.' },
+    { icon: 'file-earmark-text', title: 'An editor.', description: 'Send an article or answer interview questions by email. DTL edits it with you, publishes accepted work under your name, and shares it on DTL\'s channels.' },
+    { icon: 'mic', title: 'A stage.', description: 'Apply to speak at DTL events and webinars about projects you\'ve delivered.' },
+    { icon: 'journal-richtext', title: 'The Planner.', description: 'The Digital Twin Project Planner: a six-week track, about an hour a week, with six outputs that become a planning package for a real project. Completing it earns Practitioner Status.' },
+    { icon: 'linkedin', title: 'A welcome.', description: 'Once your profile is complete, DTL introduces you on its LinkedIn page.' },
   ];
 
   readonly seniorityLevels = [
@@ -96,46 +47,24 @@ export class Membership implements OnInit {
   ];
 
   readonly frequentlyAskedQuestions: MembershipFaq[] = [
-    {
-      question: 'Who is Council Membership for?',
-      answer: 'Professionals working on digital twins, and those moving into the field from BIM, GIS, engineering, and related roles, at any career stage.',
-    },
-    {
-      question: 'How does publishing work?',
-      answer: 'Send an article or an idea, or answer interview questions by email. DTL reviews and edits your work with you, publishes accepted pieces on the DTL website, and shares them through its channels.',
-    },
-    {
-      question: 'Do I need to finish the Digital Twin Project Planner to publish or speak?',
-      answer: 'No. Every member can submit articles, request an interview, and apply to speak. The Project Planner is included in your membership and earns you Practitioner Status when you complete it.',
-    },
-    {
-      question: "What if it's not for me?",
-      answer: 'You can get a full refund within 14 days, without giving a reason, as long as the conditions in our ',
-      answerLink: {
-        label: 'Refund Policy',
-        route: '/refund-policy',
-        suffix: ' are met.',
-      },
-    },
-    {
-      question: 'How does Team Membership work?',
-      answer: "Team Membership covers 3 named people, and you can add more. After purchase, we'll email you to collect your team members' details. Contact us to add members later.",
-    },
-    {
-      question: 'Does membership renew automatically?',
-      answer: 'Yes, every year at the same rate. We email you before each renewal. You can cancel at any time through the manage-subscription link in your emails or by emailing community@digitaltwinleaders.com, and your membership stays active until the end of your current term.',
-    },
-    {
-      question: 'Will my price change at renewal?',
-      answer: 'No. Your rate stays the same while your membership continues without a break.',
-    },
-    {
-      question: 'How do I contact DTL?',
-      answer: 'Email community@digitaltwinleaders.com.',
-    },
+    { question: 'Can I publish or speak before finishing the Planner?', answer: 'Yes. Every member can submit articles, request an interview and apply to speak from day one. The Planner is included and earns Practitioner Status when you finish it.' },
+    { question: 'Is DTL vendor-neutral?', answer: 'Yes. We keep the same distance from every platform and are tied to none. The method works with any product.' },
+    { question: 'How long does the Planner take?', answer: 'Six chapters, about an hour a week, over about six weeks.' },
+    { question: 'What do I finish with?', answer: 'Six outputs: the Digital Twin Readiness Checklist, Communication Diagnostic Toolkit, Scope & Value Definition, Stakeholder Alignment Toolkit, Digital Twin 3-Stages Engine, and the Digital Twin Project Canvas that brings them together.' },
+    { question: 'How does Team Membership work?', answer: 'It covers three named people, and you can add more at $199 each. After purchase we email you to collect the names.' },
+    { question: 'Can I cancel?', answer: 'Any time, through the link in your emails or by emailing community@digitaltwinleaders.com. Your membership runs to the end of the term you paid for.' },
+    { question: 'What if it\'s not for me?', answer: 'Full refund within 14 days, no reason needed, as long as the conditions in our ', answerLink: { label: 'Refund Policy', route: '/refund-policy', suffix: ' are met.' } },
   ];
 
   ngOnInit() {
+    this.councilService.getMembers().subscribe({
+      next: (members) => {
+        const featured = members.filter(member => member.featured === true);
+        this.featuredMembers.set((featured.length > 0 ? featured : members).slice(0, 8));
+        this.councilLoading.set(false);
+      },
+      error: () => this.councilLoading.set(false),
+    });
     this.seo.update({
       title: 'Membership',
       description: 'Become a Digital Twin Leaders Council Member: publish articles, give written interviews, apply to speak at DTL events, and get the Digital Twin Project Planner included.',

@@ -26,7 +26,7 @@
                 </div>
             }
         </form>
-        <button class="btn btn-secondary text-monochrome-100 w-100 w-md-auto" (click)="!emailModel.invalid && !isLoading() && subscribe()" [disabled]="(emailModel.invalid && emailModel.touched) || isLoading()">
+        <button class="btn w-100 w-md-auto" [ngClass]="buttonClass()" (click)="!emailModel.invalid && !isLoading() && subscribe()" [disabled]="(emailModel.invalid && emailModel.touched) || isLoading()">
             @if(isLoading()) {
                 <span>Subscribing...</span>
             } @else {

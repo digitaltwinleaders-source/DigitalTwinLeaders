@@ -84,6 +84,7 @@ export class CouncilService {
       organization: fields.organization?.stringValue,
       linkedInUrl: fields.linkedInUrl?.stringValue,
       order: Number(fields.order?.integerValue ?? 0),
+      featured: fields.featured?.booleanValue ?? false,
       photoBase64: fields.photoBase64?.stringValue,
       imageUrl: fields.imageUrl?.stringValue,
     };
