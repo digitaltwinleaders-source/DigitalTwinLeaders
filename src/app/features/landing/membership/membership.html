@@ -63,18 +63,7 @@
             <div class="row g-4">
                 @for (member of featuredMembers(); track member.id) {
                     <div class="col-md-6 col-lg-3" data-aos="fade-up">
-                        <article class="bg-white h-100 rounded-4 border border-1 shadow-sm p-4 text-center">
-                            <div class="mx-auto mb-3" style="width:88px;height:88px;">
-                                @if (imageService.getDisplayUrl(member)) {
-                                    <img [src]="imageService.getDisplayUrl(member)" [alt]="member.name" class="rounded-circle w-100 h-100 object-fit-cover" />
-                                } @else {
-                                    <div class="d-flex align-items-center justify-content-center bg-monochrome-200 text-secondary fw-bold rounded-circle fs-4 w-100 h-100">{{ member.name.charAt(0) }}</div>
-                                }
-                            </div>
-                            <h3 class="fs-6 fw-bold text-primary mb-1">{{ member.name }}</h3>
-                            <p class="fs-7 text-secondary mb-1">{{ member.role }}</p>
-                            <p class="fs-8 text-monochrome-500 mb-0">{{ member.organization }}</p>
-                        </article>
+                        <app-council-card [member]="member"/>
                     </div>
                 }
             </div>

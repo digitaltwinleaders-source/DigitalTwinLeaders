@@ -10,6 +10,9 @@ export interface Blog {
   coverImageUrl?: string;   // Storage URL after migration
   category: string;
   author: string;
+  authorIds?: string[];
+  guestAuthor?: string;
+  guestInterviewed?: boolean;
   status: BlogStatus;
   readTime: number;         // minutes, calculated on save
   createdAt?: any;

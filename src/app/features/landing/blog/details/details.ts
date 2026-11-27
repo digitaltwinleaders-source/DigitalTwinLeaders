@@ -1,10 +1,9 @@
-import { Component, inject, signal, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, inject, signal, OnInit, PLATFORM_ID, SecurityContext } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { BlogService } from '../../../../core/services/blog.service';
 import { Blog } from '../../../../core/models/blog.model';
-import { nameInitial } from '../../../../core/utils/utils';
 import { SeoService } from '../../../../core/services/seo.service';
 
 
@@ -71,7 +70,6 @@ export class BlogDetailComponent implements OnInit {
     this.loading.set(false);
 
     if (!blog) return;
-
     const createdAtDate = blog.createdAt
       ? typeof blog.createdAt.toDate === 'function'
         ? blog.createdAt.toDate()
@@ -89,6 +87,12 @@ export class BlogDetailComponent implements OnInit {
         '@type': 'Article',
         headline: blog.title,
         description: blog.excerpt || blog.title,
+        author: blog.author
+          ? blog.author.split(',').map(name => name.trim()).filter(Boolean).map(name => ({
+              '@type': 'Person',
+              name,
+            }))
+          : undefined,
         image: blog.coverImageUrl || undefined,
         datePublished: createdAtDate && !Number.isNaN(createdAtDate.getTime())
           ? createdAtDate.toISOString()
@@ -123,7 +127,14 @@ export class BlogDetailComponent implements OnInit {
     return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
   }
 
-  nameInitial(authorName: string): string {
-    return nameInitial(authorName);
+  hasDisplayAuthor(): boolean {
+    const blog = this.blog();
+    if (!blog) return false;
+
+    if (blog.authorIds !== undefined || blog.guestAuthor !== undefined) {
+      return !!blog.authorIds?.some(Boolean) || !!blog.guestAuthor?.trim();
+    }
+
+    return !!blog.author?.trim();
   }
 }

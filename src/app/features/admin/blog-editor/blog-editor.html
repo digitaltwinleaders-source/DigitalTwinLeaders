@@ -13,12 +13,23 @@
             <button class="btn btn-outline-primary shadow w-100 w-md-auto" (click)="togglePreview()">
             {{ previewMode() ? 'Back to editor' : 'Preview' }}
             </button>
-            <button class="btn btn-primary shadow w-100 w-md-auto" (click)="form.valid && save('published')" [disabled]="saving() || form.invalid">
+            <button class="btn btn-primary shadow w-100 w-md-auto" (click)="save('published')" [disabled]="saving() || loading()">
             @if (saving() && saveTarget() === 'published') { <div class="spinner-border spinner-border-sm" role="status"></div> }
             {{ form.value.status === 'published' ? 'Update' : 'Publish' }}
             </button>
         </div>
     </div>
+
+    @if (publishValidationErrors().length) {
+        <div class="alert alert-danger d-block" role="alert" aria-live="polite">
+            <p class="fw-semibold mb-1">Please fix these items before publishing:</p>
+            <ul class="mb-0">
+                @for (validationError of publishValidationErrors(); track $index) {
+                    <li>{{ validationError }}</li>
+                }
+            </ul>
+        </div>
+    }
 
     @if (loading()) {
         <div class="text-primary fs-7 m-0 d-flex flex-column align-items-center justify-content-center gap-3 py-4">
@@ -45,8 +56,6 @@
         <h1 class="fs-1 text-primary mb-4 text-break">{{ form.value.title || 'Untitled' }}</h1>
         <p class="fs-5 text-break">{{ form.value.excerpt }}</p>
         <div class="d-flex gap-2 fs-7 mb-4 text-monochrome-400">
-            <!-- <span>{{ form.value.author || 'Anonymous' }}</span>
-            <span>·</span> -->
             <span>{{ form.value.readTime }} min read</span>
         </div>
         <div
@@ -255,22 +264,74 @@
             }
         </div>
 
-        <!-- Author -->
-        <!-- <div class="bg-white p-3 rounded-2 border">
-            <label class="field-label" for="author">Author</label>
+        <!-- Authors -->
+        <div class="bg-white p-3 rounded-2 border">
+            <label class="field-label">Council authors</label>
+            <div class="author-dropdown position-relative mb-3">
+                <button
+                    type="button"
+                    class="author-dropdown-toggle form-control d-flex align-items-center justify-content-between text-start"
+                    (click)="toggleAuthorDropdown()"
+                    [attr.aria-expanded]="authorDropdownOpen()"
+                >
+                    <span class="text-truncate">
+                        @if (getSelectedAuthorNames().length) {
+                            {{ getSelectedAuthorNames().length }} author{{ getSelectedAuthorNames().length === 1 ? '' : 's' }} selected
+                        } @else {
+                            <span class="text-monochrome-300">Select council authors</span>
+                        }
+                    </span>
+                    <i class="bi fs-7 ms-2" [class.bi-chevron-up]="authorDropdownOpen()" [class.bi-chevron-down]="!authorDropdownOpen()"></i>
+                </button>
+
+                @if (authorDropdownOpen()) {
+                    <button
+                        type="button"
+                        class="author-dropdown-backdrop"
+                        aria-label="Close council authors dropdown"
+                        (click)="closeAuthorDropdown()"
+                    ></button>
+                    <div class="author-dropdown-menu border rounded-2 bg-white shadow-sm">
+                        @for (member of councilMembers(); track member.id) {
+                            <div class="author-dropdown-option form-check py-2">
+                                <input
+                                    id="author-{{ member.id }}"
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    [checked]="isAuthorSelected(member.id!)"
+                                    (change)="toggleAuthor(member.id!)"
+                                />
+                                <label class="form-check-label fs-7" for="author-{{ member.id }}">{{ member.name }}</label>
+                            </div>
+                        }
+                        @if (councilMembers().length === 0) {
+                            <span class="d-block px-3 py-2 text-monochrome-300 fs-7">No Council members available.</span>
+                        }
+                    </div>
+                }
+            </div>
+
+            <label class="field-label" for="guestAuthor">Guest author <span class="text-monochrome-300">(optional)</span></label>
             <input
-            id="author"
-            type="text"
-            class="form-control"
-            [class.is-invalid]="authorControl.touched && authorControl.invalid"
-            formControlName="author"
-            [maxlength]="80"
-            placeholder="Author name"
+                id="guestAuthor"
+                type="text"
+                class="form-control"
+                formControlName="guestAuthor"
+                [maxlength]="authorMaxLength"
+                placeholder="Guest author name"
             />
-            @if (authorControl.touched && authorControl.errors) {
-                <span class="text-danger fs-7">{{ getErrorMessage(authorControl.errors) }}</span>
-            }
-        </div> -->
+            <div class="form-check mt-3">
+                <input
+                    id="guestInterviewed"
+                    class="form-check-input"
+                    type="checkbox"
+                    formControlName="guestInterviewed"
+                />
+                <label class="form-check-label fs-7" for="guestInterviewed">
+                    Guest was interviewed
+                </label>
+            </div>
+        </div>
 
         <!-- Read time -->
         <div class="bg-white p-3 rounded-2 border">
