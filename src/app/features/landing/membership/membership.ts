@@ -5,6 +5,7 @@ import { PillBadge } from '../../../shared/components/pill-badge/pill-badge';
 import { CouncilService } from '../../../core/services/council.service';
 import { ImageService } from '../../../core/services/image.service';
 import { CouncilMember } from '../../../core/models/council-member.model';
+import { CouncilCardComponent } from '../council/card/card';
 
 interface MembershipFaq {
   question: string;
@@ -21,7 +22,7 @@ interface MembershipFaq {
   templateUrl: './membership.html',
   styleUrls: ['./membership.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [PillBadge, RouterLink],
+  imports: [PillBadge, RouterLink, CouncilCardComponent],
 })
 export class Membership implements OnInit {
   private seo = inject(SeoService);
@@ -60,7 +61,7 @@ export class Membership implements OnInit {
     this.councilService.getMembers().subscribe({
       next: (members) => {
         const featured = members.filter(member => member.featured === true);
-        this.featuredMembers.set((featured.length > 0 ? featured : members).slice(0, 8));
+        this.featuredMembers.set((featured.length > 0 ? featured : members.slice(0, 8)));
         this.councilLoading.set(false);
       },
       error: () => this.councilLoading.set(false),

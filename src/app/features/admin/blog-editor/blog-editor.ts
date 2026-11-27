@@ -1,5 +1,5 @@
 import {
-  Component, inject, signal, OnInit
+  Component, inject, signal, OnInit, SecurityContext
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -13,6 +13,8 @@ import type { Jodit } from 'jodit';
 import { BlogService } from '../../../core/services/blog.service';
 import { ImageService } from '../../../core/services/image.service';
 import { AuthService } from '../../../core/services/auth.service';
+import { CouncilService } from '../../../core/services/council.service';
+import { CouncilMember } from '../../../core/models/council-member.model';
 import { Blog } from '../../../core/models/blog.model';
 import {
   sanitizedTextValidator,
@@ -44,10 +46,12 @@ export class AdminBlogEditorComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private sanitizer = inject(DomSanitizer);
+  private councilService = inject(CouncilService);
 
   titleMaxLength = TITLE_MAX_LENGTH;
   slugMaxLength = SLUG_MAX_LENGTH;
   excerptMaxLength = EXCERPT_MAX_LENGTH;
+  authorMaxLength = AUTHOR_MAX_LENGTH;
 
   loading = signal(false);
   saving = signal(false);
@@ -67,6 +71,10 @@ export class AdminBlogEditorComponent implements OnInit {
   showNewCategoryInput = signal(false);
   newCategoryValue = '';
   newCategoryError = signal('');
+  councilMembers = signal<CouncilMember[]>([]);
+  authorDropdownOpen = signal(false);
+  legacyAuthorOnly = signal(false);
+  publishValidationErrors = signal<string[]>([]);
 
   readonly NEW_CATEGORY_SENTINEL = '__add_new__';
   private joditEditorInstance: Jodit | null = null;
@@ -93,12 +101,12 @@ export class AdminBlogEditorComponent implements OnInit {
       sanitizedTextValidator()
     ]],
     category: ['', [Validators.required]],
-    author: ['', [
-      Validators.maxLength(AUTHOR_MAX_LENGTH),
-      sanitizedTextValidator()
-    ]],
+    author: ['', [sanitizedTextValidator()]],
     readTime: [1, [Validators.min(1)]],
     status: ['draft'],
+    authorIds: [[]],
+    guestAuthor: ['', [Validators.maxLength(AUTHOR_MAX_LENGTH), sanitizedTextValidator()]],
+    guestInterviewed: [false],
     coverImageBase64: ['', [Validators.required]],
     coverImageUrl: ['']
   });
@@ -112,8 +120,8 @@ export class AdminBlogEditorComponent implements OnInit {
 
   joditConfig: JoditConfig = {
     width: '100%',
-    height: 360,
-    minHeight: 320,
+    height: 500,
+    minHeight: 480,
     placeholder: 'Write your blog content here...',
     askBeforePasteHTML: false,
     askBeforePasteFromWord: false,
@@ -145,6 +153,10 @@ export class AdminBlogEditorComponent implements OnInit {
     this.sanitizer.bypassSecurityTrustHtml(this.contentControl.value || '');
 
   async ngOnInit() {
+    this.councilService.getMembers().subscribe({
+      next: (members) => this.councilMembers.set(members),
+      error: () => this.councilMembers.set([])
+    });
     // Merge in any categories already used across existing blogs
     this.blogService.getCategories().subscribe(existingCats => {
       if (existingCats.length) {
@@ -161,9 +173,13 @@ export class AdminBlogEditorComponent implements OnInit {
       this.loading.set(true);
       const blog = await this.blogService.getBlogById(id);
       if (blog) {
+        this.legacyAuthorOnly.set(blog.authorIds === undefined && blog.guestAuthor === undefined);
         this.form.patchValue({
           ...blog,
-          content: this.normalizeNonBreakingSpaces(blog.content || '')
+          content: this.normalizeNonBreakingSpaces(blog.content || ''),
+          authorIds: blog.authorIds || [],
+          guestAuthor: blog.guestAuthor || '',
+          guestInterviewed: blog.guestInterviewed || false
         });
         this.coverPreview.set(blog.coverImageBase64 || blog.coverImageUrl || '');
         this.setCoverValidity();
@@ -188,6 +204,11 @@ export class AdminBlogEditorComponent implements OnInit {
         queueMicrotask(() => this.categoryControl.setValue('', { emitEvent: false }));
       }
     });
+    this.form.valueChanges.subscribe(() => {
+      if (this.publishValidationErrors().length) {
+        this.publishValidationErrors.set(this.getPublishValidationErrors());
+      }
+    });
   }
 
   onTitleBlur() {
@@ -207,6 +228,34 @@ export class AdminBlogEditorComponent implements OnInit {
 
   onEditorCreated(editor: Jodit) {
     this.joditEditorInstance = editor;
+  }
+
+  toggleAuthor(memberId: string): void {
+    const selected = this.form.value.authorIds as string[] || [];
+    this.form.patchValue({
+      authorIds: selected.includes(memberId)
+        ? selected.filter(id => id !== memberId)
+        : [...selected, memberId]
+    });
+  }
+
+  isAuthorSelected(memberId: string): boolean {
+    return (this.form.value.authorIds as string[] || []).includes(memberId);
+  }
+
+  toggleAuthorDropdown(): void {
+    this.authorDropdownOpen.update(open => !open);
+  }
+
+  closeAuthorDropdown(): void {
+    this.authorDropdownOpen.set(false);
+  }
+
+  getSelectedAuthorNames(): string[] {
+    const selected = this.form.value.authorIds as string[] || [];
+    return this.councilMembers()
+      .filter(member => selected.includes(member.id!))
+      .map(member => member.name);
   }
 
   onCategorySelectChange(value: string) {
@@ -334,6 +383,9 @@ export class AdminBlogEditorComponent implements OnInit {
     const hasCover = !!this.coverPreview();
     const coverControl = this.form.get('coverImageBase64')!;
     coverControl.setErrors(hasCover ? null : { required: true });
+    if (this.publishValidationErrors().length) {
+      this.publishValidationErrors.set(this.getPublishValidationErrors());
+    }
   }
 
   togglePreview() {
@@ -351,20 +403,48 @@ export class AdminBlogEditorComponent implements OnInit {
     return 'This field is invalid.';
   }
 
+  private getPublishValidationErrors(): string[] {
+    const fields = [
+      ['title', 'Title'],
+      ['slug', 'Slug'],
+      ['content', 'Article content'],
+      ['excerpt', 'Excerpt'],
+      ['category', 'Category'],
+      ['guestAuthor', 'Guest author'],
+      ['readTime', 'Read time'],
+      ['coverImageBase64', 'Cover image']
+    ] as const;
+
+    return fields.flatMap(([controlName, label]) => {
+      const control = this.form.get(controlName);
+      return control?.invalid
+        ? [`${label}: ${this.getErrorMessage(control.errors)}`]
+        : [];
+    });
+  }
+
   async save(status: 'draft' | 'published') {
     this.form.markAllAsTouched();
 
     if (status === 'published' && this.form.invalid) {
-      this.error.set('Please fix the highlighted fields before publishing.');
+      this.error.set('');
+      this.publishValidationErrors.set(this.getPublishValidationErrors());
       return;
     }
 
     this.saving.set(true);
     this.saveTarget.set(status);
     this.error.set('');
+    this.publishValidationErrors.set([]);
 
     try {
       const raw = this.form.value;
+      const authorIds = (raw.authorIds as string[] || []).filter(Boolean);
+      const guestAuthor = stripUnsafeContent(raw.guestAuthor?.trim() || '');
+      const selectedAuthors = this.councilMembers()
+        .filter(member => authorIds.includes(member.id!))
+        .map(member => member.name);
+      const authorNames = [...selectedAuthors, ...(guestAuthor ? [guestAuthor] : [])];
       const payload: Omit<Blog, 'id'> = {
         title: stripUnsafeContent(raw.title.trim()),
         slug: stripUnsafeContent(raw.slug.trim()),
@@ -373,7 +453,11 @@ export class AdminBlogEditorComponent implements OnInit {
         coverImageBase64: raw.coverImageBase64 || '',
         coverImageUrl: raw.coverImageUrl || '',
         category: raw.category || '',
-        author: stripUnsafeContent(raw.author || ''),
+        author: authorNames.join(', ')
+          || (this.legacyAuthorOnly() ? stripUnsafeContent(raw.author || '') : ''),
+        authorIds,
+        guestAuthor,
+        guestInterviewed: !!raw.guestInterviewed && !!guestAuthor,
         status,
         readTime: raw.readTime || 1,
       };
