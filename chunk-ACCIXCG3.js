@@ -1,1 +1,0 @@
-import{a}from"./chunk-UBJPXK7M.js";import"./chunk-5FF7PYKE.js";import"./chunk-AXBMYXL3.js";import"./chunk-QWFNOVDQ.js";import"./chunk-BZMIQE4V.js";import"./chunk-C55KMR6R.js";import"./chunk-FTKJSL2A.js";import"./chunk-VKRCUX5N.js";export{a as CouncilComponent};
