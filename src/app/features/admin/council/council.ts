@@ -5,7 +5,7 @@ import { DragDropModule, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { CouncilService } from '../../../core/services/council.service';
 import { ImageService } from '../../../core/services/image.service';
 import { ImageUploadComponent } from '../../../shared/components/image-upload/image-upload.';
-import { CouncilMember } from '../../../core/models/council-member.model';
+import { COUNCIL_REGIONS, CouncilMember } from '../../../core/models/council-member.model';
 import { nameInitial } from '../../../core/utils/utils';
 import { COUNTRIES, Country } from '../../../core/data/countries.data';
 
@@ -32,6 +32,7 @@ export class AdminCouncilComponent implements OnInit {
   deleteTarget = signal<CouncilMember | null>(null);
 
   countries = COUNTRIES;
+  regions = COUNCIL_REGIONS;
   filteredCountries = signal<Country[]>(COUNTRIES);
   dropdownOpen = signal(false);
   countrySearch = '';
@@ -39,7 +40,11 @@ export class AdminCouncilComponent implements OnInit {
   form: Partial<CouncilMember> = this.emptyForm();
 
   isFormValid() {
-    return !!this.form.name?.trim() && !!this.form.role?.trim() && !!this.form.order && !!this.form.country;
+    return !!this.form.name?.trim()
+      && !!this.form.role?.trim()
+      && !!this.form.order
+      && !!this.form.country
+      && !!this.form.region;
   }
 
   ngOnInit() {
@@ -93,6 +98,8 @@ export class AdminCouncilComponent implements OnInit {
       const payload: Omit<CouncilMember, 'id'> = {
         name: this.form.name!.trim(),
         role: this.form.role!.trim(),
+        region: this.form.region!,
+        practitioner: this.form.practitioner === true,
         bio: this.form.bio?.trim() || '',
         organization: this.form.organization?.trim() || '',
         country: this.form.country || '',
@@ -181,6 +188,8 @@ export class AdminCouncilComponent implements OnInit {
     return {
       name: '',
       role: '',
+      region: undefined,
+      practitioner: false,
       bio: '',
       organization: '',
       country: '',
