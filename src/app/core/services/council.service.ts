@@ -14,7 +14,7 @@ import {
   Timestamp
 } from '@angular/fire/firestore';
 import { Observable, map } from 'rxjs';
-import { CouncilMember } from '../models/council-member.model';
+import { COUNCIL_REGIONS, CouncilMember } from '../models/council-member.model';
 import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -78,6 +78,8 @@ export class CouncilService {
       id,
       name: fields.name?.stringValue ?? '',
       role: fields.role?.stringValue ?? '',
+      region: COUNCIL_REGIONS.find(region => region === fields.region?.stringValue),
+      practitioner: fields.practitioner?.booleanValue ?? false,
       country: fields.country?.stringValue,
       countryName: fields.countryName?.stringValue,
       bio: fields.bio?.stringValue,

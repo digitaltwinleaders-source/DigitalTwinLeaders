@@ -7,6 +7,121 @@
             </p>
         </div>
 
+        @if (!featuredOnly()) {
+            <div class="mb-3">
+                <label class="field-label d-block mb-1" for="council-search">Search</label>
+                <div class="position-relative">
+                    <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted pe-none" aria-hidden="true"></i>
+                    <input
+                        id="council-search"
+                        type="search"
+                        class="form-control ps-5"
+                        placeholder="Search by name, company, or role"
+                        [value]="searchTerm()"
+                        (input)="onSearchInput($event)"
+                    >
+                </div>
+            </div>
+            <div class="row g-3 mb-4">
+                <div class="col-md-6 col-lg-3">
+                    <label class="field-label d-block mb-1" id="council-region-label" for="council-region-trigger">Region</label>
+                    <div class="position-relative">
+                        <button
+                            id="council-region-trigger"
+                            type="button"
+                            class="form-control d-flex align-items-center justify-content-between text-start cursor-pointer"
+                            aria-haspopup="menu"
+                            aria-controls="council-region-menu"
+                            [attr.aria-expanded]="openFilterDropdown() === 'region'"
+                            (click)="toggleFilterDropdown('region')"
+                        >
+                            <span>{{ selectedRegion() || 'All regions' }}</span>
+                            <i class="bi ms-2" [class.bi-chevron-up]="openFilterDropdown() === 'region'" [class.bi-chevron-down]="openFilterDropdown() !== 'region'" aria-hidden="true"></i>
+                        </button>
+                        @if (openFilterDropdown() === 'region') {
+                            <button
+                                type="button"
+                                class="council-filter-backdrop"
+                                aria-label="Close region filter"
+                                (click)="closeFilterDropdown()"
+                            ></button>
+                            <div id="council-region-menu" class="dropdown-menu show d-block w-100 p-1 council-filter-menu" role="menu" aria-labelledby="council-region-label">
+                                <button
+                                    type="button"
+                                    class="dropdown-item rounded-1"
+                                    role="menuitemradio"
+                                    [attr.aria-checked]="!selectedRegion()"
+                                    [class.active]="!selectedRegion()"
+                                    (click)="selectRegion('')"
+                                >All regions</button>
+                                @for (region of regions; track region) {
+                                    <button
+                                        type="button"
+                                        class="dropdown-item rounded-1"
+                                        role="menuitemradio"
+                                        [attr.aria-checked]="selectedRegion() === region"
+                                        [class.active]="selectedRegion() === region"
+                                        (click)="selectRegion(region)"
+                                    >{{ region }}</button>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <label class="field-label d-block mb-1" id="council-practitioner-label" for="council-practitioner-trigger">Practitioner</label>
+                    <div class="position-relative">
+                        <button
+                            id="council-practitioner-trigger"
+                            type="button"
+                            class="form-control d-flex align-items-center justify-content-between text-start cursor-pointer"
+                            aria-haspopup="menu"
+                            aria-controls="council-practitioner-menu"
+                            [attr.aria-expanded]="openFilterDropdown() === 'practitioner'"
+                            (click)="toggleFilterDropdown('practitioner')"
+                        >
+                            <span>{{ practitionerFilterLabel() }}</span>
+                            <i class="bi ms-2" [class.bi-chevron-up]="openFilterDropdown() === 'practitioner'" [class.bi-chevron-down]="openFilterDropdown() !== 'practitioner'" aria-hidden="true"></i>
+                        </button>
+                        @if (openFilterDropdown() === 'practitioner') {
+                            <button
+                                type="button"
+                                class="council-filter-backdrop"
+                                aria-label="Close Practitioner filter"
+                                (click)="closeFilterDropdown()"
+                            ></button>
+                            <div id="council-practitioner-menu" class="dropdown-menu show d-block w-100 p-1 council-filter-menu" role="menu" aria-labelledby="council-practitioner-label">
+                                <button
+                                    type="button"
+                                    class="dropdown-item rounded-1"
+                                    role="menuitemradio"
+                                    [attr.aria-checked]="practitionerFilter() === 'all'"
+                                    [class.active]="practitionerFilter() === 'all'"
+                                    (click)="selectPractitionerFilter('all')"
+                                >All</button>
+                                <button
+                                    type="button"
+                                    class="dropdown-item rounded-1"
+                                    role="menuitemradio"
+                                    [attr.aria-checked]="practitionerFilter() === 'yes'"
+                                    [class.active]="practitionerFilter() === 'yes'"
+                                    (click)="selectPractitionerFilter('yes')"
+                                >Yes</button>
+                                <button
+                                    type="button"
+                                    class="dropdown-item rounded-1"
+                                    role="menuitemradio"
+                                    [attr.aria-checked]="practitionerFilter() === 'no'"
+                                    [class.active]="practitionerFilter() === 'no'"
+                                    (click)="selectPractitionerFilter('no')"
+                                >No</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
         @if (loading()) {
             <div class="row">
             @for (i of skeletons; track i) {
@@ -21,7 +136,13 @@
             </div>
         } @else if (displayedMembers().length === 0) {
             <div class="text-center p-5 text-monochrome-400 fs-6">
-            <p>{{ featuredOnly() ? 'Featured Council members coming soon.' : 'Council information coming soon.' }}</p>
+                @if (featuredOnly()) {
+                    <p>Featured Council members coming soon.</p>
+                } @else if (members().length === 0) {
+                    <p>Council information coming soon.</p>
+                } @else {
+                    <p>No members match these filters.</p>
+                }
             </div>
         } @else {
             <div class="row">
@@ -30,6 +151,11 @@
                     <app-council-card [member]="member"/>
                 </div>
             }
+            </div>
+        }
+        @if (hasMore()) {
+            <div class="text-center mt-4">
+                <button type="button" class="btn btn-outline-primary" (click)="loadMore()">Load More</button>
             </div>
         }
         @if (featuredOnly()) {

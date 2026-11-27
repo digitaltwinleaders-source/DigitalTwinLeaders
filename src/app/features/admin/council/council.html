@@ -103,6 +103,16 @@
             </div>
 
             <div class="mb-3">
+            <label class="field-label" for="region">Region <span class="text-danger">*</span></label>
+            <select id="region" class="form-control" [(ngModel)]="form.region" name="region" required>
+                <option [ngValue]="undefined" disabled>Select region</option>
+                @for (region of regions; track region) {
+                    <option [ngValue]="region">{{ region }}</option>
+                }
+            </select>
+            </div>
+
+            <div class="mb-3">
             <label class="field-label" for="country">Country <span class="text-danger">*</span></label>
             <div class="position-relative" [class.open]="dropdownOpen()">
 
@@ -166,9 +176,14 @@
             <input id="order" type="number" class="form-control" [(ngModel)]="form.order" min="1" />
             </div>
 
-            <div class="form-check mb-3">
+            <div class="form-check">
                 <input id="featured" class="form-check-input" type="checkbox" [(ngModel)]="form.featured" />
                 <label class="form-check-label" for="featured">Featured member</label>
+            </div>
+
+            <div class="form-check mb-3">
+                <input id="practitioner" class="form-check-input" type="checkbox" [(ngModel)]="form.practitioner" />
+                <label class="form-check-label" for="practitioner">Practitioner</label>
             </div>
 
             @if (formError()) {
