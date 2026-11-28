@@ -103,9 +103,9 @@
             </div>
 
             <div class="mb-3">
-            <label class="field-label" for="region">Region <span class="text-danger">*</span></label>
-            <select id="region" class="form-control" [(ngModel)]="form.region" name="region" required>
-                <option [ngValue]="undefined" disabled>Select region</option>
+            <label class="field-label" for="region">Region <span class="text-monochrome-300">(optional)</span></label>
+            <select id="region" class="form-control" [(ngModel)]="form.region" name="region">
+                <option [ngValue]="undefined">Select region</option>
                 @for (region of regions; track region) {
                     <option [ngValue]="region">{{ region }}</option>
                 }

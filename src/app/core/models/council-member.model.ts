@@ -1,6 +1,6 @@
 export const COUNCIL_REGIONS = [
   'Europe',
-  'Middle East',
+  'Asia',
   'Africa',
   'Asia-Pacific',
   'North America',
