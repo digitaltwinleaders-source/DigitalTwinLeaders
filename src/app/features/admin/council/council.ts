@@ -43,8 +43,7 @@ export class AdminCouncilComponent implements OnInit {
     return !!this.form.name?.trim()
       && !!this.form.role?.trim()
       && !!this.form.order
-      && !!this.form.country
-      && !!this.form.region;
+      && !!this.form.country;
   }
 
   ngOnInit() {
@@ -98,7 +97,7 @@ export class AdminCouncilComponent implements OnInit {
       const payload: Omit<CouncilMember, 'id'> = {
         name: this.form.name!.trim(),
         role: this.form.role!.trim(),
-        region: this.form.region!,
+        region: this.form.region,
         practitioner: this.form.practitioner === true,
         bio: this.form.bio?.trim() || '',
         organization: this.form.organization?.trim() || '',
